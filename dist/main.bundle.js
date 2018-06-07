@@ -1,19 +1,31 @@
 webpackJsonp(["main"],{
 
 /***/ "./src/$$_lazy_route_resource lazy recursive":
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-function webpackEmptyAsyncContext(req) {
-	// Here Promise.resolve().then() is used instead of new Promise() to prevent
-	// uncatched exception popping up in devtools
-	return Promise.resolve().then(function() {
-		throw new Error("Cannot find module '" + req + "'.");
+var map = {
+	"app/admin/admin-page/admin.module": [
+		"./src/app/admin/admin-page/admin.module.ts",
+		"admin.module"
+	],
+	"app/user/user-interface/user.module": [
+		"./src/app/user/user-interface/user.module.ts",
+		"user.module"
+	]
+};
+function webpackAsyncContext(req) {
+	var ids = map[req];
+	if(!ids)
+		return Promise.reject(new Error("Cannot find module '" + req + "'."));
+	return __webpack_require__.e(ids[1]).then(function() {
+		return __webpack_require__(ids[0]);
 	});
-}
-webpackEmptyAsyncContext.keys = function() { return []; };
-webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
-module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
+};
+webpackAsyncContext.keys = function webpackAsyncContextKeys() {
+	return Object.keys(map);
+};
+webpackAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
+module.exports = webpackAsyncContext;
 
 /***/ }),
 
@@ -1051,294 +1063,6 @@ var WindowService = (function () {
         __metadata("design:paramtypes", [])
     ], WindowService);
     return WindowService;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/admin/admin-page/admin-page.component.css":
-/***/ (function(module, exports) {
-
-module.exports = "\n\n\n/* breadcrum */\n.breadcrumb{\n  background: #cccccc;\n  color: #333333;\n}\n/* progress bar */\n.progress-bar{\n  background: #333333;\n  color: #ffffff;\n}\n.dash-box{\n  text-align: center;\n}\n.main-color-bg{\n  background-color: #e74c3c !important;\n  border-color: #c0392b !important;\n  color: #ffffff;\n}"
-
-/***/ }),
-
-/***/ "./src/app/admin/admin-page/admin-page.component.html":
-/***/ (function(module, exports) {
-
-module.exports = "<app-admin-nav></app-admin-nav>\n \n<section id=\"breadcrumb\">\n    <div class=\"container\">\n        \n        <ol class=\"breadcrumb\">\n            <li class=\"active\">{{'ADMIN.DASHBOARD' | translate}}</li>\n        </ol>\n    </div>\n  </section>\n\n<alert></alert>\n  <section id=\"main\">\n      <div class=\"container\">\n          <div class=\"row\">\n              <div class=\"col-md-3\">\n                <div class=\"list-group\">\n                    <a href=\"#\" class=\"list-group-item active main-color-bg\">\n                        <span class=\"glyphicon glyphicon-cog\" aria-hidden=\"true\"></span> {{ 'ADMIN.DASHBOARD' | translate }}\n                    </a>\n                    <a href=\"#\" class=\"list-group-item\"><span class=\"glyphicon glyphicon-list-alt\" aria-hidden=\"true\"></span> Pages <span class=\"badge\">12</span></a>\n                    <a href=\"#\" class=\"list-group-item\"><span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span> {{ 'ADMIN.POSTS' | translate }} <span class=\"badge\">0</span></a>\n                    <a href=\"#\" class=\"list-group-item\"><span class=\"glyphicon glyphicon-user\" aria-hidden=\"true\"></span> {{ 'ADMIN.USERS' | translate }} <span class=\"badge\">56</span></a>\n                    \n                </div>\n\n                <div class=\"well\">\n                    <h4>{{ 'ADMIN.POSTS_VERYFIED' | translate}}</h4>\n                    <div class=\"progress\">\n                        <div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"60\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 60%;\">\n                          60%\n                        </div>\n                      </div>\n                </div>\n              </div>\n              <div class=\"col-md-9\">\n                    <div class=\"panel panel-default\">\n        \n                            <div class=\"panel-heading main-color-bg\">{{ 'ADMIN.DASHBOARD' | translate }}</div>\n                            <div class=\"panel-body\">\n                                <div class=\"col-md-3\">\n                                    <div class=\"well dash-box\">\n                                        <h2><div class=\"glyphicon glyphicon-user\" aria-hidden=\"true\"></div> {{static?.num_users}}</h2>\n                                        <h4>{{ 'ADMIN.USERS' | translate }}</h4>\n                                    </div>\n                                </div>\n                                <div class=\"col-md-3\">\n                                    <div class=\"well dash-box\">\n                                        <h2><div class=\"glyphicon glyphicon-list-alt\" aria-hidden=\"true\"></div> 56</h2>\n                                        <h4>Pages</h4>\n                                    </div>\n                                </div>\n                                <div class=\"col-md-3\">\n                                    <div class=\"well dash-box\">\n                                        <h2><div class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></div> {{static?.num_motels}}</h2>\n                                        <h4>{{ 'ADMIN.POSTS' | translate }}</h4>\n                                    </div>\n                                </div>\n                                <div class=\"col-md-3\">\n                                    <div class=\"well dash-box\">\n                                        <h2><div class=\"glyphicon glyphicon-stats\" aria-hidden=\"true\"></div>{{static?.visitors}}</h2>\n                                        <h4>{{ 'ADMIN.VISITORS' | translate }}</h4>\n                                    </div>\n                                </div>\n                            </div>\n                          </div> <!-- end first panel-->\n                    <router-outlet></router-outlet>\n              </div> \n            </div>\n        </div>\n    </section>\n    <app-footer></app-footer>"
-
-/***/ }),
-
-/***/ "./src/app/admin/admin-page/admin-page.component.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdminPageComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_index__ = __webpack_require__("./src/app/_services/index.ts");
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var AdminPageComponent = (function () {
-    function AdminPageComponent(statisticService, alertService) {
-        this.statisticService = statisticService;
-        this.alertService = alertService;
-    }
-    AdminPageComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.statisticService.getInfo().subscribe(function (res) {
-            _this.static = res.json();
-        }, function (err) {
-            _this.alertService.error(err);
-        });
-    };
-    AdminPageComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'app-admin-page',
-            template: __webpack_require__("./src/app/admin/admin-page/admin-page.component.html"),
-            styles: [__webpack_require__("./src/app/admin/admin-page/admin-page.component.css")]
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_index__["g" /* StatisticSerivce */],
-            __WEBPACK_IMPORTED_MODULE_1__services_index__["a" /* AlertService */]])
-    ], AdminPageComponent);
-    return AdminPageComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/admin/layout/admin-dash/admin-dash.component.css":
-/***/ (function(module, exports) {
-
-module.exports = ".main-color-bg{\n    background-color: #e74c3c !important;\n    border-color: #c0392b !important;\n    color: #ffffff;\n  }"
-
-/***/ }),
-
-/***/ "./src/app/admin/layout/admin-dash/admin-dash.component.html":
-/***/ (function(module, exports) {
-
-module.exports = "\n\n<!-- Lastest user -->\n<div class=\"panel panel-default\">\n  <div class=\"panel-heading\">{{ 'ADMIN.USERS_LASTEST' | translate }}</div>\n  <div class=\"panel-body\">\n      <table class=\"table table-striped table-hover\">\n          <thead>\n              <tr>\n                  <th>Full Name</th>\n                  <th>Joined date</th>\n                  <th>Level</th>\n              </tr>\n          </thead>\n          <tbody>\n\n              <tr *ngFor=\"let item of userArray | async\">\n                  <td>{{item.firstname}} {{item.lastname}}</td>\n                  <td>{{item.created_at| date}}</td>\n                  <td>Lv{{item.rating.level}}/{{item.rating.exp}}exp</td>\n              </tr>\n              \n          </tbody>\n      </table>\n  </div>\n</div>"
-
-/***/ }),
-
-/***/ "./src/app/admin/layout/admin-dash/admin-dash.component.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdminDashComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_index__ = __webpack_require__("./src/app/_services/index.ts");
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var AdminDashComponent = (function () {
-    function AdminDashComponent(alertService, userService) {
-        this.alertService = alertService;
-        this.userService = userService;
-        this.static = {};
-    }
-    AdminDashComponent.prototype.ngOnInit = function () {
-        // this.userService.getUser(10).subscribe(
-        //   res => {
-        //     this.userArray = res;
-        //   },
-        //   err => {
-        //     this.alertService.error(err);
-        //   }
-        // );
-        this.userArray = this.userService.getUser(10);
-    };
-    AdminDashComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'app-admin-dash',
-            template: __webpack_require__("./src/app/admin/layout/admin-dash/admin-dash.component.html"),
-            styles: [__webpack_require__("./src/app/admin/layout/admin-dash/admin-dash.component.css")],
-            providers: [__WEBPACK_IMPORTED_MODULE_1__services_index__["h" /* UserService */]]
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_index__["a" /* AlertService */],
-            __WEBPACK_IMPORTED_MODULE_1__services_index__["h" /* UserService */]])
-    ], AdminDashComponent);
-    return AdminDashComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/admin/layout/admin-menu/admin-menu.component.css":
-/***/ (function(module, exports) {
-
-module.exports = "body{margin-top:50px;}\n.glyphicon { margin-right:10px; }\n.panel-body { padding:0px; }\n.panel-body table tr td { padding-left: 15px }\n.panel-body .table {margin-bottom: 0px; }\n"
-
-/***/ }),
-
-/***/ "./src/app/admin/layout/admin-menu/admin-menu.component.html":
-/***/ (function(module, exports) {
-
-module.exports = "\n          <div class=\"panel-group\" id=\"accordion\">\n              <div class=\"panel panel-default\">\n                  <div class=\"panel-heading\">\n                      <h4 class=\"panel-title\">\n                          <a data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#collapseOne\"><span class=\"glyphicon glyphicon-folder-close\">\n                          </span>Content</a>\n                      </h4>\n                  </div>\n                  <div id=\"collapseOne\" class=\"panel-collapse collapse in\">\n                      <div class=\"panel-body\">\n                          <table class=\"table\">\n                              <tr>\n                                  <td>\n                                      <span class=\"glyphicon glyphicon-pencil text-primary\"></span><a href=\"http://www.jquery2dotnet.com\">Articles</a>\n                                  </td>\n                              </tr>\n                              <tr>\n                                  <td>\n                                      <span class=\"glyphicon glyphicon-flash text-success\"></span><a href=\"http://www.jquery2dotnet.com\">News</a>\n                                  </td>\n                              </tr>\n                              <tr>\n                                  <td>\n                                      <span class=\"glyphicon glyphicon-file text-info\"></span><a href=\"http://www.jquery2dotnet.com\">Newsletters</a>\n                                  </td>\n                              </tr>\n                              <tr>\n                                  <td>\n                                      <span class=\"glyphicon glyphicon-comment text-success\"></span><a href=\"http://www.jquery2dotnet.com\">Comments</a>\n                                      <span class=\"badge\">42</span>\n                                  </td>\n                              </tr>\n                          </table>\n                      </div>\n                  </div>\n              </div>\n              <div class=\"panel panel-default\">\n                  <div class=\"panel-heading\">\n                      <h4 class=\"panel-title\">\n                          <a data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#collapseTwo\"><span class=\"glyphicon glyphicon-th\">\n                          </span>Modules</a>\n                      </h4>\n                  </div>\n                  <div id=\"collapseTwo\" class=\"panel-collapse collapse\">\n                      <div class=\"panel-body\">\n                          <table class=\"table\">\n                              <tr>\n                                  <td>\n                                      <a href=\"http://www.jquery2dotnet.com\">Orders</a> <span class=\"label label-success\">$ 320</span>\n                                  </td>\n                              </tr>\n                              <tr>\n                                  <td>\n                                      <a href=\"http://www.jquery2dotnet.com\">Invoices</a>\n                                  </td>\n                              </tr>\n                              <tr>\n                                  <td>\n                                      <a href=\"http://www.jquery2dotnet.com\">Shipments</a>\n                                  </td>\n                              </tr>\n                              <tr>\n                                  <td>\n                                      <a href=\"http://www.jquery2dotnet.com\">Tex</a>\n                                  </td>\n                              </tr>\n                          </table>\n                      </div>\n                  </div>\n              </div>\n              <div class=\"panel panel-default\">\n                  <div class=\"panel-heading\">\n                      <h4 class=\"panel-title\">\n                          <a data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#collapseThree\"><span class=\"glyphicon glyphicon-user\">\n                          </span>Account</a>\n                      </h4>\n                  </div>\n                  <div id=\"collapseThree\" class=\"panel-collapse collapse\">\n                      <div class=\"panel-body\">\n                          <table class=\"table\">\n                              <tr>\n                                  <td>\n                                      <a href=\"http://www.jquery2dotnet.com\">Change Password</a>\n                                  </td>\n                              </tr>\n                              <tr>\n                                  <td>\n                                      <a href=\"http://www.jquery2dotnet.com\">Notifications</a> <span class=\"label label-info\">5</span>\n                                  </td>\n                              </tr>\n                              <tr>\n                                  <td>\n                                      <a href=\"http://www.jquery2dotnet.com\">Import/Export</a>\n                                  </td>\n                              </tr>\n                              <tr>\n                                  <td>\n                                      <span class=\"glyphicon glyphicon-trash text-danger\"></span><a href=\"http://www.jquery2dotnet.com\" class=\"text-danger\">\n                                          Delete Account</a>\n                                  </td>\n                              </tr>\n                          </table>\n                      </div>\n                  </div>\n              </div>\n              <div class=\"panel panel-default\">\n                  <div class=\"panel-heading\">\n                      <h4 class=\"panel-title\">\n                          <a data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#collapseFour\"><span class=\"glyphicon glyphicon-file\">\n                          </span>Reports</a>\n                      </h4>\n                  </div>\n                  <div id=\"collapseFour\" class=\"panel-collapse collapse\">\n                      <div class=\"panel-body\">\n                          <table class=\"table\">\n                              <tr>\n                                  <td>\n                                      <span class=\"glyphicon glyphicon-usd\"></span><a href=\"http://www.jquery2dotnet.com\">Sales</a>\n                                  </td>\n                              </tr>\n                              <tr>\n                                  <td>\n                                      <span class=\"glyphicon glyphicon-user\"></span><a href=\"http://www.jquery2dotnet.com\">Customers</a>\n                                  </td>\n                              </tr>\n                              <tr>\n                                  <td>\n                                      <span class=\"glyphicon glyphicon-tasks\"></span><a href=\"http://www.jquery2dotnet.com\">Products</a>\n                                  </td>\n                              </tr>\n                              <tr>\n                                  <td>\n                                      <span class=\"glyphicon glyphicon-shopping-cart\"></span><a href=\"http://www.jquery2dotnet.com\">Shopping Cart</a>\n                                  </td>\n                              </tr>\n                          </table>\n                      </div>\n                  </div>\n              </div>\n          </div>\n\n"
-
-/***/ }),
-
-/***/ "./src/app/admin/layout/admin-menu/admin-menu.component.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdminMenuComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-var AdminMenuComponent = (function () {
-    function AdminMenuComponent() {
-    }
-    AdminMenuComponent.prototype.ngOnInit = function () {
-    };
-    AdminMenuComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'app-admin-menu',
-            template: __webpack_require__("./src/app/admin/layout/admin-menu/admin-menu.component.html"),
-            styles: [__webpack_require__("./src/app/admin/layout/admin-menu/admin-menu.component.css")]
-        }),
-        __metadata("design:paramtypes", [])
-    ], AdminMenuComponent);
-    return AdminMenuComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/admin/layout/admin-nav/admin-nav.component.css":
-/***/ (function(module, exports) {
-
-module.exports = "/* navbar */\n.navbar{\n    min-height: 33px!important;\n    margin-bottom: 0;\n    border-radius: 0;   \n}\n.navbar-nav > li > a, .navbar-brand {\n    padding-top: 6px !important;\n    padding-bottom: 6px !important;\n    height: 33px;\n}\n.navbar-default {\n    background-color: #e74c3c;\n    border-color: #c0392b;\n  }\n.navbar-default .navbar-brand {\n    color: #ecf0f1;\n  }\n.navbar-default .navbar-brand:hover,\n  .navbar-default .navbar-brand:focus {\n    color: #ecdbff;\n  }\n.navbar-default .navbar-text {\n    color: #ecf0f1;\n  }\n.navbar-default .navbar-nav > li > a {\n    color: #ecf0f1;\n  }\n.navbar-default .navbar-nav > li > a:hover,\n  .navbar-default .navbar-nav > li > a:focus {\n    color: #ecdbff;\n  }\n.navbar-default .navbar-nav > .active > a,\n  .navbar-default .navbar-nav > .active > a:hover,\n  .navbar-default .navbar-nav > .active > a:focus {\n    color: #ecdbff;\n    background-color: #c0392b;\n  }\n.navbar-default .navbar-nav > .open > a,\n  .navbar-default .navbar-nav > .open > a:hover,\n  .navbar-default .navbar-nav > .open > a:focus {\n    color: #ecdbff;\n    background-color: #c0392b;\n  }\n.navbar-default .navbar-toggle {\n    border-color: #c0392b;\n  }\n.navbar-default .navbar-toggle:hover,\n  .navbar-default .navbar-toggle:focus {\n    background-color: #c0392b;\n  }\n.navbar-default .navbar-toggle .icon-bar {\n    background-color: #ecf0f1;\n  }\n.navbar-default .navbar-collapse,\n  .navbar-default .navbar-form {\n    border-color: #ecf0f1;\n  }\n.navbar-default .navbar-link {\n    color: #ecf0f1;\n  }\n.navbar-default .navbar-link:hover {\n    color: #ecdbff;\n  }\n.main-color-bg{\n    background-color: #e74c3c !important;\n    border-color: #c0392b !important;\n    color: #ffffff;\n  }\n/* header */\n#header{\n    background: #333333;\n    color: #ffffff;\n    padding-bottom: 10px;\n    margin-bottom: 15px;\n}\n#header .create{\n    padding-top: 20px;\n}\n@media (max-width: 767px) {\n  .navbar-default .navbar-nav .open .dropdown-menu > li > a {\n    color: #ecf0f1;\n  }\n  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,\n  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {\n    color: #ecdbff;\n  }\n  .navbar-default .navbar-nav .open .dropdown-menu > .active > a,\n  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,\n  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {\n    color: #ecdbff;\n    background-color: #c0392b;\n  }\n}\n.mat-button {\n  color: #ffffff;\n}"
-
-/***/ }),
-
-/***/ "./src/app/admin/layout/admin-nav/admin-nav.component.html":
-/***/ (function(module, exports) {
-
-module.exports = "<nav class=\"navbar navbar-default\">\n  <div class=\"container\">\n    <div class=\"navbar-header\">\n      <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#navbar\" aria-expanded=\"false\" aria-controls=\"navbar\">\n        <span class=\"sr-only\">Toggle navigation</span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n      </button>\n      <a class=\"navbar-brand\" routerLink=\"['/home']\">Rent</a>\n    </div>\n    <div id=\"navbar\" class=\"collapse navbar-collapse\">\n      <ul class=\"nav navbar-nav\">\n        <li class=\"active\"><a routerLink=\"['/home']\">Home</a></li>\n      </ul>\n\n\n      <ul class=\"nav navbar-nav navbar-right\">\n          <li><a href=\"#\">User</a></li>\n          <li><a [routerLink]=\"['/login']\">Logout</a></li>\n          <li><button mat-button (click)= \"translate.use('vi')\">VI</button></li>\n          <li><button mat-button (click)= \"translate.use('en')\">EN</button></li>\n        </ul>\n    </div><!--/.nav-collapse -->\n  </div>\n</nav>\n<header id=\"header\">\n    <div class=\"container\">\n        <div class=\"row\">\n            <div class=\"col-md-10\">\n                <h1><span class=\"glyphicon glyphicon-cog\" aria-hidden=\"true\"> </span>{{ 'ADMIN.DASHBOARD' | translate }} <small>{{ 'ADMIN.MANAGE' | translate }}</small></h1>\n            </div>\n            <div class=\"col-md-2\">\n                <div class=\"dropdown create\">\n                    <button class=\"btn btn-default dropdown-toggle\" type=\"button\" id=\"dropdownMenu1\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"true\">\n                            {{ 'ADMIN.ACTION' | translate }}\n                        <span class=\"caret\"></span>\n                    </button>\n                    <ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenu1\">\n                        <li><a href=\"#\">Action</a></li>\n                        <li><a href=\"#\">Another action</a></li>\n                        <li><a href=\"#\">Something else here</a></li>\n                        <li role=\"separator\" class=\"divider\"></li>\n                        <li><a href=\"#\">Separated link</a></li>\n                    </ul>\n                    </div>\n            </div>\n        </div>\n    </div>\n</header>"
-
-/***/ }),
-
-/***/ "./src/app/admin/layout/admin-nav/admin-nav.component.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdminNavComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__ = __webpack_require__("./node_modules/@ngx-translate/core/@ngx-translate/core.es5.js");
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var AdminNavComponent = (function () {
-    function AdminNavComponent(translate) {
-        this.translate = translate;
-    }
-    AdminNavComponent.prototype.ngOnInit = function () {
-    };
-    AdminNavComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'app-admin-nav',
-            template: __webpack_require__("./src/app/admin/layout/admin-nav/admin-nav.component.html"),
-            styles: [__webpack_require__("./src/app/admin/layout/admin-nav/admin-nav.component.css")]
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__["c" /* TranslateService */]])
-    ], AdminNavComponent);
-    return AdminNavComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/admin/layout/admin-table-motel/admin-table-motel.component.css":
-/***/ (function(module, exports) {
-
-module.exports = ""
-
-/***/ }),
-
-/***/ "./src/app/admin/layout/admin-table-motel/admin-table-motel.component.html":
-/***/ (function(module, exports) {
-
-module.exports = "<!-- Lastest user -->\n<div class=\"panel panel-default\">\n  <div class=\"panel-heading\">\n      <button mat-raised-button color=\"primary\" (click)=\"handleAccepted()\">{{'ADMIN.VIEW_ACCEPTED' | translate}}</button>\n  </div>\n  <div class=\"panel-body\">\n        <mat-tab-group>\n                <mat-tab label=\"Tab 1\">\n                    <table class=\"table table-striped table-hover\">\n                        <thead>\n                            <tr>\n                                <th>{{'TABLE.NO' | translate}}</th>\n                                <th>{{'TABLE.CREATED' | translate}}</th>\n                                <th>{{'TABLE.ADDRESS' | translate}}</th>\n                                <th>{{'TABLE.ADDRESS' | translate}}</th>\n                            </tr>\n                        </thead>\n                        <tbody>\n                            <tr *ngFor=\"let item of listMotel | async; let i = index\">\n                                <td>{{i}}</td>\n                                <td>{{item.created_at | date}}</td>\n                                <td>{{item.add}}, {{item.street}}, {{item.ward}}, {{item.district}}</td>\n                                <td>some actions here</td>\n                            </tr>\n                        </tbody>\n                    </table></mat-tab>\n                <mat-tab label=\"Tab 2\" *ngIf=\"viewAccepted\">Content 2</mat-tab>\n        </mat-tab-group>\n      \n  </div>\n</div>"
-
-/***/ }),
-
-/***/ "./src/app/admin/layout/admin-table-motel/admin-table-motel.component.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdminTableMotelComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_index__ = __webpack_require__("./src/app/_services/index.ts");
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var AdminTableMotelComponent = (function () {
-    function AdminTableMotelComponent(motelService) {
-        this.motelService = motelService;
-        this.viewAccepted = false;
-    }
-    AdminTableMotelComponent.prototype.ngOnInit = function () {
-        this.listMotel = this.motelService.findByStatus(0);
-    };
-    AdminTableMotelComponent.prototype.handleAccepted = function () {
-        this.viewAccepted = !this.viewAccepted;
-    };
-    AdminTableMotelComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'app-admin-table-motel',
-            template: __webpack_require__("./src/app/admin/layout/admin-table-motel/admin-table-motel.component.html"),
-            styles: [__webpack_require__("./src/app/admin/layout/admin-table-motel/admin-table-motel.component.css")]
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_index__["f" /* MotelService */]])
-    ], AdminTableMotelComponent);
-    return AdminTableMotelComponent;
 }());
 
 
@@ -2465,22 +2189,16 @@ var appConfig = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__main_login_login_component__ = __webpack_require__("./src/app/main/login/login.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__main_item_item_component__ = __webpack_require__("./src/app/main/item/item.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__main_layout_map_map_component__ = __webpack_require__("./src/app/main/layout/map/map.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__admin_layout_admin_menu_admin_menu_component__ = __webpack_require__("./src/app/admin/layout/admin-menu/admin-menu.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__admin_admin_page_admin_page_component__ = __webpack_require__("./src/app/admin/admin-page/admin-page.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__main_layout_user_info_user_info_component__ = __webpack_require__("./src/app/main/layout/user-info/user-info.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__main_layout_comment_list_comment_list_component__ = __webpack_require__("./src/app/main/layout/comment-list/comment-list.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__main_layout_show_map_show_map_component__ = __webpack_require__("./src/app/main/layout/show-map/show-map.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__main_layout_comment_box_comment_box_component__ = __webpack_require__("./src/app/main/layout/comment-box/comment-box.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__agm_snazzy_info_window__ = __webpack_require__("./node_modules/@agm/snazzy-info-window/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__main_layout_fail_page_fail_page_component__ = __webpack_require__("./src/app/main/layout/fail-page/fail-page.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__form_form_component__ = __webpack_require__("./src/app/form/form.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__main_layout_map_service_map_service_component__ = __webpack_require__("./src/app/main/layout/map-service/map-service.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__user_user_interface_user_interface_component__ = __webpack_require__("./src/app/user/user-interface/user-interface.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__main_layout_advance_search_advance_search_component__ = __webpack_require__("./src/app/main/layout/advance-search/advance-search.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__main_layout_map_marker_move_map_marker_move_component__ = __webpack_require__("./src/app/main/layout/map-marker-move/map-marker-move.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_42__admin_layout_admin_nav_admin_nav_component__ = __webpack_require__("./src/app/admin/layout/admin-nav/admin-nav.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_43__admin_layout_admin_dash_admin_dash_component__ = __webpack_require__("./src/app/admin/layout/admin-dash/admin-dash.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_44__admin_layout_admin_table_motel_admin_table_motel_component__ = __webpack_require__("./src/app/admin/layout/admin-table-motel/admin-table-motel.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__main_layout_user_info_user_info_component__ = __webpack_require__("./src/app/main/layout/user-info/user-info.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__main_layout_comment_list_comment_list_component__ = __webpack_require__("./src/app/main/layout/comment-list/comment-list.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__main_layout_show_map_show_map_component__ = __webpack_require__("./src/app/main/layout/show-map/show-map.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__main_layout_comment_box_comment_box_component__ = __webpack_require__("./src/app/main/layout/comment-box/comment-box.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__agm_snazzy_info_window__ = __webpack_require__("./node_modules/@agm/snazzy-info-window/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__main_layout_fail_page_fail_page_component__ = __webpack_require__("./src/app/main/layout/fail-page/fail-page.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__form_form_component__ = __webpack_require__("./src/app/form/form.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__main_layout_map_service_map_service_component__ = __webpack_require__("./src/app/main/layout/map-service/map-service.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__main_layout_advance_search_advance_search_component__ = __webpack_require__("./src/app/main/layout/advance-search/advance-search.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__main_layout_map_marker_move_map_marker_move_component__ = __webpack_require__("./src/app/main/layout/map-marker-move/map-marker-move.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2526,31 +2244,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-
-
-
-
-
-
 var appRoutes = [
     { path: '', pathMatch: 'full', component: __WEBPACK_IMPORTED_MODULE_23__main_home_home_component__["a" /* HomeComponent */] },
     { path: 'home', component: __WEBPACK_IMPORTED_MODULE_23__main_home_home_component__["a" /* HomeComponent */] },
-    { path: 'add', component: __WEBPACK_IMPORTED_MODULE_37__form_form_component__["b" /* FormComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_11__guards_index__["a" /* AuthGuard */]] },
-    { path: 'advance', component: __WEBPACK_IMPORTED_MODULE_40__main_layout_advance_search_advance_search_component__["a" /* AdvanceSearchComponent */] },
-    { path: 'user', component: __WEBPACK_IMPORTED_MODULE_39__user_user_interface_user_interface_component__["a" /* UserInterfaceComponent */] },
+    { path: 'add', component: __WEBPACK_IMPORTED_MODULE_35__form_form_component__["b" /* FormComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_11__guards_index__["a" /* AuthGuard */]] },
+    { path: 'advance', component: __WEBPACK_IMPORTED_MODULE_37__main_layout_advance_search_advance_search_component__["a" /* AdvanceSearchComponent */] },
+    { path: 'user', loadChildren: 'app/user/user-interface/user.module#UserModule' },
     { path: 'login', component: __WEBPACK_IMPORTED_MODULE_26__main_login_login_component__["a" /* LoginComponent */] },
     { path: 'item/:id', component: __WEBPACK_IMPORTED_MODULE_27__main_item_item_component__["a" /* ItemComponent */] },
     {
-        path: 'admin', pathMatch: 'prefix',
-        component: __WEBPACK_IMPORTED_MODULE_30__admin_admin_page_admin_page_component__["a" /* AdminPageComponent */],
-        children: [
-            { path: '', component: __WEBPACK_IMPORTED_MODULE_43__admin_layout_admin_dash_admin_dash_component__["a" /* AdminDashComponent */] },
-            { path: 'home', component: __WEBPACK_IMPORTED_MODULE_43__admin_layout_admin_dash_admin_dash_component__["a" /* AdminDashComponent */] },
-            { path: 'motel', component: __WEBPACK_IMPORTED_MODULE_44__admin_layout_admin_table_motel_admin_table_motel_component__["a" /* AdminTableMotelComponent */] }
-        ]
+        path: 'admin',
+        loadChildren: 'app/admin/admin-page/admin.module#AdminModule'
     },
-    { path: 'show-map', component: __WEBPACK_IMPORTED_MODULE_33__main_layout_show_map_show_map_component__["a" /* ShowMapComponent */] },
-    { path: 'fail', component: __WEBPACK_IMPORTED_MODULE_36__main_layout_fail_page_fail_page_component__["a" /* FailPageComponent */] },
+    { path: 'show-map', component: __WEBPACK_IMPORTED_MODULE_31__main_layout_show_map_show_map_component__["a" /* ShowMapComponent */] },
+    { path: 'fail', component: __WEBPACK_IMPORTED_MODULE_34__main_layout_fail_page_fail_page_component__["a" /* FailPageComponent */] },
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];
@@ -2576,18 +2283,16 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_26__main_login_login_component__["a" /* LoginComponent */], __WEBPACK_IMPORTED_MODULE_26__main_login_login_component__["b" /* RegisterDialog */],
                 __WEBPACK_IMPORTED_MODULE_27__main_item_item_component__["a" /* ItemComponent */], __WEBPACK_IMPORTED_MODULE_27__main_item_item_component__["b" /* UserContactDialog */],
                 __WEBPACK_IMPORTED_MODULE_28__main_layout_map_map_component__["a" /* MapComponent */],
-                __WEBPACK_IMPORTED_MODULE_29__admin_layout_admin_menu_admin_menu_component__["a" /* AdminMenuComponent */],
-                __WEBPACK_IMPORTED_MODULE_30__admin_admin_page_admin_page_component__["a" /* AdminPageComponent */],
-                __WEBPACK_IMPORTED_MODULE_31__main_layout_user_info_user_info_component__["a" /* UserInfoComponent */],
-                __WEBPACK_IMPORTED_MODULE_32__main_layout_comment_list_comment_list_component__["a" /* CommentListComponent */],
-                __WEBPACK_IMPORTED_MODULE_33__main_layout_show_map_show_map_component__["a" /* ShowMapComponent */],
-                __WEBPACK_IMPORTED_MODULE_34__main_layout_comment_box_comment_box_component__["a" /* CommentBoxComponent */],
+                __WEBPACK_IMPORTED_MODULE_29__main_layout_user_info_user_info_component__["a" /* UserInfoComponent */],
+                __WEBPACK_IMPORTED_MODULE_30__main_layout_comment_list_comment_list_component__["a" /* CommentListComponent */],
+                __WEBPACK_IMPORTED_MODULE_31__main_layout_show_map_show_map_component__["a" /* ShowMapComponent */],
+                __WEBPACK_IMPORTED_MODULE_32__main_layout_comment_box_comment_box_component__["a" /* CommentBoxComponent */],
                 __WEBPACK_IMPORTED_MODULE_14_ng2_file_upload_ng2_file_upload__["FileSelectDirective"],
-                __WEBPACK_IMPORTED_MODULE_36__main_layout_fail_page_fail_page_component__["a" /* FailPageComponent */],
-                __WEBPACK_IMPORTED_MODULE_37__form_form_component__["b" /* FormComponent */], __WEBPACK_IMPORTED_MODULE_37__form_form_component__["a" /* DialogOverviewExampleDialog */], __WEBPACK_IMPORTED_MODULE_38__main_layout_map_service_map_service_component__["a" /* MapServiceComponent */],
-                __WEBPACK_IMPORTED_MODULE_39__user_user_interface_user_interface_component__["a" /* UserInterfaceComponent */], __WEBPACK_IMPORTED_MODULE_40__main_layout_advance_search_advance_search_component__["a" /* AdvanceSearchComponent */], __WEBPACK_IMPORTED_MODULE_41__main_layout_map_marker_move_map_marker_move_component__["a" /* MapMarkerMoveComponent */], __WEBPACK_IMPORTED_MODULE_42__admin_layout_admin_nav_admin_nav_component__["a" /* AdminNavComponent */], __WEBPACK_IMPORTED_MODULE_43__admin_layout_admin_dash_admin_dash_component__["a" /* AdminDashComponent */], __WEBPACK_IMPORTED_MODULE_44__admin_layout_admin_table_motel_admin_table_motel_component__["a" /* AdminTableMotelComponent */]
+                __WEBPACK_IMPORTED_MODULE_34__main_layout_fail_page_fail_page_component__["a" /* FailPageComponent */],
+                __WEBPACK_IMPORTED_MODULE_35__form_form_component__["b" /* FormComponent */], __WEBPACK_IMPORTED_MODULE_35__form_form_component__["a" /* DialogOverviewExampleDialog */], __WEBPACK_IMPORTED_MODULE_36__main_layout_map_service_map_service_component__["a" /* MapServiceComponent */],
+                __WEBPACK_IMPORTED_MODULE_37__main_layout_advance_search_advance_search_component__["a" /* AdvanceSearchComponent */], __WEBPACK_IMPORTED_MODULE_38__main_layout_map_marker_move_map_marker_move_component__["a" /* MapMarkerMoveComponent */]
             ],
-            entryComponents: [__WEBPACK_IMPORTED_MODULE_37__form_form_component__["b" /* FormComponent */], __WEBPACK_IMPORTED_MODULE_37__form_form_component__["a" /* DialogOverviewExampleDialog */], __WEBPACK_IMPORTED_MODULE_27__main_item_item_component__["a" /* ItemComponent */], __WEBPACK_IMPORTED_MODULE_27__main_item_item_component__["b" /* UserContactDialog */], __WEBPACK_IMPORTED_MODULE_26__main_login_login_component__["a" /* LoginComponent */], __WEBPACK_IMPORTED_MODULE_26__main_login_login_component__["b" /* RegisterDialog */]],
+            entryComponents: [__WEBPACK_IMPORTED_MODULE_35__form_form_component__["b" /* FormComponent */], __WEBPACK_IMPORTED_MODULE_35__form_form_component__["a" /* DialogOverviewExampleDialog */], __WEBPACK_IMPORTED_MODULE_27__main_item_item_component__["a" /* ItemComponent */], __WEBPACK_IMPORTED_MODULE_27__main_item_item_component__["b" /* UserContactDialog */], __WEBPACK_IMPORTED_MODULE_26__main_login_login_component__["a" /* LoginComponent */], __WEBPACK_IMPORTED_MODULE_26__main_login_login_component__["b" /* RegisterDialog */]],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_16__agm_core__["a" /* AgmCoreModule */].forRoot({
                     apiKey: 'AIzaSyAslxy4f_o9CBtV-gh2iT8ZMyR0RoKP_UQ',
@@ -2601,7 +2306,7 @@ var AppModule = (function () {
                         deps: [__WEBPACK_IMPORTED_MODULE_4__angular_common_http__["a" /* HttpClient */]]
                     }
                 }),
-                __WEBPACK_IMPORTED_MODULE_35__agm_snazzy_info_window__["a" /* AgmSnazzyInfoWindowModule */],
+                __WEBPACK_IMPORTED_MODULE_33__agm_snazzy_info_window__["a" /* AgmSnazzyInfoWindowModule */],
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_5__angular_http__["d" /* HttpModule */],
                 __WEBPACK_IMPORTED_MODULE_10__angular_forms__["f" /* FormsModule */], __WEBPACK_IMPORTED_MODULE_10__angular_forms__["k" /* ReactiveFormsModule */],
@@ -2616,28 +2321,28 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_18__angular_material__["h" /* MatDatepickerModule */],
                 __WEBPACK_IMPORTED_MODULE_18__angular_material__["j" /* MatDialogModule */],
                 __WEBPACK_IMPORTED_MODULE_18__angular_material__["l" /* MatExpansionModule */],
-                __WEBPACK_IMPORTED_MODULE_18__angular_material__["m" /* MatGridListModule */],
-                __WEBPACK_IMPORTED_MODULE_18__angular_material__["o" /* MatIconModule */],
-                __WEBPACK_IMPORTED_MODULE_18__angular_material__["p" /* MatInputModule */],
-                __WEBPACK_IMPORTED_MODULE_18__angular_material__["q" /* MatListModule */],
-                __WEBPACK_IMPORTED_MODULE_18__angular_material__["r" /* MatMenuModule */],
-                __WEBPACK_IMPORTED_MODULE_18__angular_material__["s" /* MatNativeDateModule */],
-                __WEBPACK_IMPORTED_MODULE_18__angular_material__["t" /* MatPaginatorModule */],
-                __WEBPACK_IMPORTED_MODULE_18__angular_material__["u" /* MatProgressBarModule */],
-                __WEBPACK_IMPORTED_MODULE_18__angular_material__["v" /* MatProgressSpinnerModule */],
-                __WEBPACK_IMPORTED_MODULE_18__angular_material__["w" /* MatRadioModule */],
-                __WEBPACK_IMPORTED_MODULE_18__angular_material__["x" /* MatRippleModule */],
-                __WEBPACK_IMPORTED_MODULE_18__angular_material__["y" /* MatSelectModule */],
-                __WEBPACK_IMPORTED_MODULE_18__angular_material__["z" /* MatSidenavModule */],
-                __WEBPACK_IMPORTED_MODULE_18__angular_material__["B" /* MatSliderModule */],
-                __WEBPACK_IMPORTED_MODULE_18__angular_material__["A" /* MatSlideToggleModule */],
-                __WEBPACK_IMPORTED_MODULE_18__angular_material__["C" /* MatSnackBarModule */],
-                __WEBPACK_IMPORTED_MODULE_18__angular_material__["D" /* MatSortModule */],
-                __WEBPACK_IMPORTED_MODULE_18__angular_material__["F" /* MatTableModule */],
-                __WEBPACK_IMPORTED_MODULE_18__angular_material__["G" /* MatTabsModule */],
-                __WEBPACK_IMPORTED_MODULE_18__angular_material__["H" /* MatToolbarModule */],
-                __WEBPACK_IMPORTED_MODULE_18__angular_material__["I" /* MatTooltipModule */],
-                __WEBPACK_IMPORTED_MODULE_18__angular_material__["E" /* MatStepperModule */],
+                __WEBPACK_IMPORTED_MODULE_18__angular_material__["n" /* MatGridListModule */],
+                __WEBPACK_IMPORTED_MODULE_18__angular_material__["p" /* MatIconModule */],
+                __WEBPACK_IMPORTED_MODULE_18__angular_material__["q" /* MatInputModule */],
+                __WEBPACK_IMPORTED_MODULE_18__angular_material__["r" /* MatListModule */],
+                __WEBPACK_IMPORTED_MODULE_18__angular_material__["s" /* MatMenuModule */],
+                __WEBPACK_IMPORTED_MODULE_18__angular_material__["t" /* MatNativeDateModule */],
+                __WEBPACK_IMPORTED_MODULE_18__angular_material__["u" /* MatPaginatorModule */],
+                __WEBPACK_IMPORTED_MODULE_18__angular_material__["v" /* MatProgressBarModule */],
+                __WEBPACK_IMPORTED_MODULE_18__angular_material__["w" /* MatProgressSpinnerModule */],
+                __WEBPACK_IMPORTED_MODULE_18__angular_material__["x" /* MatRadioModule */],
+                __WEBPACK_IMPORTED_MODULE_18__angular_material__["y" /* MatRippleModule */],
+                __WEBPACK_IMPORTED_MODULE_18__angular_material__["z" /* MatSelectModule */],
+                __WEBPACK_IMPORTED_MODULE_18__angular_material__["A" /* MatSidenavModule */],
+                __WEBPACK_IMPORTED_MODULE_18__angular_material__["C" /* MatSliderModule */],
+                __WEBPACK_IMPORTED_MODULE_18__angular_material__["B" /* MatSlideToggleModule */],
+                __WEBPACK_IMPORTED_MODULE_18__angular_material__["D" /* MatSnackBarModule */],
+                __WEBPACK_IMPORTED_MODULE_18__angular_material__["E" /* MatSortModule */],
+                __WEBPACK_IMPORTED_MODULE_18__angular_material__["G" /* MatTableModule */],
+                __WEBPACK_IMPORTED_MODULE_18__angular_material__["H" /* MatTabsModule */],
+                __WEBPACK_IMPORTED_MODULE_18__angular_material__["I" /* MatToolbarModule */],
+                __WEBPACK_IMPORTED_MODULE_18__angular_material__["J" /* MatTooltipModule */],
+                __WEBPACK_IMPORTED_MODULE_18__angular_material__["F" /* MatStepperModule */],
                 __WEBPACK_IMPORTED_MODULE_6__angular_router__["d" /* RouterModule */].forRoot(appRoutes)
             ],
             providers: [
@@ -2830,8 +2535,8 @@ var FormComponent = (function () {
         }
     };
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_2__angular_material__["n" /* MatHorizontalStepper */]),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_2__angular_material__["n" /* MatHorizontalStepper */])
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_2__angular_material__["o" /* MatHorizontalStepper */]),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_2__angular_material__["o" /* MatHorizontalStepper */])
     ], FormComponent.prototype, "stepper", void 0);
     FormComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
@@ -4515,142 +4220,17 @@ var RegisterDialog = (function () {
 
 /***/ }),
 
-/***/ "./src/app/user/user-interface/user-interface.component.css":
-/***/ (function(module, exports) {
-
-module.exports = ".container-fluid {\n    background-color: #C5CAE9;\n    height: 100%;\n}\n.example-h2 {\n    margin: 10px;\n    background-color: #3F51B5;\n    color: white;\n    font-weight: bolder;\n    text-align: center;\n   \n  }\n.example-section {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-line-pack: center;\n        align-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    height: 60px;\n}\n.example-margin {\n    margin: 0 10px;\n}\n.wrapper {\n    display: -ms-grid;\n    display: grid;\n    -ms-grid-columns: 1fr 8fr 1fr;\n        grid-template-columns: 1fr 8fr 1fr;\n    grid-gap: 5px;\n    text-align: center;\n}\n.mat-card {\n    margin: 10px;\n}\n.wrapper p{\n    padding: 10px;\n}\n.btn-wrapper {\n    display: -ms-grid;\n    display: grid;\n    -ms-grid-columns: 50% 50%;\n        grid-template-columns: 50% 50%;\n    text-align: center;\n}\n.mat-card-image {\n    vertical-align: middle;\n    border-radius: 50%;\n    margin: auto;\n    width: 250px;\n    height: 250px;\n    padding-top: 20px; \n}\n.mat-card-password {\n    width: calc(100%-100px);\n    margin: 0 auto;\n}\n.spinner-percent {\n    position: relative;\n\n}\n.percent{\n    position: absolute;\n    width: 50px;\n    height: 50px;\n    left: 50%;\n    top: 50%;\n    -webkit-transform: translate(-50%, -50%);\n            transform: translate(-50%, -50%);\n    margin: 0!important;\n    padding: 0!important;\n    font-size: 20px;\n}\n"
-
-/***/ }),
-
-/***/ "./src/app/user/user-interface/user-interface.component.html":
-/***/ (function(module, exports) {
-
-module.exports = "\n<div class=\"container-fluid\">\n  <div class=\"row\" style=\"margin-top: 65px;\">\n    <div class=\"col-sm-3 col-xs-12\">\n        <mat-card>\n          <div class=\"img-avt\">\n              <img class=\"img-responsive\" mat-card-image src=\"https://material.angular.io/assets/img/examples/shiba2.jpg\" alt=\"Photo of a Shiba Inu\">\n          </div>\n            \n            <div class=\"text-center\"> \n              <button mat-button color=\"primary\">Update</button>\n            </div>\n           \n          </mat-card>\n          <mat-card>\n            <mat-card-content>\n              <h4 class=\"example-h2\">Level {{user.level}}</h4>\n              <div class=\"wrapper\">\n                <div></div>\n                <div>\n                  <div clas=\"spinner-percent\">\n                      <mat-progress-spinner\n                      style=\"margin:0 auto;\"\n                      class=\"example-margin\"\n                      [color]=\"color\"\n                      [mode]=\"mode\"\n                      [value]=\"value\">\n                    </mat-progress-spinner>\n\n                    <p class=\"percent\">{{value}}%</p>\n                  </div>\n                    \n                  <p>Your exp: {{user.exp}}/{{maxExp}}</p> \n                </div>\n                <div></div>\n              </div>\n              \n            </mat-card-content>\n          </mat-card>\n    </div>\n    <div class=\"col-sm-9 col-xs-12\">\n      <mat-card style=\"height:100%;\">\n          <mat-card-content>\n              <h4 class=\"example-h2\">Your infomation</h4>\n              <alert></alert>\n          </mat-card-content>\n          <mat-card-content>\n              <mat-accordion class=\"example-headers-align\">\n                  <mat-expansion-panel [expanded]=\"step === 0\" (opened)=\"setStep(0)\" hideToggle=\"true\">\n                    <mat-expansion-panel-header>\n                      <mat-panel-title>\n                        Personal data\n                      </mat-panel-title>\n                      <mat-panel-description>\n                        Type your name\n                        <mat-icon>account_circle</mat-icon>\n                      </mat-panel-description>\n                    </mat-expansion-panel-header>\n                \n                    <mat-form-field>\n                      <input matInput placeholder=\"First name\" [(ngModel)]= \"user.firstname\" #firstname=\"ngModel\" [ngModelOptions]=\"{standalone: true}\" required>\n                      <mat-error  *ngIf=\"firstname.invalid && (firstname.dirty || firstname.touched)\">\n                        Firstname can not be blank\n                      </mat-error>\n                    </mat-form-field>\n                \n                    <mat-form-field>\n                      <input matInput placeholder=\"Last name\" [(ngModel)]= \"user.lastname\" #lastname=\"ngModel\" [ngModelOptions]=\"{standalone: true}\" required>\n                      <mat-error  *ngIf=\"lastname.invalid && (lastname.dirty || lastname.touched)\">\n                        Lastname can not be blank\n                      </mat-error>\n                    </mat-form-field>\n                \n                    <mat-action-row>\n                      <button mat-button color=\"primary\" (click)=\"nextStep()\">Next</button>\n                    </mat-action-row>\n                  </mat-expansion-panel>\n                \n                  <mat-expansion-panel [expanded]=\"step === 1\" (opened)=\"setStep(1)\" hideToggle=\"true\">\n                    <mat-expansion-panel-header>\n                      <mat-panel-title>\n                        Contact infomation\n                      </mat-panel-title>\n                      <mat-panel-description>\n                        Type your email and phone\n                        <mat-icon>map</mat-icon>\n                      </mat-panel-description>\n                    </mat-expansion-panel-header>\n                \n                    <mat-form-field>\n                      <input matInput placeholder=\"Email\" email [(ngModel)]= \"user.email\" #email=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                    </mat-form-field>\n                    <mat-form-field>\n                      <input matInput placeholder=\"Phone\" phone [(ngModel)]= \"user.phone\" #phone=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                    </mat-form-field>\n                \n                    <mat-action-row>\n                      <button mat-button color=\"warn\" (click)=\"prevStep()\">Previous</button>\n                      <button mat-button color=\"primary\" (click)=\"nextStep()\">Next</button>\n                    </mat-action-row>\n                  </mat-expansion-panel>\n                \n                  <mat-expansion-panel [expanded]=\"step === 2\" (opened)=\"setStep(2)\" hideToggle=\"true\">\n                    <mat-expansion-panel-header>\n                      <mat-panel-title>\n                        About yourself\n                      </mat-panel-title>\n                      <mat-panel-description>\n                        Type something about yourself\n                        <mat-icon>date_range</mat-icon>\n                      </mat-panel-description>\n                    </mat-expansion-panel-header>\n                \n                    <mat-form-field>\n                      <input matInput placeholder=\"...\" >\n                    </mat-form-field>\n                    <mat-datepicker #picker></mat-datepicker>\n                \n                    <mat-action-row>\n                      <button mat-button color=\"warn\" (click)=\"prevStep()\">Previous</button>\n                      <button mat-button color=\"primary\" (click)=\"nextStep(); update()\">End</button>\n                    </mat-action-row>\n                  </mat-expansion-panel>\n                \n                </mat-accordion>\n          </mat-card-content>\n          <mat-card-footer>\n            <div class=\"btn-wrapper\">\n              <div>\n                <button mat-raised-button color=\"warn\" (click)= \"changePasswordFlag=!changePasswordFlag\">Change password</button>\n              </div>\n              <div>\n                  <button mat-raised-button style=\"background-color: #8C9EFF!important\">See Your posts</button>\n                </div>\n            </div> \n            \n          </mat-card-footer>\n      </mat-card>\n      <mat-card *ngIf=\"changePasswordFlag\">\n        <div class=\"mat-card-password\">\n            <mat-form-field>\n                <input type=\"password\" matInput placeholder=\"Current password\"  [(ngModel)]= \"password.oldPassword\" #oldPassword=\"ngModel\" [ngModelOptions]=\"{standalone: true}\" >\n              </mat-form-field>\n              <mat-form-field>\n                <input type=\"password\" matInput placeholder=\"New password\" [(ngModel)]= \"password.newPassword\" #newPassword=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n              </mat-form-field>\n              <mat-form-field>\n                <input type=\"password\" matInput placeholder=\"Confirm new password\" [(ngModel)]= \"password.confirmPassword\" #confirmPassword=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n              </mat-form-field>\n              <button mat-raised-button color=\"warn\" (click)=\"changePassword()\">Change</button>\n            </div>\n      </mat-card>\n    </div>\n  </div>\n</div>\n"
-
-/***/ }),
-
-/***/ "./src/app/user/user-interface/user-interface.component.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserInterfaceComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_index__ = __webpack_require__("./src/app/_services/index.ts");
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var UserInterfaceComponent = (function () {
-    function UserInterfaceComponent(authService, alertService, levelService) {
-        this.authService = authService;
-        this.alertService = alertService;
-        this.levelService = levelService;
-        this.changePasswordFlag = false; // flag show card to change password
-        this.color = 'primary';
-        this.mode = 'determinate';
-        this.value = 80; // progress spinner value
-        this.maxExp = 60; // exp to level up
-        this.step = 0;
-        this.user = {};
-        this.password = {}; // model to change password
-    }
-    UserInterfaceComponent.prototype.ngOnInit = function () {
-        var id = JSON.parse(localStorage.getItem('currentUser'))._id;
-        this.getUser(id);
-        console.log(this.user);
-    };
-    UserInterfaceComponent.prototype.getProgress = function () {
-        var _this = this;
-        var data = {
-            num: this.user.level,
-            exp: this.user.exp
-        };
-        this.levelService.getProgress(data).subscribe(function (res) {
-            var result = res.json();
-            _this.value = Number.parseInt(result.progress);
-            _this.maxExp = result.maxExp;
-        }, function (err) {
-            _this.alertService.error(err);
-        });
-    };
-    UserInterfaceComponent.prototype.getUser = function (id) {
-        var _this = this;
-        this.authService.findById(id)
-            .subscribe(function (res) {
-            _this.user = res;
-            _this.getProgress();
-        }, function (err) {
-            _this.alertService.error(err);
-        });
-    };
-    UserInterfaceComponent.prototype.update = function () {
-        var _this = this;
-        this.authService.update(JSON.parse(localStorage.getItem('currentUser'))._id, this.user)
-            .subscribe(function (res) {
-            _this.alertService.success('Update success');
-        }, function (err) {
-            _this.alertService.error(err);
-        });
-    };
-    UserInterfaceComponent.prototype.changePassword = function () {
-        var _this = this;
-        if (this.password.newPassword !== this.password.confirmPassword) {
-            this.alertService.error('Password confirm incorect');
-        }
-        else {
-            if (this.password.newPassword.lenght < 8 || this.password.confirmPassword.length < 8) {
-                this.alertService.error('Password must have at least 8 character');
-            }
-            else {
-                this.authService.changePassword(JSON.parse(localStorage.getItem('currentUser'))._id, this.password)
-                    .subscribe(function (res) {
-                    _this.alertService.success('change success');
-                }, function (err) {
-                    _this.alertService.error(err);
-                });
-            }
-        }
-    };
-    UserInterfaceComponent.prototype.setStep = function (index) {
-        this.step = index;
-    };
-    UserInterfaceComponent.prototype.nextStep = function () {
-        this.step++;
-    };
-    UserInterfaceComponent.prototype.prevStep = function () {
-        this.step--;
-    };
-    UserInterfaceComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'app-user-interface',
-            template: __webpack_require__("./src/app/user/user-interface/user-interface.component.html"),
-            styles: [__webpack_require__("./src/app/user/user-interface/user-interface.component.css")]
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_index__["b" /* AuthenticationService */],
-            __WEBPACK_IMPORTED_MODULE_1__services_index__["a" /* AlertService */],
-            __WEBPACK_IMPORTED_MODULE_1__services_index__["d" /* LevelService */]])
-    ], UserInterfaceComponent);
-    return UserInterfaceComponent;
-}());
-
-
-
-/***/ }),
-
 /***/ "./src/environments/environment.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return environment; });
+// The file contents for the current environment will overwrite these during build.
+// The build system defaults to the dev environment which uses `environment.ts`, but if you do
+// `ng build --env=prod` then `environment.prod.ts` will be used instead.
+// The list of which env maps to which file can be found in `.angular-cli.json`.
 var environment = {
-    production: true,
+    production: false,
     token_auth_config: {
         apiBase: 'https://rent-deploy.herokuapp.com'
     },

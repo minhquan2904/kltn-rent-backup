@@ -59,8 +59,7 @@ import { RecentPostComponent } from './main/layout/recent-post/recent-post.compo
 import { LoginComponent, RegisterDialog } from './main/login/login.component';
 import { ItemComponent, UserContactDialog } from './main/item/item.component';
 import { MapComponent } from './main/layout/map/map.component';
-import { AdminMenuComponent } from './admin/layout/admin-menu/admin-menu.component';
-import { AdminPageComponent } from './admin/admin-page/admin-page.component';
+
 import { UserInfoComponent } from './main/layout/user-info/user-info.component';
 import { CommentListComponent } from './main/layout/comment-list/comment-list.component';
 import { ShowMapComponent } from './main/layout/show-map/show-map.component';
@@ -69,28 +68,21 @@ import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
 import { FailPageComponent } from './main/layout/fail-page/fail-page.component';
 import { FormComponent, DialogOverviewExampleDialog } from './form/form.component';
 import { MapServiceComponent } from './main/layout/map-service/map-service.component';
-import { UserInterfaceComponent } from './user/user-interface/user-interface.component';
+
 import { AdvanceSearchComponent } from './main/layout/advance-search/advance-search.component';
 import { MapMarkerMoveComponent } from './main/layout/map-marker-move/map-marker-move.component';
-import { AdminNavComponent } from './admin/layout/admin-nav/admin-nav.component';
-import { AdminDashComponent } from './admin/layout/admin-dash/admin-dash.component';
-import { AdminTableMotelComponent } from './admin/layout/admin-table-motel/admin-table-motel.component';
+
 const appRoutes: Routes = [
   { path: '', pathMatch: 'full' , component: HomeComponent},
   { path: 'home', component: HomeComponent},
   { path: 'add', component: FormComponent, canActivate: [AuthGuard] },
   { path: 'advance', component: AdvanceSearchComponent},
-  { path: 'user', component: UserInterfaceComponent},
+  { path: 'user', loadChildren: 'app/user/user-interface/user.module#UserModule'},
   { path: 'login', component: LoginComponent},
   { path: 'item/:id', component: ItemComponent},
   {
-    path: 'admin', pathMatch: 'prefix',
-    component: AdminPageComponent,
-    children: [
-      {path: '', component: AdminDashComponent},
-      {path: 'home', component: AdminDashComponent},
-      {path: 'motel', component: AdminTableMotelComponent}
-    ]
+    path: 'admin',
+    loadChildren: 'app/admin/admin-page/admin.module#AdminModule'
   },
   { path: 'show-map', component: ShowMapComponent},
   { path: 'fail', component: FailPageComponent},
@@ -115,8 +107,6 @@ registerLocaleData(localEn);
     LoginComponent, RegisterDialog,
     ItemComponent, UserContactDialog,
     MapComponent,
-    AdminMenuComponent,
-    AdminPageComponent,
     UserInfoComponent,
     CommentListComponent,
     ShowMapComponent,
@@ -124,7 +114,7 @@ registerLocaleData(localEn);
     FileSelectDirective,
     FailPageComponent,
     FormComponent, DialogOverviewExampleDialog, MapServiceComponent,
-    UserInterfaceComponent, AdvanceSearchComponent, MapMarkerMoveComponent, AdminNavComponent, AdminDashComponent, AdminTableMotelComponent
+    AdvanceSearchComponent, MapMarkerMoveComponent
     ],
     entryComponents: [FormComponent, DialogOverviewExampleDialog, ItemComponent, UserContactDialog, LoginComponent, RegisterDialog],
   imports: [
