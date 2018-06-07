@@ -1408,7 +1408,7 @@ var AppComponent = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return appConfig; });
 var appConfig = {
-    apiUrl: 'http://localhost:3000',
+    apiUrl: 'https://rent-deploy.herokuapp.com',
     vn: {
         '1': {
             'name': 'Cần Thơ',
@@ -4653,7 +4653,8 @@ var environment = {
     production: true,
     token_auth_config: {
         apiBase: 'https://rent-deploy.herokuapp.com'
-    }
+    },
+    API_URL: 'https://rent-deploy.herokuapp.com'
 };
 
 
