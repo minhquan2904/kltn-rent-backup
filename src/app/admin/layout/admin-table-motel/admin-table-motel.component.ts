@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { MatTableDataSource} from '@angular/material';
 
 import { MotelService } from '../../../_services/index';
 import { Motel} from '../../../_models/index';
@@ -10,11 +11,19 @@ import { Motel} from '../../../_models/index';
 })
 export class AdminTableMotelComponent implements OnInit {
   viewAccepted = false;
-  listMotel: Observable<Motel[]>;
+  listMotel: any;
+  displayedColumns= ['position', 'created', 'address', 'action'];
+  // displayedColumns = ['position', 'name', 'weight', 'symbol'];
+  dataSource: any;  // = new MatTableDataSource(ELEMENT_DATA);
   constructor(private motelService: MotelService) { }
 
   ngOnInit() {
-    this.listMotel = this.motelService.findByStatus(0);
+    this.motelService.findByStatus(0).subscribe(res => {
+      this.dataSource = new MatTableDataSource(res);
+      console.log(this.dataSource);
+    }, err => {
+      console.log(err);
+    });
 
   }
   handleAccepted() {

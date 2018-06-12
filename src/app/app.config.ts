@@ -1,5 +1,6 @@
 export const appConfig = {
-    apiUrl: 'https://rent-deploy.herokuapp.com',
+  // 'https://rent-deploy.herokuapp.com'
+    apiUrl: 'http://localhost:3000',
     vn: {
         '1': {
           'name': 'Cần Thơ',

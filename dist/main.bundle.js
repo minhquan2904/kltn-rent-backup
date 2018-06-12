@@ -1132,7 +1132,8 @@ var AppComponent = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return appConfig; });
 var appConfig = {
-    apiUrl: 'https://rent-deploy.herokuapp.com',
+    // 'https://rent-deploy.herokuapp.com'
+    apiUrl: 'http://localhost:3000',
     vn: {
         '1': {
             'name': 'Cần Thơ',
@@ -2338,10 +2339,10 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_18__angular_material__["B" /* MatSlideToggleModule */],
                 __WEBPACK_IMPORTED_MODULE_18__angular_material__["D" /* MatSnackBarModule */],
                 __WEBPACK_IMPORTED_MODULE_18__angular_material__["E" /* MatSortModule */],
-                __WEBPACK_IMPORTED_MODULE_18__angular_material__["G" /* MatTableModule */],
-                __WEBPACK_IMPORTED_MODULE_18__angular_material__["H" /* MatTabsModule */],
-                __WEBPACK_IMPORTED_MODULE_18__angular_material__["I" /* MatToolbarModule */],
-                __WEBPACK_IMPORTED_MODULE_18__angular_material__["J" /* MatTooltipModule */],
+                __WEBPACK_IMPORTED_MODULE_18__angular_material__["H" /* MatTableModule */],
+                __WEBPACK_IMPORTED_MODULE_18__angular_material__["I" /* MatTabsModule */],
+                __WEBPACK_IMPORTED_MODULE_18__angular_material__["J" /* MatToolbarModule */],
+                __WEBPACK_IMPORTED_MODULE_18__angular_material__["K" /* MatTooltipModule */],
                 __WEBPACK_IMPORTED_MODULE_18__angular_material__["F" /* MatStepperModule */],
                 __WEBPACK_IMPORTED_MODULE_6__angular_router__["d" /* RouterModule */].forRoot(appRoutes)
             ],

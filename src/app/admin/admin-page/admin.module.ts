@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { MatButtonModule, MatCheckboxModule, MatTabsModule} from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatTabsModule, MatPaginatorModule, 
+        MatTableModule, MatSortModule} from '@angular/material';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminPageComponent } from './admin-page.component';
@@ -13,7 +14,8 @@ import { AdminMenuComponent } from '../layout/admin-menu/admin-menu.component';
   imports: [
     CommonModule,
     AdminRoutingModule,
-    MatButtonModule, MatCheckboxModule, MatTabsModule
+    MatButtonModule, MatCheckboxModule, MatTabsModule,
+    MatPaginatorModule, MatTableModule, MatSortModule
   ],
   declarations: [
     AdminPageComponent,
