@@ -4,44 +4,56 @@
       <button mat-raised-button color="primary" (click)="handleAccepted()">View accepted posts</button>
   </div>
   <div class="panel-body">
-      <mat-table #table [dataSource]="dataSource">
+      <mat-tab-group>
+          <mat-tab label="Tab 1">
+            <div class="example-header">
+                <mat-form-field>
+                  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                </mat-form-field>
+              </div>
+            <mat-table #table [dataSource]="dataSource">
 
-      <!-- Position Column -->
-      <ng-container matColumnDef="position">
-        <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-        <mat-cell *matCellDef="let element; let i = index"> {{i}} </mat-cell>
-      </ng-container>
-  
-      <!-- Name Column -->
-      <ng-container matColumnDef="created">
-        <mat-header-cell *matHeaderCellDef> Created date </mat-header-cell>
-        <mat-cell *matCellDef="let element"> Demo day </mat-cell>
-      </ng-container>
-  
-     
-  
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="address">
-        <mat-header-cell *matHeaderCellDef> Address </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.add}} </mat-cell>
-      </ng-container>
+            <!-- Position Column -->
+            <ng-container matColumnDef="position">
+              <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+              <mat-cell *matCellDef="let element; let i = index"> {{i+1}} </mat-cell>
+            </ng-container>
+        
+            <!-- Name Column -->
+            <ng-container matColumnDef="created">
+              <mat-header-cell *matHeaderCellDef > Created date </mat-header-cell>
+              <mat-cell *matCellDef="let element"> Demo day </mat-cell>
+            </ng-container>
+        
+          
+        
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="address">
+              <mat-header-cell *matHeaderCellDef> Address </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.add}}, {{element.street}}, {{element.ward}}, {{element.district}} </mat-cell>
+            </ng-container>
 
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="action">
-          <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
-          <mat-cell *matCellDef="let element"> Action here </mat-cell>
-        </ng-container>
-  
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
-
-      
-        <mat-tab-group>
-                <mat-tab label="Tab 1">
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+                <mat-cell *matCellDef="let element"> <a mat-raised-button color="accent" [routerLink]="['/item', element._id]" target="_blank">ABc</a> </mat-cell>
+              </ng-container>
+        
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+          <mat-paginator #paginator
+              [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 20]"
+              [showFirstLastButtons]="true">
+          </mat-paginator>  
+            
+        
                    
-                </mat-tab>
-                <mat-tab label="Tab 2" *ngIf="viewAccepted">Content 2</mat-tab>
+        </mat-tab>
+        <mat-tab label="Tab 2" *ngIf="viewAccepted">
+          
+        </mat-tab>
         </mat-tab-group>
       
   </div>

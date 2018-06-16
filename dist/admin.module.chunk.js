@@ -145,8 +145,9 @@ var AdminModule = (function () {
             imports: [
                 __WEBPACK_IMPORTED_MODULE_1__angular_common__["CommonModule"],
                 __WEBPACK_IMPORTED_MODULE_3__admin_routing_module__["a" /* AdminRoutingModule */],
-                __WEBPACK_IMPORTED_MODULE_2__angular_material__["c" /* MatButtonModule */], __WEBPACK_IMPORTED_MODULE_2__angular_material__["f" /* MatCheckboxModule */], __WEBPACK_IMPORTED_MODULE_2__angular_material__["I" /* MatTabsModule */],
-                __WEBPACK_IMPORTED_MODULE_2__angular_material__["u" /* MatPaginatorModule */], __WEBPACK_IMPORTED_MODULE_2__angular_material__["H" /* MatTableModule */], __WEBPACK_IMPORTED_MODULE_2__angular_material__["E" /* MatSortModule */]
+                __WEBPACK_IMPORTED_MODULE_2__angular_material__["c" /* MatButtonModule */], __WEBPACK_IMPORTED_MODULE_2__angular_material__["f" /* MatCheckboxModule */], __WEBPACK_IMPORTED_MODULE_2__angular_material__["J" /* MatTabsModule */],
+                __WEBPACK_IMPORTED_MODULE_2__angular_material__["v" /* MatPaginatorModule */], __WEBPACK_IMPORTED_MODULE_2__angular_material__["I" /* MatTableModule */], __WEBPACK_IMPORTED_MODULE_2__angular_material__["F" /* MatSortModule */],
+                __WEBPACK_IMPORTED_MODULE_2__angular_material__["m" /* MatFormFieldModule */], __WEBPACK_IMPORTED_MODULE_2__angular_material__["q" /* MatInputModule */]
             ],
             declarations: [
                 __WEBPACK_IMPORTED_MODULE_4__admin_page_component__["a" /* AdminPageComponent */],
@@ -292,7 +293,7 @@ module.exports = "table {\n    width: 100%;\n}\nmat-table {\n    width: 100%;\n 
 /***/ "./src/app/admin/layout/admin-table-motel/admin-table-motel.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!-- Lastest user -->\n<div class=\"panel panel-default\">\n  <div class=\"panel-heading\">\n      <button mat-raised-button color=\"primary\" (click)=\"handleAccepted()\">View accepted posts</button>\n  </div>\n  <div class=\"panel-body\">\n      <mat-table #table [dataSource]=\"dataSource\">\n\n      <!-- Position Column -->\n      <ng-container matColumnDef=\"position\">\n        <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>\n        <mat-cell *matCellDef=\"let element; let i = index\"> {{i}} </mat-cell>\n      </ng-container>\n  \n      <!-- Name Column -->\n      <ng-container matColumnDef=\"created\">\n        <mat-header-cell *matHeaderCellDef> Created date </mat-header-cell>\n        <mat-cell *matCellDef=\"let element\"> Demo day </mat-cell>\n      </ng-container>\n  \n     \n  \n      <!-- Symbol Column -->\n      <ng-container matColumnDef=\"address\">\n        <mat-header-cell *matHeaderCellDef> Address </mat-header-cell>\n        <mat-cell *matCellDef=\"let element\"> {{element.add}} </mat-cell>\n      </ng-container>\n\n      <!-- Symbol Column -->\n      <ng-container matColumnDef=\"action\">\n          <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>\n          <mat-cell *matCellDef=\"let element\"> Action here </mat-cell>\n        </ng-container>\n  \n      <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n      <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\n    </mat-table>\n\n      \n        <mat-tab-group>\n                <mat-tab label=\"Tab 1\">\n                   \n                </mat-tab>\n                <mat-tab label=\"Tab 2\" *ngIf=\"viewAccepted\">Content 2</mat-tab>\n        </mat-tab-group>\n      \n  </div>\n</div>"
+module.exports = "<!-- Lastest user -->\n<div class=\"panel panel-default\">\n  <div class=\"panel-heading\">\n      <button mat-raised-button color=\"primary\" (click)=\"handleAccepted()\">View accepted posts</button>\n  </div>\n  <div class=\"panel-body\">\n      <mat-tab-group>\n          <mat-tab label=\"Tab 1\">\n            <div class=\"example-header\">\n                <mat-form-field>\n                  <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter\">\n                </mat-form-field>\n              </div>\n            <mat-table #table [dataSource]=\"dataSource\">\n\n            <!-- Position Column -->\n            <ng-container matColumnDef=\"position\">\n              <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>\n              <mat-cell *matCellDef=\"let element; let i = index\"> {{i+1}} </mat-cell>\n            </ng-container>\n        \n            <!-- Name Column -->\n            <ng-container matColumnDef=\"created\">\n              <mat-header-cell *matHeaderCellDef > Created date </mat-header-cell>\n              <mat-cell *matCellDef=\"let element\"> Demo day </mat-cell>\n            </ng-container>\n        \n          \n        \n            <!-- Symbol Column -->\n            <ng-container matColumnDef=\"address\">\n              <mat-header-cell *matHeaderCellDef> Address </mat-header-cell>\n              <mat-cell *matCellDef=\"let element\"> {{element.add}}, {{element.street}}, {{element.ward}}, {{element.district}} </mat-cell>\n            </ng-container>\n\n            <!-- Symbol Column -->\n            <ng-container matColumnDef=\"action\">\n                <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>\n                <mat-cell *matCellDef=\"let element\"> <a mat-raised-button color=\"accent\" [routerLink]=\"['/item', element._id]\" target=\"_blank\">ABc</a> </mat-cell>\n              </ng-container>\n        \n            <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n            <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\n          </mat-table>\n          <mat-paginator #paginator\n              [pageSize]=\"10\"\n              [pageSizeOptions]=\"[5, 10, 20]\"\n              [showFirstLastButtons]=\"true\">\n          </mat-paginator>  \n            \n        \n                   \n        </mat-tab>\n        <mat-tab label=\"Tab 2\" *ngIf=\"viewAccepted\">\n          \n        </mat-tab>\n        </mat-tab-group>\n      \n  </div>\n</div>"
 
 /***/ }),
 
@@ -325,15 +326,24 @@ var AdminTableMotelComponent = (function () {
     AdminTableMotelComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.motelService.findByStatus(0).subscribe(function (res) {
-            _this.dataSource = new __WEBPACK_IMPORTED_MODULE_1__angular_material__["G" /* MatTableDataSource */](res);
-            console.log(_this.dataSource);
+            _this.dataSource = new __WEBPACK_IMPORTED_MODULE_1__angular_material__["H" /* MatTableDataSource */](res);
+            _this.dataSource.paginator = _this.paginator;
         }, function (err) {
             console.log(err);
         });
     };
+    AdminTableMotelComponent.prototype.applyFilter = function (filterValue) {
+        filterValue = filterValue.trim(); // Remove whitespace
+        filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+        this.dataSource.filter = filterValue;
+    };
     AdminTableMotelComponent.prototype.handleAccepted = function () {
         this.viewAccepted = !this.viewAccepted;
     };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_1__angular_material__["u" /* MatPaginator */]),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__angular_material__["u" /* MatPaginator */])
+    ], AdminTableMotelComponent.prototype, "paginator", void 0);
     AdminTableMotelComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-admin-table-motel',
@@ -345,28 +355,6 @@ var AdminTableMotelComponent = (function () {
     return AdminTableMotelComponent;
 }());
 
-var ELEMENT_DATA = [
-    { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-    { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-    { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-    { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-    { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-    { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-    { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-    { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-    { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-    { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-    { position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na' },
-    { position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg' },
-    { position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al' },
-    { position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si' },
-    { position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P' },
-    { position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S' },
-    { position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl' },
-    { position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar' },
-    { position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K' },
-    { position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca' },
-];
 
 
 /***/ })
