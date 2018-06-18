@@ -1,5 +1,6 @@
 
 var motels = require('../models/Motel.model');
+var users = require('../models/User');
 var statistics = require('../models/Statistic.model');
 var Q = require('q');
 var _ = require('lodash'); 
@@ -15,6 +16,7 @@ service.findByStatus = findByStatus;
 service.fullSearch = fullSearch;
 service.getListNearBy = getListNearBy;
 service.getLatLng = getLatLng;
+service.updateStatus = updateStatus;
 module.exports = service;
 
 function fullSearch(value) {
@@ -55,6 +57,84 @@ function findByStatus(status) {
 
     return deferred.promise;
 }
+function updateStatus(_id, motel) {
+    var deferred = Q.defer();
+
+    motels.findByIdAndUpdate(_id, {$set: motel}, function(err, result) {
+        if(err) {
+            deferred.reject(err.name + ': ' + err.message);
+        } else {
+            if(motel.status === 1) { // in pending => accept
+                updateIncreaseLevel();
+            } else {
+               if(motel.status === 0) {// in accepted => pending
+                    updateDecreaseLevel();
+               } else { // in pending => ignore
+                    deferred.resolve();
+               }
+            }
+            
+           
+        }
+    })
+    return deferred.promise;
+
+    function updateIncreaseLevel() {
+        users.findById(motel.customer, function(err, user) {
+            if(err) {
+                deferred.reject(err.name + ': ' + err.message);
+            } else {
+                var rating = user.rating;
+
+                rating.exp += 20;
+                if (rating.level === 1 && rating.exp >= 50) {
+                    rating.level = 2;
+                }
+                if(rating.level === 2 && rating.exp >= 100) {
+                    rating.level = 3;
+                }
+                if(rating.level === 3 && rating.exp >= 200) {
+                    rating.level = 4;
+                }
+
+                users.findByIdAndUpdate(motel.customer, user, function(err, user) {
+                    if(err) {
+                        deferred.reject(err.name + ': ' + err.message);
+                    } else {
+                        deferred.resolve();
+                    }
+                });
+            }
+        });
+    }
+
+    function updateDecreaseLevel() {
+        users.findById(motel.customer, function(err, user) {
+            if(err) {
+                deferred.reject(err.name + ': ' + err.message);
+            } else {
+                var rating = user.rating;
+
+                rating.exp -= 20;
+                if(rating.level === 2 && rating.exp < 100) {
+                    rating.level = 1;
+                }
+                if(rating.level === 3 && rating.exp < 200) {
+                    rating.level = 2;
+                }
+
+                users.findByIdAndUpdate(motel.customer, user, function(err, user) {
+                    if(err) {
+                        deferred.reject(err.name + ': ' + err.message);
+                    } else {
+                        deferred.resolve();
+                    }
+                });
+            }
+        });
+    }
+}
+
 function create(motelParam)
 {
     var deferred = Q.defer();

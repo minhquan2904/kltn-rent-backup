@@ -2,7 +2,8 @@
 <div class="panel panel-default">
   <div class="panel-heading">
       <button mat-raised-button color="primary" (click)="handleAccepted()">View accepted posts</button>
-  </div>
+      <admin-alert></admin-alert>
+    </div>
   <div class="panel-body">
       <mat-tab-group>
           <mat-tab label="Tab 1">
@@ -36,7 +37,14 @@
             <!-- Symbol Column -->
             <ng-container matColumnDef="action">
                 <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
-                <mat-cell *matCellDef="let element"> <a mat-raised-button color="accent" [routerLink]="['/item', element._id]" target="_blank">ABc</a> </mat-cell>
+                <mat-cell *matCellDef="let element; let j = index"> 
+                  <a mat-raised-button color="accent" [routerLink]="['/item', element._id]" 
+                    target="_blank">View</a> 
+                  <button mat-raised-button (click)="handleUpdateStatus(element._id,element.customer, 1, j, 1)" 
+                    color="primary">Accept</button> 
+                  <button mat-raised-button (click)="handleUpdateStatus(element._id,element.customer, -1, j, 1)" 
+                   color="warn">Ignore</button> 
+                </mat-cell>
               </ng-container>
         
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -52,7 +60,54 @@
                    
         </mat-tab>
         <mat-tab label="Tab 2" *ngIf="viewAccepted">
+            <div class="example-header">
+                <mat-form-field>
+                  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                </mat-form-field>
+              </div>
+            <mat-table #table [dataSource]="dataSourceAccepted">
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="position">
+              <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+              <mat-cell *matCellDef="let element; let i = index"> {{i+1}} </mat-cell>
+            </ng-container>
+        
+            <!-- Name Column -->
+            <ng-container matColumnDef="created">
+              <mat-header-cell *matHeaderCellDef > Created date </mat-header-cell>
+              <mat-cell *matCellDef="let element"> Demo day </mat-cell>
+            </ng-container>
+        
           
+        
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="address">
+              <mat-header-cell *matHeaderCellDef> Address </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.add}}, {{element.street}}, {{element.ward}}, {{element.district}} </mat-cell>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+                <mat-cell *matCellDef="let element; let j = index"> 
+                  <a mat-raised-button color="accent" [routerLink]="['/item', element._id]" 
+                    target="_blank">View</a> 
+                  <button mat-raised-button (click)="handleUpdateStatus(element._id,element.customer, 0, j, 2)" 
+                    >Pending</button> 
+                  <button mat-raised-button (click)="handleUpdateStatus(element._id,element.customer, -1, j, 2)" 
+                   color="warn">Ignore</button> 
+                </mat-cell>
+              </ng-container>
+        
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+          <mat-paginator #paginator2
+              [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 20]"
+              [showFirstLastButtons]="true">
+          </mat-paginator> 
         </mat-tab>
         </mat-tab-group>
       

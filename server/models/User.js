@@ -20,7 +20,13 @@ var userSchema = new Schema({
     role:           {type: Number, default: 1},
     _motels    : [{ type: Schema.Types.ObjectId, ref: 'Motel' }]
 },{collection : 'users'});
-
+// class UserClass {
+//     static findByIdAndAddExp(_id, exp) {
+//         var user =  this.findById(_id);
+//         console.log(user);
+//     }
+// }
+// userSchema.loadClass(UserClass);
 var users  = mongoose.model("users", userSchema);
 
 module.exports = users;

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { MatTableDataSource, MatPaginator} from '@angular/material';
 
-import { MotelService } from '../../../_services/index';
+import { MotelService, AlertService } from '../../../_services/index';
 import { Motel} from '../../../_models/index';
 @Component({
   selector: 'app-admin-table-motel',
@@ -15,16 +15,19 @@ export class AdminTableMotelComponent implements OnInit {
   displayedColumns= ['position', 'created', 'address', 'action'];
   // displayedColumns = ['position', 'name', 'weight', 'symbol'];
   dataSource: any;  // = new MatTableDataSource(ELEMENT_DATA);
+  dataSourceAccepted: any; //
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  constructor(private motelService: MotelService) { }
+  @ViewChild(MatPaginator) paginator2: MatPaginator;
+
+  constructor(private motelService: MotelService, private alertService: AlertService) { }
 
   ngOnInit() {
     this.motelService.findByStatus(0).subscribe(res => {
       this.dataSource = new MatTableDataSource(res);
       this.dataSource.paginator = this.paginator;
     }, err => {
-      console.log(err);
+      this.alertService.error(err);
     });
 
   }
@@ -35,5 +38,34 @@ export class AdminTableMotelComponent implements OnInit {
   }
   handleAccepted() {
     this.viewAccepted = !this.viewAccepted;
+    this.motelService.findByStatus(1).subscribe(res => {
+      this.dataSourceAccepted = new MatTableDataSource(res);
+      this.dataSourceAccepted.paginator = this.paginator2;
+    }, err => {
+      this.alertService.error(err);
+    });
+
+  }
+  handleUpdateStatus(_id, customer, status, position, type) {
+    console.log(position);
+    let motel: any = {
+      customer: customer,
+      status: status
+    };
+    // console.log(_id + " " + JSON.stringify(motel));
+    
+    this.motelService.update(_id, motel).subscribe( res => {
+     this.alertService.success('update ok');
+     if (type === 1 ) {
+      this.dataSource.data.splice(position, 1);
+      this.dataSource = new MatTableDataSource<Element>(this.dataSource.data);
+     } else {
+      this.dataSourceAccepted.data.splice(position, 1);
+      this.dataSourceAccepted = new MatTableDataSource<Element>(this.dataSourceAccepted.data);
+     }
+     
+    }, err => {
+      this.alertService.error(err);
+    });
   }
 }
