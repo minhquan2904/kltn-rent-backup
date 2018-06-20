@@ -296,6 +296,48 @@ var NullDefaultValueDirective = (function () {
 
 /***/ }),
 
+/***/ "./src/app/_models/comment.model.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Comment; });
+var Comment = (function () {
+    function Comment(_id, customer_id, customer_name, content, status, motel_id, created_at) {
+        this._id = _id;
+        this.customer_id = customer_id;
+        this.customer_name = customer_name;
+        this.content = content;
+        this.status = status;
+        this.motel_id = motel_id;
+        this.created_at = created_at;
+    }
+    return Comment;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/_models/index.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__user_model__ = __webpack_require__("./src/app/_models/user.model.ts");
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__statistic_model__ = __webpack_require__("./src/app/_models/statistic.model.ts");
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__motel_model__ = __webpack_require__("./src/app/_models/motel.model.ts");
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__comment_model__ = __webpack_require__("./src/app/_models/comment.model.ts");
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_3__comment_model__["a"]; });
+
+
+
+
+
+
+/***/ }),
+
 /***/ "./src/app/_models/motel.model.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -324,6 +366,26 @@ var Motel = (function () {
         this.created_at = created_at;
     }
     return Motel;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/_models/statistic.model.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export Statistic */
+var Statistic = (function () {
+    function Statistic(num_motels, num_users, visitors, created_at, stopped_at) {
+        this.num_motels = num_motels;
+        this.num_users = num_users;
+        this.visitors = visitors;
+        this.created_at = created_at;
+        this.stopped_at = stopped_at;
+    }
+    return Statistic;
 }());
 
 
@@ -560,6 +622,7 @@ var AuthenticationService = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__("./node_modules/rxjs/_esm5/add/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models_index__ = __webpack_require__("./src/app/_models/index.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -569,6 +632,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -588,8 +652,19 @@ var CommentService = (function () {
             });
         });
     };
+    CommentService.prototype.findByStatus = function (stt) {
+        return this.http.get('/comment/find-by-status/' + stt)
+            .map(function (res) {
+            return res.json().map(function (item) {
+                return new __WEBPACK_IMPORTED_MODULE_3__models_index__["a" /* Comment */](item._id, item.customer_id, item.customer_name, item.content, item.status, item.motel_id, item.created_at);
+            });
+        });
+    };
     CommentService.prototype.comment = function (data) {
         return this.http.post('/comment/insert', data);
+    };
+    CommentService.prototype.update = function (id, data) {
+        return this.http.put('/comment/' + id, data);
     };
     CommentService.prototype._delete = function (id) {
         return this.http.delete('/comment/' + id);
@@ -828,7 +903,7 @@ var MotelService = (function () {
         });
     };
     MotelService.prototype.findByStatus = function (status) {
-        console.log(this.apiUrl + '/motel/find-by-status/' + status);
+        //    console.log(this.apiUrl + '/motel/find-by-status/' + status);
         return this.http.get('/motel/find-by-status/' + status)
             .map(function (res) {
             return res.json().map(function (item) {
@@ -2669,7 +2744,7 @@ module.exports = ".temp{\n    height: 100px;\n}\n\n/* Test css grid */\n\n.wrapp
 /***/ "./src/app/main/item/item.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-nav></app-nav>\n\n<div class=\"temp\"></div>\n    <alert></alert>\n      <div class=\"wrapper\">\n        <div>\n          <div class=\"img-wrapper\">\n            <div></div>\n            <div>\n              <!-- TAB IMG + MAP -->\n                <mat-tab-group>\n                    <mat-tab label=\"Image\">\n                      <!-- MOTEL IMAGE -->\n                      <!-- <div *ngFor=\"let item of img\">\n                        {{item}}\n                      </div> -->\n                      <div id=\"myCarousel\" class=\"carousel slide\" data-ride=\"carousel\">\n                        <!-- Indicators -->\n                        <ol class=\"carousel-indicators\">\n                          <li data-target=\"#myCarousel\" *ngFor=\"let item of img; let i = index\" [attr.data-slide-to]=\"i\" ngClass=\"i == 0 ? 'active' : ''\"></li>\n                        </ol>\n                    \n                        <!-- Wrapper for slides -->\n                        <div class=\"carousel-inner\">\n                          <div *ngFor=\"let j of img; let k = index\" [ngClass]=\"k == 0 ? 'item active' : 'item'\">\n                            <img src=\"/assets/{{img[k]}}\" alt=\"Event Image\" class=\"img-responsive\" >\n                        </div>\n                        \n                          \n                        </div>\n                    \n                        <!-- Left and right controls -->\n                        <a class=\"left carousel-control\" href=\"#myCarousel\" data-slide=\"prev\">\n                          <span class=\"glyphicon glyphicon-chevron-left\"></span>\n                          <span class=\"sr-only\">Previous</span>\n                        </a>\n                        <a class=\"right carousel-control\" href=\"#myCarousel\" data-slide=\"next\">\n                          <span class=\"glyphicon glyphicon-chevron-right\"></span>\n                          <span class=\"sr-only\">Next</span>\n                        </a>\n                      </div>\n                   \n                      \n                      </mat-tab>\n                      <mat-tab #mapTab label=\"Map\">\n                          <div *ngIf=\"mapTab.isActive\">\n                            <app-map-service [myData]=\"data\"></app-map-service>\n                          </div>\n                      </mat-tab>\n                </mat-tab-group>\n              \n            </div>\n            <div></div>\n          </div>\n          <!-- MOTEL INFOMATION -->\n          <div class=\"info-wrapper\">\n              <!-- Description -->\n              <div></div>\n             <div>\n                <div class=\"descripsion\">\n                    <h4 class=\"mt-4\">About this location</h4>\n                    {{motel.description}}   \n                </div>\n             </div>\n             <!-- Address  -->\n             <div>\n                <div class=\"address\">\n                    <address>\n                        <h4>Address  </h4>\n                        <strong>{{motel.district}}, {{motel.city}} </strong>\n                        <br>{{motel.add}}, {{motel.street}}\n                        <br>{{motel.ward}}\n                        <br>\n                      </address>\n                </div>\n                <button mat-icon-button color=\"warn\"  (click)=\"onNavigate()\">           \n                  <mat-icon aria-label=\"Example icon-button with a heart icon\">room</mat-icon>\n                  Show location\n              </button>\n             </div>\n             <div></div>\n           </div>\n       \n          </div>\n\n         \n        <!-- USER INFO -->\n        <div class=\"user-info\">\n          <app-user-info [myData]=\"user\"></app-user-info>\n        </div>\n        <!-- COMMENT AREA -->\n        \n        \n        <div class=\"user-info-mobile\">\n            <div></div>\n            \n            <div>\n                <button mat-raised-button color=\"primary\" (click)=\"openDialog()\">Show contact info</button>\n            </div>\n\n            <div>\n              \n            </div>\n        </div>\n      </div>\n      <div class=\"cmt-wrapper\">\n        <div></div>\n        <div><app-comment-box [exData1]=\"user\" [motelID]=\"motel_id\"></app-comment-box></div>\n        <div></div>\n      </div>\n      <div class=\"comment-wrapper\">\n        <div></div>\n        <div>\n            <div style=\"height:20px;\"> </div> \n            <div>\n              <!-- comment list -->\n              <app-comment-list></app-comment-list>\n            </div>\n            \n        </div>\n        <div></div>\n          \n      </div>\n"
+module.exports = "<app-nav></app-nav>\n\n<div class=\"temp\"></div>\n    <alert></alert>\n      <div class=\"wrapper\">\n        <div>\n          <div class=\"img-wrapper\">\n            <div></div>\n            <div>\n              <!-- TAB IMG + MAP -->\n                <mat-tab-group>\n                    <mat-tab label=\"Image\">\n                      <!-- MOTEL IMAGE -->\n                      <!-- <div *ngFor=\"let item of img\">\n                        {{item}}\n                      </div> -->\n                      <div id=\"myCarousel\" class=\"carousel slide\" data-ride=\"carousel\">\n                        <!-- Indicators -->\n                        <ol class=\"carousel-indicators\">\n                          <li data-target=\"#myCarousel\" *ngFor=\"let item of img; let i = index\" [attr.data-slide-to]=\"i\" ngClass=\"i == 0 ? 'active' : ''\"></li>\n                        </ol>\n                    \n                        <!-- Wrapper for slides -->\n                        <div class=\"carousel-inner\">\n                          <div *ngFor=\"let j of img; let k = index\" [ngClass]=\"k == 0 ? 'item active' : 'item'\">\n                            <img src=\"/assets/{{img[k]}}\" alt=\"Event Image\" class=\"img-responsive\" >\n                        </div>\n                        \n                          \n                        </div>\n                    \n                        <!-- Left and right controls -->\n                        <a class=\"left carousel-control\" href=\"#myCarousel\" data-slide=\"prev\">\n                          <span class=\"glyphicon glyphicon-chevron-left\"></span>\n                          <span class=\"sr-only\">Previous</span>\n                        </a>\n                        <a class=\"right carousel-control\" href=\"#myCarousel\" data-slide=\"next\">\n                          <span class=\"glyphicon glyphicon-chevron-right\"></span>\n                          <span class=\"sr-only\">Next</span>\n                        </a>\n                      </div>\n                   \n                      \n                      </mat-tab>\n                      <mat-tab #mapTab label=\"Map\">\n                          <div *ngIf=\"mapTab.isActive\">\n                            <app-map-service [myData]=\"data\"></app-map-service>\n                          </div>\n                      </mat-tab>\n                </mat-tab-group>\n              \n            </div>\n            <div></div>\n          </div>\n          <!-- MOTEL INFOMATION -->\n          <div class=\"info-wrapper\">\n              <!-- Description -->\n              <div></div>\n             <div>\n                <div class=\"descripsion\">\n                    <h4 class=\"mt-4\">About this location</h4>\n                    {{motel.description}}   \n                </div>\n             </div>\n             <!-- Address  -->\n             <div>\n                <div class=\"address\">\n                    <address>\n                        <h4>Address  </h4>\n                        <strong>{{motel.district}}, {{motel.city}} </strong>\n                        <br>{{motel.add}}, {{motel.street}}\n                        <br>{{motel.ward}}\n                        <br>\n                      </address>\n                </div>\n                <button mat-icon-button color=\"warn\"  (click)=\"onNavigate()\">           \n                  <mat-icon aria-label=\"Example icon-button with a heart icon\">room</mat-icon>\n                  Show location\n              </button>\n             </div>\n             <div></div>\n           </div>\n       \n          </div>\n\n         \n        <!-- USER INFO -->\n        <div class=\"user-info\">\n          <app-user-info [myData]=\"user\"></app-user-info>\n        </div>\n        <!-- COMMENT AREA -->\n        \n        \n        <div class=\"user-info-mobile\">\n            <div></div>\n            \n            <div>\n                <button mat-raised-button color=\"primary\" (click)=\"openDialog()\">Show contact info</button>\n            </div>\n\n            <div>\n              \n            </div>\n        </div>\n      </div>\n      <div class=\"cmt-wrapper\">\n        <div></div>\n        <div><app-comment-box  [motelID]=\"motel_id\"></app-comment-box></div>\n        <div></div>\n      </div>\n      <div class=\"comment-wrapper\">\n        <div></div>\n        <div>\n            <div style=\"height:20px;\"> </div> \n            <div>\n              <!-- comment list -->\n              <app-comment-list></app-comment-list>\n            </div>\n            \n        </div>\n        <div></div>\n          \n      </div>\n"
 
 /***/ }),
 
@@ -2994,10 +3069,11 @@ var CommentBoxComponent = (function () {
     };
     CommentBoxComponent.prototype.onSubmit = function () {
         var _this = this;
-        if (this.comment.content) {
-            var name_1 = this.exData1.firstname + ' ' + this.exData1.lastname;
+        if (this.comment.content && localStorage.getItem('currentUser')) {
+            var user = JSON.parse(localStorage.getItem('currentUser'));
+            var name_1 = user.firstname + ' ' + user.lastname;
             this.comment.customer_name = name_1;
-            this.comment.customer_id = this.exData1._id;
+            this.comment.customer_id = user._id;
             this.comment.created_at = new Date();
             this.comment.motel_id = this.motelID;
             this.commentService.comment(this.comment).subscribe(function (res) {
@@ -3006,11 +3082,10 @@ var CommentBoxComponent = (function () {
                 _this.alertService.error(err);
             });
         }
+        else {
+            this.alertService.error('Please log in!');
+        }
     };
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
-        __metadata("design:type", Object)
-    ], CommentBoxComponent.prototype, "exData1", void 0);
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
         __metadata("design:type", Object)
@@ -3078,6 +3153,7 @@ var CommentListComponent = (function () {
         var _this = this;
         this.commentService.findByMotel(this.motel_id).then(function (res) {
             _this.comments = res;
+            console.log(res);
             _this.comments.forEach(function (element) {
                 var created = new Date(element.created_at);
                 var date = created.getDate();

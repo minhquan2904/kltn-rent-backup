@@ -4,6 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminPageComponent } from './admin-page.component';
 import { AdminDashComponent } from '../layout/admin-dash/admin-dash.component';
 import { AdminTableMotelComponent } from '../layout/admin-table-motel/admin-table-motel.component';
+import { AdminTableCommentComponent } from '../layout/admin-table-comment/admin-table-comment.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -11,7 +13,8 @@ const routes: Routes = [
     children: [
       {path: '', component: AdminDashComponent},
       {path: 'home', component: AdminDashComponent},
-      {path: 'motel', component: AdminTableMotelComponent}
+      {path: 'motel', component: AdminTableMotelComponent},
+      {path: 'comment', component: AdminTableCommentComponent}
     ]
   }
 ];

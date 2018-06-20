@@ -10,6 +10,7 @@ import { AdminNavComponent} from '../layout/admin-nav/admin-nav.component';
 import { AdminDashComponent } from '../layout/admin-dash/admin-dash.component';
 import { AdminTableMotelComponent } from '../layout/admin-table-motel/admin-table-motel.component';
 import { AdminMenuComponent } from '../layout/admin-menu/admin-menu.component';
+import { AdminTableCommentComponent } from '../layout/admin-table-comment/admin-table-comment.component';
 import { AlertComponent } from '../layout/alert/alert.component';
 
 @NgModule({
@@ -25,6 +26,7 @@ import { AlertComponent } from '../layout/alert/alert.component';
     AdminNavComponent,
     AdminDashComponent,
     AdminTableMotelComponent,
+    AdminTableCommentComponent,
     AlertComponent
   ]
 })

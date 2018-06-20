@@ -5,11 +5,13 @@ var Schema = mongoose.Schema;
 
 var commentSchema = new Schema({
    
-    customer_id: String,
-    motel_id: String,
-    customer_name: String,
-    content: String,
-    created_at: Date
+    customer_id:    String,
+    customer_name:  String,
+    content:        String,
+    created_at:     Date,
+    motel_id:       String,
+    status:         {type: Number, default: 0}
+
 
 
 });

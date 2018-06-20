@@ -60,7 +60,7 @@ export class MotelService {
     });
    }
    findByStatus(status): Observable<Motel[]> {
-       console.log(this.apiUrl + '/motel/find-by-status/' + status);
+    //    console.log(this.apiUrl + '/motel/find-by-status/' + status);
        return this.http.get('/motel/find-by-status/' + status)
         .map( res => {
             return res.json().map(item => {

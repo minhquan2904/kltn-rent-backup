@@ -20,6 +20,7 @@ export class CommentListComponent implements OnInit {
   getCommentList() {
     this.commentService.findByMotel(this.motel_id).then( res => {
       this.comments = res;
+      console.log(res);
       this.comments.forEach(element => {
         const created = new Date(element.created_at);
         const date = created.getDate();

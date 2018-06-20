@@ -12,15 +12,15 @@ export class CommentBoxComponent implements OnInit {
   constructor( private commentService: CommentService, private alertService: AlertService) { }
   comment: any = {};
   options: FormGroup;
-  @Input()exData1;
   @Input()motelID;
   ngOnInit() {
   }
   onSubmit() {
-    if (this.comment.content) {
-      const name = this.exData1.firstname + ' ' +  this.exData1.lastname;
+    if (this.comment.content && localStorage.getItem('currentUser')) {
+      const user = JSON.parse(localStorage.getItem('currentUser'));
+      const name = user.firstname + ' ' +  user.lastname;
       this.comment.customer_name = name;
-      this.comment.customer_id = this.exData1._id;
+      this.comment.customer_id = user._id;
       this.comment.created_at = new Date();
       this.comment.motel_id = this.motelID;
       this.commentService.comment(this.comment).subscribe(res => {
@@ -28,6 +28,8 @@ export class CommentBoxComponent implements OnInit {
       }, err => {
         this.alertService.error(err);
       });
+    } else {
+      this.alertService.error('Please log in!');
     }
   }
 
