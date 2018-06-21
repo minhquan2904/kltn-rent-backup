@@ -21,24 +21,6 @@ export class CommentListComponent implements OnInit {
     this.commentService.findByMotel(this.motel_id).then( res => {
       this.comments = res;
       console.log(res);
-      this.comments.forEach(element => {
-        const created = new Date(element.created_at);
-        const date = created.getDate();
-        const month = created.getMonth() + 1;
-        const year = created.getFullYear();
-        const time = date + '/' + month + '/' + year;
-
-        const timeAgo = ( (new Date()).getTime() - created.getTime() ) / (3600 * 24); // return minutes ago
-        if ( timeAgo < 60 ) { // minutes
-          element.time = Number.parseInt(timeAgo.toString()) + ' minutes ago';
-        } else { // hours
-          if (timeAgo < (60 * 24) ) {
-            element.time = (Number.parseInt(timeAgo.toString()) / 60 ) + ' hours ago';
-          } else {
-            element.time = time;
-          }
-        }
-      });
     }, err => {
     });
 

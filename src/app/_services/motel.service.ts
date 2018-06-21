@@ -88,6 +88,35 @@ export class MotelService {
             });
         });
    }
+   findRecent(): Observable<Motel[]> {
+    //    console.log(this.apiUrl + '/motel/find-by-status/' + status);
+       return this.http.get('/motel/find-recent')
+        .map( res => {
+            return res.json().map(item => {
+                return new Motel(
+                    item._id,
+                    item.title,
+                    item.category,
+                    item.customer,
+                    item.description,
+                    item.price,
+                    item.area,
+                    item.city,
+                    item.district,
+                    item.street,
+                    item.ward,
+                    item.add,
+                    item.address,
+                    item.lat,
+                    item.lng,
+                    item.img,
+                    item.contact,
+                    item.status,
+                    item.created_at
+                );
+            });
+        });
+   }
    getTotalVote(id)    {
        return new Promise((resolve, reject) => {
         this.http.get('/vote/count/' + id)

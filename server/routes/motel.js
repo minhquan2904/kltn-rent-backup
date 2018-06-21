@@ -15,11 +15,27 @@ router.post('/get-list-nearby', getListNearBy);
 router.post('/find-lt-price', findLtPrice);
 router.get('/find-by-id/:id', findById);
 router.get('/statistic/num-post', getNumPost);
+router.get('/find-recent', findRecent);
 router.post('/search', search); // advance search
 router.get('/full-search/:q', fullSearch);
 router.get('/find-by-status/:status', findByStatus);
 module.exports = router;
-
+function findRecent(req, res) {
+    motelService.findRecent().then(function(comments){
+        if(comments)
+        // search successful
+        res.status(200).send(comments);
+    else{
+        // search fail
+        res.status(400).send("No Result");
+    }
+    })
+    .catch(
+        function (err) {
+            res.status(400).send(err);
+        }
+    );
+}
 function getNumPost(req, res) {
     motel.count({}, function (err, rs) {
         if(err) {

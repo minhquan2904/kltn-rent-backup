@@ -8,29 +8,32 @@
         
     </div>
   <div class="wrapper">
-      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 card"   *ngFor="let motel of motels" style="margin-bottom:20px;margin-top:20px;">
+      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 card"   *ngFor="let motel of motels | async" style="margin-bottom:20px;margin-top:20px;">
           <mat-card class="example-card"  >
               <div class="imageHolder">
                 <a [routerLink]="['/item', motel._id]">
-                <img mat-card-image [src]="'/assets/motel.img[0]'" alt="Photo of a Motel" style="width: 400px; height: 251px;">
+                <img mat-card-image src="/assets/{{motel.img[0]}}"  alt="Photo of a Motel" style="width: 400px; height: 251px;">
                 </a>
-                <div class="caption"><br>{{motel.price}} VND</div>
+                
               </div> 
              
               <mat-card-content>
                 
                 <div class="infor">
-                  <div class="logo">
-                      <img src="../assets/mini-logo.jpg" >
-                  </div>
-                  
+                    
                     <div class="address">
+                        <div class="timeAgo">
+                            {{ 'HOME.POST_AT' | translate}}: {{motel.created_at | date}} <small>{{ 'HOME.ABOUT_TIME' | translate}} {{motel.created_at | amTimeAgo}}</small>
+                        </div>
                         <div class="category">
                             <p>{{motel.category}}</p>
-                          </div>
+                        </div>
                         {{motel.add}} , {{motel.street}}, {{motel.ward}}, {{motel.district}} <br>
                         {{motel.city}}
                         <p>Cách thức liên hệ: {{motel.contact}}</p>
+                        <div class="price">
+                            {{ 'HOME.PRICE' | translate}}: <p>{{motel.price}} {{'HOME.PER_MONTH' | translate}}</p>
+                        </div>
                     </div>
                 </div>
                 

@@ -4,7 +4,11 @@
     "SELECT":   "Change language",
     "MODERN":   "modern",
     "FAST":     "fast",
-    "RELIABLE": "reliable"
+    "RELIABLE": "reliable",
+    "POST_AT":  "Post at",
+    "ABOUT_TIME": "About",
+    "PRICE": "Price",
+    "PER_MONTH": " per month"
   },
   "PAGE": {
     "HOME": "Home", 

@@ -11,7 +11,7 @@
                     <a href="#"><b> {{ comment.customer_name }}</b></a>
                     made a post.
                 </div>
-                <h6 class="text-muted time">{{ comment.time }}</h6>
+                <h6 class="text-muted time">{{ comment.created_at | amTimeAgo}}</h6>
             </div>
         </div> 
         <div class="post-description"> 

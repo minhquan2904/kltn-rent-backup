@@ -9,6 +9,7 @@ import { HashLocationStrategy, LocationStrategy, registerLocaleData } from '@ang
 import localVi from '@angular/common/locales/vi';
 import localEn from '@angular/common/locales/en';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MomentModule } from 'ngx-moment';
 import { AuthGuard } from './_guards/index';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { customHttpProvider, NullDefaultValueDirective } from './_helpers/index';
@@ -136,6 +137,7 @@ registerLocaleData(localEn);
     FormsModule, ReactiveFormsModule,
     BrowserAnimationsModule,
     MatAutocompleteModule,
+    MomentModule,
     FlexLayoutModule,
   MatButtonModule,
   MatButtonToggleModule,

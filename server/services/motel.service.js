@@ -13,6 +13,7 @@ service.findByUser = findByUser;
 service.findById = findById;
 service.findLtPrice = findLtPrice;
 service.findByStatus = findByStatus;
+service.findRecent = findRecent;
 service.fullSearch = fullSearch;
 service.getListNearBy = getListNearBy;
 service.getLatLng = getLatLng;
@@ -32,6 +33,16 @@ function fullSearch(value) {
             deferred.reject();
         }
        
+    });
+    return deferred.promise;
+}
+function findRecent() {
+    var deferred = Q.defer();
+    motels.find({status: 1}).sort({created_at: -1, rating: -1}).limit(6).exec(function (err, motels) {
+        if (err) deferred.reject(err.name + ': ' + err.message);
+       
+
+        deferred.resolve(motels);
     });
     return deferred.promise;
 }
@@ -160,7 +171,8 @@ function create(motelParam)
     )
 
     function createMotel()
-    {       
+    {   
+        motelParam.created_at = new Date();   
         motels.create(
             motelParam,
             function (err, doc) {

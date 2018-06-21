@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { MotelService, AlertService } from '../../../_services/index';
+import { Component, OnInit, Input } from '@angular/core';
+import { Observable} from 'rxjs/Observable';
+// import {TranslateService} from '@ngx-translate/core';
+
+import { Motel } from '../../../_models/index';
 @Component({
   selector: 'app-recent-post',
   templateUrl: './recent-post.component.html',
@@ -10,34 +13,15 @@ export class RecentPostComponent implements OnInit {
   public latitude: number;
   public longitude: number;
 
+  @Input('motels') motels: Observable<Motel[]>;
   // list motel
-  motels: any = {};
   data: any = {};
   // map : MapComponent;
   currentUser: any = {};
   moderator: boolean;
-  constructor(private motelSerivce: MotelService, private alertSerivce: AlertService) { }
+  // public translate: TranslateService
+  constructor() { }
 
   ngOnInit() {
-    this.getCurrentPosition();
-  }
-
-  getCurrentPosition()  {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.data.lat = position.coords.latitude;
-        this.data.lng = position.coords.longitude;
-        this.getListNearBy();
-      });
-    }
-  }
-  getListNearBy()  {
-    this.motelSerivce.getListNearBy(this.data).subscribe(res => {
-      this.motels = res; }, err => {this.alertSerivce.error(err); });
-  }
-
-  _delete(id) {
-    this.motelSerivce._delte(id).subscribe(res => {
-      this.alertSerivce.success('delete ok'); }, err => {this.alertSerivce.error(err); });
   }
 }

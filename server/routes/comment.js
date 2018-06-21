@@ -7,6 +7,7 @@ var tests = require('../models/Test.model');
 router.post('/insert', insert);
 router.get('/find-by-motel/:id', findByMotel );
 router.get('/find-by-status/:status', findByStatus);
+
 router.put('/:id', update );
 router.delete('/:id', _delete);
 
@@ -55,6 +56,7 @@ function findByStatus(req, res) {
     );
         
 }
+
 function findByMotel(req,res)
 {
     commentService.findByMotel(req.params.id).then(function(comments){

@@ -4,7 +4,11 @@
     "SELECT":   "Change language",
     "MODERN":   "hiện đại",
     "FAST":     "nhanh chóng",
-    "RELIABLE": "hợp lí"
+    "RELIABLE": "hợp lí",
+    "POST_AT":  "Ngày đăng",
+    "ABOUT_TIME": "Cách đây",
+    "PRICE": "Giá tiền",
+    "PER_MONTH": "/tháng"
   },
   "PAGE": {
     "HOME":     "Trang chủ",

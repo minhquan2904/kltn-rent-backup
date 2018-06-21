@@ -129,12 +129,6 @@ function findByMotel(id)
     comments.find({motel_id: id, status: 1}, function(err, items){
         if (err) deferred.reject(err.name + ': ' + err.message);
         if(items) {
-            
-            // console.log();
-            items.map(item => {
-                item.fromNow = moment(item.created_at).fromNow();
-                console.log(item.fromNow);
-            });
             deferred.resolve(items);
         }
         else{
