@@ -40,7 +40,10 @@ opacity:0.7;
 
 }
 .timeAgo{
-
+  font-size: 15px;
+}
+.price {
+  font-size: 15px;
 }
 .price p{
   color: red;

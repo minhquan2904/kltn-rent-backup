@@ -2,7 +2,7 @@
     <div class="recent-title">
       <div class="hr-title"></div>
       <div class="rencent-title-h4">
-          <h2>Newest Post</h2>
+          <h2>{{title}}</h2>
       </div>
       <div class="hr-title"></div>
         
@@ -23,7 +23,7 @@
                     
                     <div class="address">
                         <div class="timeAgo">
-                            {{ 'HOME.POST_AT' | translate}}: {{motel.created_at | date}} <small>{{ 'HOME.ABOUT_TIME' | translate}} {{motel.created_at | amTimeAgo}}</small>
+                            <b>{{ 'HOME.POST_AT' | translate}}:</b> {{motel.created_at | date}} <small>{{ 'HOME.ABOUT_TIME' | translate}} {{motel.created_at | amTimeAgo}}</small>
                         </div>
                         <div class="category">
                             <p>{{motel.category}}</p>
@@ -32,7 +32,7 @@
                         {{motel.city}}
                         <p>Cách thức liên hệ: {{motel.contact}}</p>
                         <div class="price">
-                            {{ 'HOME.PRICE' | translate}}: <p>{{motel.price}} {{'HOME.PER_MONTH' | translate}}</p>
+                            <b>{{ 'HOME.PRICE' | translate}}:</b> <p>{{motel.price}} {{ 'HOME.PER_MONTH' | translate}}</p>
                         </div>
                     </div>
                 </div>

@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
   public color: String = 'WHITE'; // color for nav character
   constructor(private motelSerivce: MotelService, private alertSerivce: AlertService) { }
   motels: Observable<Motel[]>;
-
+  title: String = 'Newest Post';
   ngOnInit() {
     this.motels = this.motelSerivce.findRecent();
   }

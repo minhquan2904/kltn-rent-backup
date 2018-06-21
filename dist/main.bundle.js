@@ -1218,7 +1218,12 @@ var MotelService = (function () {
         return this.http.post('/motel/search', data);
     };
     MotelService.prototype.fullSearch = function (data) {
-        return this.http.get('/motel/full-search/' + data);
+        return this.http.get('/motel/full-search/' + data)
+            .map(function (res) {
+            return res.json().map(function (item) {
+                return new __WEBPACK_IMPORTED_MODULE_4__models_motel_model__["a" /* Motel */](item._id, item.title, item.category, item.customer, item.description, item.price, item.area, item.city, item.district, item.street, item.ward, item.add, item.address, item.lat, item.lng, item.img, item.contact, item.status, item.created_at);
+            });
+        });
     };
     MotelService.prototype.findLtPrice = function (data) {
         return this.http.post('/motel/find-lt-price', data)
@@ -1485,8 +1490,9 @@ var AppComponent = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return appConfig; });
 var appConfig = {
-    // 'https://rent-deploy.herokuapp.com'
-    apiUrl: 'http://localhost:3000',
+    // 
+    // apiUrl: 'http://localhost:3000',
+    apiUrl: 'https://rent-deploy.herokuapp.com',
     vn: {
         '1': {
             'name': 'Cần Thơ',
@@ -2967,7 +2973,7 @@ module.exports = ""
 /***/ "./src/app/main/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-nav [colorStyle]=\"color\"></app-nav>\n<app-search></app-search>\n\n<app-recent-post [motels] = \"motels\"></app-recent-post>\n<app-footer></app-footer>"
+module.exports = "<app-nav [colorStyle]=\"color\"></app-nav>\n<app-search></app-search>\n\n<app-recent-post [motels] = \"motels\" [title]=\"title\"></app-recent-post>\n<app-footer></app-footer>"
 
 /***/ }),
 
@@ -2994,6 +3000,7 @@ var HomeComponent = (function () {
         this.motelSerivce = motelSerivce;
         this.alertSerivce = alertSerivce;
         this.color = 'WHITE'; // color for nav character
+        this.title = 'Newest Post';
     }
     HomeComponent.prototype.ngOnInit = function () {
         this.motels = this.motelSerivce.findRecent();
@@ -4064,14 +4071,14 @@ var NavComponent = (function () {
 /***/ "./src/app/main/layout/recent-post/recent-post.component.css":
 /***/ (function(module, exports) {
 
-module.exports = "\r\n  .card img {\r\n    width: 100%;\r\n    height: auto;\r\n  }\r\n  .wrapper{\r\n      overflow: hidden;\r\n  }\r\n  .recent h4\r\n  {\r\n    text-align: center;\r\n    \r\n  }\r\n  .imageHolder {\r\n    position: relative;\r\n}\r\n  .imageHolder .caption {\r\n  position: absolute;\r\n \r\n  bottom: 18px;\r\n  left: -23px;\r\n  color: #ffffff;\r\n  background: rgba(0,0,0,.5);\r\ntext-align:center;\r\nfont-weight:bold;\r\nopacity:0.7;\r\n}\r\n  .category{\r\n  font-weight: bolder;\r\n  font-size: 14px;\r\n}\r\n  .address{\r\n  font-weight: inherit;\r\n  font-size: 10px;\r\n  float: left;\r\n  width: calc(100%-100px);\r\n  padding-left: 20px;\r\n\r\n}\r\n  .timeAgo{\r\n\r\n}\r\n  .price p{\r\n  color: red;\r\n}\r\n  .infor{\r\n  display: inline-block;\r\n}\r\n  .logo{\r\n  float: left;\r\n  width: 100px;\r\n  padding-left: -10px;\r\n}\r\n  .recent {\r\n  background: #f5f5f5;\r\n}\r\n  .recent-title {\r\n    margin-right: auto;\r\n    margin-left: auto;\r\n    position: relative;\r\n    margin: 68px auto 40px;\r\n    text-align: center;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-columns: 4fr 2fr 4fr;\r\n        grid-template-columns: 4fr 2fr 4fr;\r\n    \r\n}\r\n  .hr-title {\r\n  border-top: 2px solid #E0E0E0; \r\n  height:0px; \r\n  -ms-flex-item-align: center; \r\n      -ms-grid-row-align: center; \r\n      align-self: center;\r\n  border-radius: 2px;\r\n  border-bottom: 2px solid #E0E0E0; \r\n  \r\n  \r\n}\r\n"
+module.exports = "\r\n  .card img {\r\n    width: 100%;\r\n    height: auto;\r\n  }\r\n  .wrapper{\r\n      overflow: hidden;\r\n  }\r\n  .recent h4\r\n  {\r\n    text-align: center;\r\n    \r\n  }\r\n  .imageHolder {\r\n    position: relative;\r\n}\r\n  .imageHolder .caption {\r\n  position: absolute;\r\n \r\n  bottom: 18px;\r\n  left: -23px;\r\n  color: #ffffff;\r\n  background: rgba(0,0,0,.5);\r\ntext-align:center;\r\nfont-weight:bold;\r\nopacity:0.7;\r\n}\r\n  .category{\r\n  font-weight: bolder;\r\n  font-size: 14px;\r\n}\r\n  .address{\r\n  font-weight: inherit;\r\n  font-size: 10px;\r\n  float: left;\r\n  width: calc(100%-100px);\r\n  padding-left: 20px;\r\n\r\n}\r\n  .timeAgo{\r\n  font-size: 15px;\r\n}\r\n  .price {\r\n  font-size: 15px;\r\n}\r\n  .price p{\r\n  color: red;\r\n}\r\n  .infor{\r\n  display: inline-block;\r\n}\r\n  .logo{\r\n  float: left;\r\n  width: 100px;\r\n  padding-left: -10px;\r\n}\r\n  .recent {\r\n  background: #f5f5f5;\r\n}\r\n  .recent-title {\r\n    margin-right: auto;\r\n    margin-left: auto;\r\n    position: relative;\r\n    margin: 68px auto 40px;\r\n    text-align: center;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-columns: 4fr 2fr 4fr;\r\n        grid-template-columns: 4fr 2fr 4fr;\r\n    \r\n}\r\n  .hr-title {\r\n  border-top: 2px solid #E0E0E0; \r\n  height:0px; \r\n  -ms-flex-item-align: center; \r\n      -ms-grid-row-align: center; \r\n      align-self: center;\r\n  border-radius: 2px;\r\n  border-bottom: 2px solid #E0E0E0; \r\n  \r\n  \r\n}\r\n"
 
 /***/ }),
 
 /***/ "./src/app/main/layout/recent-post/recent-post.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row recent\" style=\"margin-left: 0; margin-right: 0;\"> \n    <div class=\"recent-title\">\n      <div class=\"hr-title\"></div>\n      <div class=\"rencent-title-h4\">\n          <h2>Newest Post</h2>\n      </div>\n      <div class=\"hr-title\"></div>\n        \n    </div>\n  <div class=\"wrapper\">\n      <div class=\"col-lg-4 col-md-4 col-sm-6 col-xs-12 card\"   *ngFor=\"let motel of motels | async\" style=\"margin-bottom:20px;margin-top:20px;\">\n          <mat-card class=\"example-card\"  >\n              <div class=\"imageHolder\">\n                <a [routerLink]=\"['/item', motel._id]\">\n                <img mat-card-image src=\"/assets/{{motel.img[0]}}\"  alt=\"Photo of a Motel\" style=\"width: 400px; height: 251px;\">\n                </a>\n                \n              </div> \n             \n              <mat-card-content>\n                \n                <div class=\"infor\">\n                    \n                    <div class=\"address\">\n                        <div class=\"timeAgo\">\n                            {{ 'HOME.POST_AT' | translate}}: {{motel.created_at | date}} <small>{{ 'HOME.ABOUT_TIME' | translate}} {{motel.created_at | amTimeAgo}}</small>\n                        </div>\n                        <div class=\"category\">\n                            <p>{{motel.category}}</p>\n                        </div>\n                        {{motel.add}} , {{motel.street}}, {{motel.ward}}, {{motel.district}} <br>\n                        {{motel.city}}\n                        <p>Cách thức liên hệ: {{motel.contact}}</p>\n                        <div class=\"price\">\n                            {{ 'HOME.PRICE' | translate}}: <p>{{motel.price}} {{'HOME.PER_MONTH'}}</p>\n                        </div>\n                    </div>\n                </div>\n                \n               \n              </mat-card-content>\n              <mat-card-actions>\n                <button mat-button>LIKE</button>\n                <button mat-raised-button color=\"warn\" *ngIf=\"moderator\" (click)=\"_delete(motel._id)\">DELETE</button>\n                <button mat-button><a [routerLink]=\"['/item', motel._id]\">Show Details</a></button>\n              </mat-card-actions>\n            </mat-card>\n          \n      </div>\n  </div>\n    \n\n\n</div>\n    "
+module.exports = "<div class=\"row recent\" style=\"margin-left: 0; margin-right: 0;\"> \n    <div class=\"recent-title\">\n      <div class=\"hr-title\"></div>\n      <div class=\"rencent-title-h4\">\n          <h2>{{title}}</h2>\n      </div>\n      <div class=\"hr-title\"></div>\n        \n    </div>\n  <div class=\"wrapper\">\n      <div class=\"col-lg-4 col-md-4 col-sm-6 col-xs-12 card\"   *ngFor=\"let motel of motels | async\" style=\"margin-bottom:20px;margin-top:20px;\">\n          <mat-card class=\"example-card\"  >\n              <div class=\"imageHolder\">\n                <a [routerLink]=\"['/item', motel._id]\">\n                <img mat-card-image src=\"/assets/{{motel.img[0]}}\"  alt=\"Photo of a Motel\" style=\"width: 400px; height: 251px;\">\n                </a>\n                \n              </div> \n             \n              <mat-card-content>\n                \n                <div class=\"infor\">\n                    \n                    <div class=\"address\">\n                        <div class=\"timeAgo\">\n                            <b>{{ 'HOME.POST_AT' | translate}}:</b> {{motel.created_at | date}} <small>{{ 'HOME.ABOUT_TIME' | translate}} {{motel.created_at | amTimeAgo}}</small>\n                        </div>\n                        <div class=\"category\">\n                            <p>{{motel.category}}</p>\n                        </div>\n                        {{motel.add}} , {{motel.street}}, {{motel.ward}}, {{motel.district}} <br>\n                        {{motel.city}}\n                        <p>Cách thức liên hệ: {{motel.contact}}</p>\n                        <div class=\"price\">\n                            <b>{{ 'HOME.PRICE' | translate}}:</b> <p>{{motel.price}} {{ 'HOME.PER_MONTH' | translate}}</p>\n                        </div>\n                    </div>\n                </div>\n                \n               \n              </mat-card-content>\n              <mat-card-actions>\n                <button mat-button>LIKE</button>\n                <button mat-raised-button color=\"warn\" *ngIf=\"moderator\" (click)=\"_delete(motel._id)\">DELETE</button>\n                <button mat-button><a [routerLink]=\"['/item', motel._id]\">Show Details</a></button>\n              </mat-card-actions>\n            </mat-card>\n          \n      </div>\n  </div>\n    \n\n\n</div>\n    "
 
 /***/ }),
 
@@ -4107,6 +4114,10 @@ var RecentPostComponent = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('motels'),
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__["a" /* Observable */])
     ], RecentPostComponent.prototype, "motels", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])('title'),
+        __metadata("design:type", String)
+    ], RecentPostComponent.prototype, "title", void 0);
     RecentPostComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-recent-post',
@@ -4132,7 +4143,7 @@ module.exports = "*.home-wrap h1,*/\r\n.home-wrap h2,\r\n.home-wrap h3,\r\n.home
 /***/ "./src/app/main/layout/search/search.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<section id=\"home\" class=\"home\">\n  <div class=\"home_overlay\">\n      <div class=\"container\">\n          <div class=\"row\">\n              <div class=\"main_slider_area\">\n                  <div class=\"slider\">\n                      <div class=\"single_slider\">\n                          <p class=\"home-title\">{{ 'HOME.TITLE' | translate}}</p>\n                          <p>{{ 'HOME.MODERN' | translate}}  -  {{ 'HOME.FAST' | translate}}  -  {{ 'HOME.RELIABLE' | translate}}</p>\n                          \n                          <div class=\"col-sm-8 col-sm-offset-2\">\n                              <div class=\"home_searce_domain_area\">\n                                  <div class=\"input-search\">\n                                      <mat-form-field>\n                                        <input type=\"text\" matInput placeholder=\"Type text here\" [(ngModel)] = \"query\">\n                                      </mat-form-field>\n                                          \n                                            \n                                     \n                                      <button mat-raised-button (click)=\"onSearchClick()\" color=\"primary\"><mat-icon>search</mat-icon>Search</button>\n                                      <button mat-raised-button color=\"warn\"><mat-icon>assignment</mat-icon>Advance</button>\n                                  </div>\n                              </div>\n                          </div>\n                      </div>\n\n                  </div>\n              </div>\n          </div>\n      </div>\n  </div>\n</section><!-- End of Banner Section -->"
+module.exports = "<section id=\"home\" class=\"home\">\n  <div class=\"home_overlay\">\n      <div class=\"container\">\n          <div class=\"row\">\n              <div class=\"main_slider_area\">\n                  <div class=\"slider\">\n                      <div class=\"single_slider\">\n                          <p class=\"home-title\">{{ 'HOME.TITLE' | translate}}</p>\n                          <p>{{ 'HOME.MODERN' | translate}}  -  {{ 'HOME.FAST' | translate}}  -  {{ 'HOME.RELIABLE' | translate}}</p>\n                          \n                          <div class=\"col-sm-8 col-sm-offset-2\">\n                              <div class=\"home_searce_domain_area\">\n                                  <div class=\"input-search\">\n                                      <mat-form-field>\n                                        <input type=\"text\" matInput placeholder=\"Type text here\" [(ngModel)] = \"query\">\n                                      </mat-form-field>\n                                          \n                                            \n                                     \n                                      <button mat-raised-button (click)=\"onSearchClick()\" color=\"primary\"><mat-icon>search</mat-icon>Search</button>\n                                      <button mat-raised-button color=\"warn\"><mat-icon>assignment</mat-icon>Advance</button>\n                                  </div>\n                              </div>\n                          </div>\n                      </div>\n\n                  </div>\n              </div>\n          </div>\n      </div>\n  </div>\n</section><!-- End of Banner Section -->\n<app-recent-post [motels] = \"motels\" [title]=\"title\" *ngIf=\"hasRs\"></app-recent-post>"
 
 /***/ }),
 
@@ -4157,15 +4168,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var SearchComponent = (function () {
     function SearchComponent(motelService) {
         this.motelService = motelService;
+        this.hasRs = false; // flag to show resuls
+        this.title = 'Resutls';
     }
     SearchComponent.prototype.ngOnInit = function () {
     };
     SearchComponent.prototype.onSearchClick = function () {
-        this.motelService.fullSearch(this.query).subscribe(function (res) {
-            console.log(res.json());
-        }, function (err) {
-            console.log('err: ' + err);
-        });
+        this.hasRs = true;
+        this.motels = this.motelService.fullSearch(this.query);
     };
     SearchComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({

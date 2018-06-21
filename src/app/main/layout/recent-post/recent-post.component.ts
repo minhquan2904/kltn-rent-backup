@@ -14,6 +14,7 @@ export class RecentPostComponent implements OnInit {
   public longitude: number;
 
   @Input('motels') motels: Observable<Motel[]>;
+  @Input('title') title: String;
   // list motel
   data: any = {};
   // map : MapComponent;
