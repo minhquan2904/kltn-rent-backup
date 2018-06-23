@@ -68,10 +68,11 @@ var AdminPageComponent = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdminRoutingModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__admin_page_component__ = __webpack_require__("./src/app/admin/admin-page/admin-page.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__layout_admin_dash_admin_dash_component__ = __webpack_require__("./src/app/admin/layout/admin-dash/admin-dash.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__layout_admin_table_motel_admin_table_motel_component__ = __webpack_require__("./src/app/admin/layout/admin-table-motel/admin-table-motel.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__layout_admin_table_comment_admin_table_comment_component__ = __webpack_require__("./src/app/admin/layout/admin-table-comment/admin-table-comment.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__guards_index__ = __webpack_require__("./src/app/_guards/index.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__admin_page_component__ = __webpack_require__("./src/app/admin/admin-page/admin-page.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__layout_admin_dash_admin_dash_component__ = __webpack_require__("./src/app/admin/layout/admin-dash/admin-dash.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__layout_admin_table_motel_admin_table_motel_component__ = __webpack_require__("./src/app/admin/layout/admin-table-motel/admin-table-motel.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__layout_admin_table_comment_admin_table_comment_component__ = __webpack_require__("./src/app/admin/layout/admin-table-comment/admin-table-comment.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -84,15 +85,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
 var routes = [
     {
         path: '',
-        component: __WEBPACK_IMPORTED_MODULE_2__admin_page_component__["a" /* AdminPageComponent */],
+        component: __WEBPACK_IMPORTED_MODULE_3__admin_page_component__["a" /* AdminPageComponent */],
+        canActivate: [__WEBPACK_IMPORTED_MODULE_2__guards_index__["a" /* AdminGuard */]],
         children: [
-            { path: '', component: __WEBPACK_IMPORTED_MODULE_3__layout_admin_dash_admin_dash_component__["a" /* AdminDashComponent */] },
-            { path: 'home', component: __WEBPACK_IMPORTED_MODULE_3__layout_admin_dash_admin_dash_component__["a" /* AdminDashComponent */] },
-            { path: 'motel', component: __WEBPACK_IMPORTED_MODULE_4__layout_admin_table_motel_admin_table_motel_component__["a" /* AdminTableMotelComponent */] },
-            { path: 'comment', component: __WEBPACK_IMPORTED_MODULE_5__layout_admin_table_comment_admin_table_comment_component__["a" /* AdminTableCommentComponent */] }
+            { path: '',
+                canActivate: [__WEBPACK_IMPORTED_MODULE_2__guards_index__["a" /* AdminGuard */]],
+                children: [
+                    { path: '', component: __WEBPACK_IMPORTED_MODULE_4__layout_admin_dash_admin_dash_component__["a" /* AdminDashComponent */] },
+                    { path: 'home', component: __WEBPACK_IMPORTED_MODULE_4__layout_admin_dash_admin_dash_component__["a" /* AdminDashComponent */] },
+                    { path: 'motel', component: __WEBPACK_IMPORTED_MODULE_5__layout_admin_table_motel_admin_table_motel_component__["a" /* AdminTableMotelComponent */] },
+                    { path: 'comment', component: __WEBPACK_IMPORTED_MODULE_6__layout_admin_table_comment_admin_table_comment_component__["a" /* AdminTableCommentComponent */] }
+                ]
+            },
         ]
     }
 ];
@@ -120,20 +128,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminModule", function() { return AdminModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__("./node_modules/@angular/common/esm5/common.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_material__ = __webpack_require__("./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__admin_routing_module__ = __webpack_require__("./src/app/admin/admin-page/admin-routing.module.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__admin_page_component__ = __webpack_require__("./src/app/admin/admin-page/admin-page.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__layout_admin_nav_admin_nav_component__ = __webpack_require__("./src/app/admin/layout/admin-nav/admin-nav.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__layout_admin_dash_admin_dash_component__ = __webpack_require__("./src/app/admin/layout/admin-dash/admin-dash.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__layout_admin_table_motel_admin_table_motel_component__ = __webpack_require__("./src/app/admin/layout/admin-table-motel/admin-table-motel.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__layout_admin_table_comment_admin_table_comment_component__ = __webpack_require__("./src/app/admin/layout/admin-table-comment/admin-table-comment.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__layout_alert_alert_component__ = __webpack_require__("./src/app/admin/layout/alert/alert.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__guards_index__ = __webpack_require__("./src/app/_guards/index.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_material__ = __webpack_require__("./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__admin_routing_module__ = __webpack_require__("./src/app/admin/admin-page/admin-routing.module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__admin_page_component__ = __webpack_require__("./src/app/admin/admin-page/admin-page.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__layout_admin_nav_admin_nav_component__ = __webpack_require__("./src/app/admin/layout/admin-nav/admin-nav.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__layout_admin_dash_admin_dash_component__ = __webpack_require__("./src/app/admin/layout/admin-dash/admin-dash.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__layout_admin_table_motel_admin_table_motel_component__ = __webpack_require__("./src/app/admin/layout/admin-table-motel/admin-table-motel.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__layout_admin_table_comment_admin_table_comment_component__ = __webpack_require__("./src/app/admin/layout/admin-table-comment/admin-table-comment.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__layout_alert_alert_component__ = __webpack_require__("./src/app/admin/layout/alert/alert.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -151,19 +161,20 @@ var AdminModule = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
             imports: [
                 __WEBPACK_IMPORTED_MODULE_1__angular_common__["CommonModule"],
-                __WEBPACK_IMPORTED_MODULE_3__admin_routing_module__["a" /* AdminRoutingModule */],
-                __WEBPACK_IMPORTED_MODULE_2__angular_material__["c" /* MatButtonModule */], __WEBPACK_IMPORTED_MODULE_2__angular_material__["f" /* MatCheckboxModule */], __WEBPACK_IMPORTED_MODULE_2__angular_material__["J" /* MatTabsModule */],
-                __WEBPACK_IMPORTED_MODULE_2__angular_material__["v" /* MatPaginatorModule */], __WEBPACK_IMPORTED_MODULE_2__angular_material__["I" /* MatTableModule */], __WEBPACK_IMPORTED_MODULE_2__angular_material__["F" /* MatSortModule */],
-                __WEBPACK_IMPORTED_MODULE_2__angular_material__["m" /* MatFormFieldModule */], __WEBPACK_IMPORTED_MODULE_2__angular_material__["q" /* MatInputModule */]
+                __WEBPACK_IMPORTED_MODULE_4__admin_routing_module__["a" /* AdminRoutingModule */],
+                __WEBPACK_IMPORTED_MODULE_3__angular_material__["c" /* MatButtonModule */], __WEBPACK_IMPORTED_MODULE_3__angular_material__["f" /* MatCheckboxModule */], __WEBPACK_IMPORTED_MODULE_3__angular_material__["J" /* MatTabsModule */],
+                __WEBPACK_IMPORTED_MODULE_3__angular_material__["v" /* MatPaginatorModule */], __WEBPACK_IMPORTED_MODULE_3__angular_material__["I" /* MatTableModule */], __WEBPACK_IMPORTED_MODULE_3__angular_material__["F" /* MatSortModule */],
+                __WEBPACK_IMPORTED_MODULE_3__angular_material__["m" /* MatFormFieldModule */], __WEBPACK_IMPORTED_MODULE_3__angular_material__["q" /* MatInputModule */]
             ],
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_4__admin_page_component__["a" /* AdminPageComponent */],
-                __WEBPACK_IMPORTED_MODULE_5__layout_admin_nav_admin_nav_component__["a" /* AdminNavComponent */],
-                __WEBPACK_IMPORTED_MODULE_6__layout_admin_dash_admin_dash_component__["a" /* AdminDashComponent */],
-                __WEBPACK_IMPORTED_MODULE_7__layout_admin_table_motel_admin_table_motel_component__["a" /* AdminTableMotelComponent */],
-                __WEBPACK_IMPORTED_MODULE_8__layout_admin_table_comment_admin_table_comment_component__["a" /* AdminTableCommentComponent */],
-                __WEBPACK_IMPORTED_MODULE_9__layout_alert_alert_component__["a" /* AlertComponent */]
-            ]
+                __WEBPACK_IMPORTED_MODULE_5__admin_page_component__["a" /* AdminPageComponent */],
+                __WEBPACK_IMPORTED_MODULE_6__layout_admin_nav_admin_nav_component__["a" /* AdminNavComponent */],
+                __WEBPACK_IMPORTED_MODULE_7__layout_admin_dash_admin_dash_component__["a" /* AdminDashComponent */],
+                __WEBPACK_IMPORTED_MODULE_8__layout_admin_table_motel_admin_table_motel_component__["a" /* AdminTableMotelComponent */],
+                __WEBPACK_IMPORTED_MODULE_9__layout_admin_table_comment_admin_table_comment_component__["a" /* AdminTableCommentComponent */],
+                __WEBPACK_IMPORTED_MODULE_10__layout_alert_alert_component__["a" /* AlertComponent */]
+            ],
+            providers: [__WEBPACK_IMPORTED_MODULE_2__guards_index__["a" /* AdminGuard */]]
         })
     ], AdminModule);
     return AdminModule;

@@ -8,7 +8,7 @@
         
     </div>
   <div class="wrapper">
-      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 card"   *ngFor="let motel of motels | async" style="margin-bottom:20px;margin-top:20px;">
+      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 card"   *ngFor="let motel of motels | async | paginate: { itemsPerPage: 3, currentPage: p }" style="margin-bottom:20px;margin-top:20px;">
           <mat-card class="example-card"  >
               <div class="imageHolder">
                 <a [routerLink]="['/item', motel._id]">
@@ -47,6 +47,7 @@
             </mat-card>
           
       </div>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
   </div>
     
 

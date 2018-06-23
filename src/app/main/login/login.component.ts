@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
             data => {
               // login successful
               console.log(JSON.parse(localStorage.getItem('currentUser')).role);
-              if (JSON.parse(localStorage.getItem('currentUser')).role > 1) {
+              if (JSON.parse(localStorage.getItem('currentUser')).role < 3) {
                 this.router.navigate(['/admin']); // navigate to admin page
               } else {
                 this.router.navigate([this.returnUrl]);

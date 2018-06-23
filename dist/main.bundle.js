@@ -357,6 +357,61 @@ var AlertComponent = (function () {
 
 /***/ }),
 
+/***/ "./src/app/_guards/admin.guard.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdminGuard; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_index__ = __webpack_require__("./src/app/_services/index.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var AdminGuard = (function () {
+    function AdminGuard(router, authService) {
+        this.router = router;
+        this.authService = authService;
+    }
+    AdminGuard.prototype.canActivate = function (route, state) {
+        var url = state.url;
+        return this.checkLogin(url);
+        // console.log("ERR!");
+        // not logged in so redirect to login page with the return 
+    };
+    AdminGuard.prototype.canActivateChild = function (route, state) {
+        return this.canActivate(route, state);
+    };
+    AdminGuard.prototype.checkLogin = function (url) {
+        if (this.authService.isAdmin) {
+            return true;
+        }
+        // Store the attempted URL for redirecting
+        // this.authService.redirectUrl = url;
+        // Navigate to the login page with extras
+        this.router.navigate(['/login']);
+        return false;
+    };
+    AdminGuard = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */], __WEBPACK_IMPORTED_MODULE_2__services_index__["b" /* AuthenticationService */]])
+    ], AdminGuard);
+    return AdminGuard;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/_guards/auth.guard.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -405,7 +460,10 @@ var AuthGuard = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__auth_guard__ = __webpack_require__("./src/app/_guards/auth.guard.ts");
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__auth_guard__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__auth_guard__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__admin_guard__ = __webpack_require__("./src/app/_guards/admin.guard.ts");
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__admin_guard__["a"]; });
+
 
 
 
@@ -830,8 +888,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var AuthenticationService = (function () {
     function AuthenticationService(http) {
         this.http = http;
+        this.isLoggedIn = false;
+        this.isAdmin = false;
     }
     AuthenticationService.prototype.login = function (username, password) {
+        var _this = this;
         return this.http.post('/users/authenticate', { username: username, password: password })
             .map(function (response) {
             // login successful if there's a jwt token in the response
@@ -839,6 +900,13 @@ var AuthenticationService = (function () {
             if (user) {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('currentUser', JSON.stringify(user));
+                _this.isLoggedIn = true;
+                if (user.role < 3) {
+                    _this.isAdmin = true;
+                }
+                else {
+                    _this.isAdmin = false;
+                }
             }
             return user;
         });
@@ -2592,28 +2660,29 @@ var appConfig = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_ng2_file_upload_ng2_file_upload___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15_ng2_file_upload_ng2_file_upload__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__services_index__ = __webpack_require__("./src/app/_services/index.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__agm_core__ = __webpack_require__("./node_modules/@agm/core/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__angular_platform_browser_animations__ = __webpack_require__("./node_modules/@angular/platform-browser/esm5/animations.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__angular_material__ = __webpack_require__("./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__directives_index__ = __webpack_require__("./src/app/_directives/index.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__app_component__ = __webpack_require__("./src/app/app.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__main_layout_nav_nav_component__ = __webpack_require__("./src/app/main/layout/nav/nav.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__main_layout_search_search_component__ = __webpack_require__("./src/app/main/layout/search/search.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__main_home_home_component__ = __webpack_require__("./src/app/main/home/home.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__main_layout_footer_footer_component__ = __webpack_require__("./src/app/main/layout/footer/footer.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__main_layout_recent_post_recent_post_component__ = __webpack_require__("./src/app/main/layout/recent-post/recent-post.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__main_login_login_component__ = __webpack_require__("./src/app/main/login/login.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__main_item_item_component__ = __webpack_require__("./src/app/main/item/item.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__main_layout_map_map_component__ = __webpack_require__("./src/app/main/layout/map/map.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__main_layout_user_info_user_info_component__ = __webpack_require__("./src/app/main/layout/user-info/user-info.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__main_layout_comment_list_comment_list_component__ = __webpack_require__("./src/app/main/layout/comment-list/comment-list.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__main_layout_show_map_show_map_component__ = __webpack_require__("./src/app/main/layout/show-map/show-map.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__main_layout_comment_box_comment_box_component__ = __webpack_require__("./src/app/main/layout/comment-box/comment-box.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__agm_snazzy_info_window__ = __webpack_require__("./node_modules/@agm/snazzy-info-window/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__main_layout_fail_page_fail_page_component__ = __webpack_require__("./src/app/main/layout/fail-page/fail-page.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__form_form_component__ = __webpack_require__("./src/app/form/form.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__main_layout_map_service_map_service_component__ = __webpack_require__("./src/app/main/layout/map-service/map-service.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__main_layout_advance_search_advance_search_component__ = __webpack_require__("./src/app/main/layout/advance-search/advance-search.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__main_layout_map_marker_move_map_marker_move_component__ = __webpack_require__("./src/app/main/layout/map-marker-move/map-marker-move.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18_ngx_pagination__ = __webpack_require__("./node_modules/ngx-pagination/dist/ngx-pagination.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__angular_platform_browser_animations__ = __webpack_require__("./node_modules/@angular/platform-browser/esm5/animations.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__angular_material__ = __webpack_require__("./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__directives_index__ = __webpack_require__("./src/app/_directives/index.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__app_component__ = __webpack_require__("./src/app/app.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__main_layout_nav_nav_component__ = __webpack_require__("./src/app/main/layout/nav/nav.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__main_layout_search_search_component__ = __webpack_require__("./src/app/main/layout/search/search.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__main_home_home_component__ = __webpack_require__("./src/app/main/home/home.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__main_layout_footer_footer_component__ = __webpack_require__("./src/app/main/layout/footer/footer.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__main_layout_recent_post_recent_post_component__ = __webpack_require__("./src/app/main/layout/recent-post/recent-post.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__main_login_login_component__ = __webpack_require__("./src/app/main/login/login.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__main_item_item_component__ = __webpack_require__("./src/app/main/item/item.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__main_layout_map_map_component__ = __webpack_require__("./src/app/main/layout/map/map.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__main_layout_user_info_user_info_component__ = __webpack_require__("./src/app/main/layout/user-info/user-info.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__main_layout_comment_list_comment_list_component__ = __webpack_require__("./src/app/main/layout/comment-list/comment-list.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__main_layout_show_map_show_map_component__ = __webpack_require__("./src/app/main/layout/show-map/show-map.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__main_layout_comment_box_comment_box_component__ = __webpack_require__("./src/app/main/layout/comment-box/comment-box.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__agm_snazzy_info_window__ = __webpack_require__("./node_modules/@agm/snazzy-info-window/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__main_layout_fail_page_fail_page_component__ = __webpack_require__("./src/app/main/layout/fail-page/fail-page.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__form_form_component__ = __webpack_require__("./src/app/form/form.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__main_layout_map_service_map_service_component__ = __webpack_require__("./src/app/main/layout/map-service/map-service.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__main_layout_advance_search_advance_search_component__ = __webpack_require__("./src/app/main/layout/advance-search/advance-search.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__main_layout_map_marker_move_map_marker_move_component__ = __webpack_require__("./src/app/main/layout/map-marker-move/map-marker-move.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2660,20 +2729,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
 var appRoutes = [
-    { path: '', pathMatch: 'full', component: __WEBPACK_IMPORTED_MODULE_24__main_home_home_component__["a" /* HomeComponent */] },
-    { path: 'home', component: __WEBPACK_IMPORTED_MODULE_24__main_home_home_component__["a" /* HomeComponent */] },
-    { path: 'add', component: __WEBPACK_IMPORTED_MODULE_36__form_form_component__["b" /* FormComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_12__guards_index__["a" /* AuthGuard */]] },
-    { path: 'advance', component: __WEBPACK_IMPORTED_MODULE_38__main_layout_advance_search_advance_search_component__["a" /* AdvanceSearchComponent */] },
+    { path: '', pathMatch: 'full', component: __WEBPACK_IMPORTED_MODULE_25__main_home_home_component__["a" /* HomeComponent */] },
+    { path: 'home', component: __WEBPACK_IMPORTED_MODULE_25__main_home_home_component__["a" /* HomeComponent */] },
+    { path: 'add', component: __WEBPACK_IMPORTED_MODULE_37__form_form_component__["b" /* FormComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_12__guards_index__["b" /* AuthGuard */]] },
+    { path: 'advance', component: __WEBPACK_IMPORTED_MODULE_39__main_layout_advance_search_advance_search_component__["a" /* AdvanceSearchComponent */] },
     { path: 'user', loadChildren: 'app/user/user-interface/user.module#UserModule' },
-    { path: 'login', component: __WEBPACK_IMPORTED_MODULE_27__main_login_login_component__["a" /* LoginComponent */] },
-    { path: 'item/:id', component: __WEBPACK_IMPORTED_MODULE_28__main_item_item_component__["a" /* ItemComponent */] },
+    { path: 'login', component: __WEBPACK_IMPORTED_MODULE_28__main_login_login_component__["a" /* LoginComponent */] },
+    { path: 'item/:id', component: __WEBPACK_IMPORTED_MODULE_29__main_item_item_component__["a" /* ItemComponent */] },
     {
         path: 'admin',
         loadChildren: 'app/admin/admin-page/admin.module#AdminModule'
     },
-    { path: 'show-map', component: __WEBPACK_IMPORTED_MODULE_32__main_layout_show_map_show_map_component__["a" /* ShowMapComponent */] },
-    { path: 'fail', component: __WEBPACK_IMPORTED_MODULE_35__main_layout_fail_page_fail_page_component__["a" /* FailPageComponent */] },
+    { path: 'show-map', component: __WEBPACK_IMPORTED_MODULE_33__main_layout_show_map_show_map_component__["a" /* ShowMapComponent */] },
+    { path: 'fail', component: __WEBPACK_IMPORTED_MODULE_36__main_layout_fail_page_fail_page_component__["a" /* FailPageComponent */] },
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];
@@ -2689,26 +2759,26 @@ var AppModule = (function () {
     AppModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["NgModule"])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_21__app_component__["a" /* AppComponent */],
-                __WEBPACK_IMPORTED_MODULE_20__directives_index__["a" /* AlertComponent */],
-                __WEBPACK_IMPORTED_MODULE_22__main_layout_nav_nav_component__["a" /* NavComponent */],
-                __WEBPACK_IMPORTED_MODULE_23__main_layout_search_search_component__["a" /* SearchComponent */],
-                __WEBPACK_IMPORTED_MODULE_24__main_home_home_component__["a" /* HomeComponent */],
-                __WEBPACK_IMPORTED_MODULE_25__main_layout_footer_footer_component__["a" /* FooterComponent */],
-                __WEBPACK_IMPORTED_MODULE_26__main_layout_recent_post_recent_post_component__["a" /* RecentPostComponent */],
-                __WEBPACK_IMPORTED_MODULE_27__main_login_login_component__["a" /* LoginComponent */], __WEBPACK_IMPORTED_MODULE_27__main_login_login_component__["b" /* RegisterDialog */],
-                __WEBPACK_IMPORTED_MODULE_28__main_item_item_component__["a" /* ItemComponent */], __WEBPACK_IMPORTED_MODULE_28__main_item_item_component__["b" /* UserContactDialog */],
-                __WEBPACK_IMPORTED_MODULE_29__main_layout_map_map_component__["a" /* MapComponent */],
-                __WEBPACK_IMPORTED_MODULE_30__main_layout_user_info_user_info_component__["a" /* UserInfoComponent */],
-                __WEBPACK_IMPORTED_MODULE_31__main_layout_comment_list_comment_list_component__["a" /* CommentListComponent */],
-                __WEBPACK_IMPORTED_MODULE_32__main_layout_show_map_show_map_component__["a" /* ShowMapComponent */],
-                __WEBPACK_IMPORTED_MODULE_33__main_layout_comment_box_comment_box_component__["a" /* CommentBoxComponent */],
+                __WEBPACK_IMPORTED_MODULE_22__app_component__["a" /* AppComponent */],
+                __WEBPACK_IMPORTED_MODULE_21__directives_index__["a" /* AlertComponent */],
+                __WEBPACK_IMPORTED_MODULE_23__main_layout_nav_nav_component__["a" /* NavComponent */],
+                __WEBPACK_IMPORTED_MODULE_24__main_layout_search_search_component__["a" /* SearchComponent */],
+                __WEBPACK_IMPORTED_MODULE_25__main_home_home_component__["a" /* HomeComponent */],
+                __WEBPACK_IMPORTED_MODULE_26__main_layout_footer_footer_component__["a" /* FooterComponent */],
+                __WEBPACK_IMPORTED_MODULE_27__main_layout_recent_post_recent_post_component__["a" /* RecentPostComponent */],
+                __WEBPACK_IMPORTED_MODULE_28__main_login_login_component__["a" /* LoginComponent */], __WEBPACK_IMPORTED_MODULE_28__main_login_login_component__["b" /* RegisterDialog */],
+                __WEBPACK_IMPORTED_MODULE_29__main_item_item_component__["a" /* ItemComponent */], __WEBPACK_IMPORTED_MODULE_29__main_item_item_component__["b" /* UserContactDialog */],
+                __WEBPACK_IMPORTED_MODULE_30__main_layout_map_map_component__["a" /* MapComponent */],
+                __WEBPACK_IMPORTED_MODULE_31__main_layout_user_info_user_info_component__["a" /* UserInfoComponent */],
+                __WEBPACK_IMPORTED_MODULE_32__main_layout_comment_list_comment_list_component__["a" /* CommentListComponent */],
+                __WEBPACK_IMPORTED_MODULE_33__main_layout_show_map_show_map_component__["a" /* ShowMapComponent */],
+                __WEBPACK_IMPORTED_MODULE_34__main_layout_comment_box_comment_box_component__["a" /* CommentBoxComponent */],
                 __WEBPACK_IMPORTED_MODULE_15_ng2_file_upload_ng2_file_upload__["FileSelectDirective"],
-                __WEBPACK_IMPORTED_MODULE_35__main_layout_fail_page_fail_page_component__["a" /* FailPageComponent */],
-                __WEBPACK_IMPORTED_MODULE_36__form_form_component__["b" /* FormComponent */], __WEBPACK_IMPORTED_MODULE_36__form_form_component__["a" /* DialogOverviewExampleDialog */], __WEBPACK_IMPORTED_MODULE_37__main_layout_map_service_map_service_component__["a" /* MapServiceComponent */],
-                __WEBPACK_IMPORTED_MODULE_38__main_layout_advance_search_advance_search_component__["a" /* AdvanceSearchComponent */], __WEBPACK_IMPORTED_MODULE_39__main_layout_map_marker_move_map_marker_move_component__["a" /* MapMarkerMoveComponent */]
+                __WEBPACK_IMPORTED_MODULE_36__main_layout_fail_page_fail_page_component__["a" /* FailPageComponent */],
+                __WEBPACK_IMPORTED_MODULE_37__form_form_component__["b" /* FormComponent */], __WEBPACK_IMPORTED_MODULE_37__form_form_component__["a" /* DialogOverviewExampleDialog */], __WEBPACK_IMPORTED_MODULE_38__main_layout_map_service_map_service_component__["a" /* MapServiceComponent */],
+                __WEBPACK_IMPORTED_MODULE_39__main_layout_advance_search_advance_search_component__["a" /* AdvanceSearchComponent */], __WEBPACK_IMPORTED_MODULE_40__main_layout_map_marker_move_map_marker_move_component__["a" /* MapMarkerMoveComponent */]
             ],
-            entryComponents: [__WEBPACK_IMPORTED_MODULE_36__form_form_component__["b" /* FormComponent */], __WEBPACK_IMPORTED_MODULE_36__form_form_component__["a" /* DialogOverviewExampleDialog */], __WEBPACK_IMPORTED_MODULE_28__main_item_item_component__["a" /* ItemComponent */], __WEBPACK_IMPORTED_MODULE_28__main_item_item_component__["b" /* UserContactDialog */], __WEBPACK_IMPORTED_MODULE_27__main_login_login_component__["a" /* LoginComponent */], __WEBPACK_IMPORTED_MODULE_27__main_login_login_component__["b" /* RegisterDialog */]],
+            entryComponents: [__WEBPACK_IMPORTED_MODULE_37__form_form_component__["b" /* FormComponent */], __WEBPACK_IMPORTED_MODULE_37__form_form_component__["a" /* DialogOverviewExampleDialog */], __WEBPACK_IMPORTED_MODULE_29__main_item_item_component__["a" /* ItemComponent */], __WEBPACK_IMPORTED_MODULE_29__main_item_item_component__["b" /* UserContactDialog */], __WEBPACK_IMPORTED_MODULE_28__main_login_login_component__["a" /* LoginComponent */], __WEBPACK_IMPORTED_MODULE_28__main_login_login_component__["b" /* RegisterDialog */]],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_17__agm_core__["a" /* AgmCoreModule */].forRoot({
                     apiKey: 'AIzaSyAslxy4f_o9CBtV-gh2iT8ZMyR0RoKP_UQ',
@@ -2722,49 +2792,50 @@ var AppModule = (function () {
                         deps: [__WEBPACK_IMPORTED_MODULE_4__angular_common_http__["a" /* HttpClient */]]
                     }
                 }),
-                __WEBPACK_IMPORTED_MODULE_34__agm_snazzy_info_window__["a" /* AgmSnazzyInfoWindowModule */],
+                __WEBPACK_IMPORTED_MODULE_35__agm_snazzy_info_window__["a" /* AgmSnazzyInfoWindowModule */],
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_5__angular_http__["d" /* HttpModule */],
                 __WEBPACK_IMPORTED_MODULE_10__angular_forms__["f" /* FormsModule */], __WEBPACK_IMPORTED_MODULE_10__angular_forms__["k" /* ReactiveFormsModule */],
-                __WEBPACK_IMPORTED_MODULE_18__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */],
-                __WEBPACK_IMPORTED_MODULE_19__angular_material__["b" /* MatAutocompleteModule */],
+                __WEBPACK_IMPORTED_MODULE_19__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["b" /* MatAutocompleteModule */],
                 __WEBPACK_IMPORTED_MODULE_11_ngx_moment__["a" /* MomentModule */],
                 __WEBPACK_IMPORTED_MODULE_13__angular_flex_layout__["a" /* FlexLayoutModule */],
-                __WEBPACK_IMPORTED_MODULE_19__angular_material__["c" /* MatButtonModule */],
-                __WEBPACK_IMPORTED_MODULE_19__angular_material__["d" /* MatButtonToggleModule */],
-                __WEBPACK_IMPORTED_MODULE_19__angular_material__["e" /* MatCardModule */],
-                __WEBPACK_IMPORTED_MODULE_19__angular_material__["f" /* MatCheckboxModule */],
-                __WEBPACK_IMPORTED_MODULE_19__angular_material__["g" /* MatChipsModule */],
-                __WEBPACK_IMPORTED_MODULE_19__angular_material__["h" /* MatDatepickerModule */],
-                __WEBPACK_IMPORTED_MODULE_19__angular_material__["j" /* MatDialogModule */],
-                __WEBPACK_IMPORTED_MODULE_19__angular_material__["l" /* MatExpansionModule */],
-                __WEBPACK_IMPORTED_MODULE_19__angular_material__["n" /* MatGridListModule */],
-                __WEBPACK_IMPORTED_MODULE_19__angular_material__["p" /* MatIconModule */],
-                __WEBPACK_IMPORTED_MODULE_19__angular_material__["q" /* MatInputModule */],
-                __WEBPACK_IMPORTED_MODULE_19__angular_material__["r" /* MatListModule */],
-                __WEBPACK_IMPORTED_MODULE_19__angular_material__["s" /* MatMenuModule */],
-                __WEBPACK_IMPORTED_MODULE_19__angular_material__["t" /* MatNativeDateModule */],
-                __WEBPACK_IMPORTED_MODULE_19__angular_material__["v" /* MatPaginatorModule */],
-                __WEBPACK_IMPORTED_MODULE_19__angular_material__["w" /* MatProgressBarModule */],
-                __WEBPACK_IMPORTED_MODULE_19__angular_material__["x" /* MatProgressSpinnerModule */],
-                __WEBPACK_IMPORTED_MODULE_19__angular_material__["y" /* MatRadioModule */],
-                __WEBPACK_IMPORTED_MODULE_19__angular_material__["z" /* MatRippleModule */],
-                __WEBPACK_IMPORTED_MODULE_19__angular_material__["A" /* MatSelectModule */],
-                __WEBPACK_IMPORTED_MODULE_19__angular_material__["B" /* MatSidenavModule */],
-                __WEBPACK_IMPORTED_MODULE_19__angular_material__["D" /* MatSliderModule */],
-                __WEBPACK_IMPORTED_MODULE_19__angular_material__["C" /* MatSlideToggleModule */],
-                __WEBPACK_IMPORTED_MODULE_19__angular_material__["E" /* MatSnackBarModule */],
-                __WEBPACK_IMPORTED_MODULE_19__angular_material__["F" /* MatSortModule */],
-                __WEBPACK_IMPORTED_MODULE_19__angular_material__["I" /* MatTableModule */],
-                __WEBPACK_IMPORTED_MODULE_19__angular_material__["J" /* MatTabsModule */],
-                __WEBPACK_IMPORTED_MODULE_19__angular_material__["K" /* MatToolbarModule */],
-                __WEBPACK_IMPORTED_MODULE_19__angular_material__["L" /* MatTooltipModule */],
-                __WEBPACK_IMPORTED_MODULE_19__angular_material__["G" /* MatStepperModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["c" /* MatButtonModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["d" /* MatButtonToggleModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["e" /* MatCardModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["f" /* MatCheckboxModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["g" /* MatChipsModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["h" /* MatDatepickerModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["j" /* MatDialogModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["l" /* MatExpansionModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["n" /* MatGridListModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["p" /* MatIconModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["q" /* MatInputModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["r" /* MatListModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["s" /* MatMenuModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["t" /* MatNativeDateModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["v" /* MatPaginatorModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["w" /* MatProgressBarModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["x" /* MatProgressSpinnerModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["y" /* MatRadioModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["z" /* MatRippleModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["A" /* MatSelectModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["B" /* MatSidenavModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["D" /* MatSliderModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["C" /* MatSlideToggleModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["E" /* MatSnackBarModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["F" /* MatSortModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["I" /* MatTableModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["J" /* MatTabsModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["K" /* MatToolbarModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["L" /* MatTooltipModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["G" /* MatStepperModule */],
+                __WEBPACK_IMPORTED_MODULE_18_ngx_pagination__["a" /* NgxPaginationModule */],
                 __WEBPACK_IMPORTED_MODULE_6__angular_router__["d" /* RouterModule */].forRoot(appRoutes)
             ],
             providers: [
                 __WEBPACK_IMPORTED_MODULE_16__services_index__["j" /* WINDOW_PROVIDERS */],
-                __WEBPACK_IMPORTED_MODULE_12__guards_index__["a" /* AuthGuard */],
+                __WEBPACK_IMPORTED_MODULE_12__guards_index__["b" /* AuthGuard */],
                 __WEBPACK_IMPORTED_MODULE_16__services_index__["d" /* LevelService */],
                 __WEBPACK_IMPORTED_MODULE_16__services_index__["g" /* StatisticSerivce */],
                 __WEBPACK_IMPORTED_MODULE_16__services_index__["b" /* AuthenticationService */],
@@ -2775,7 +2846,7 @@ var AppModule = (function () {
                 { provide: __WEBPACK_IMPORTED_MODULE_7__angular_common__["LocationStrategy"], useClass: __WEBPACK_IMPORTED_MODULE_7__angular_common__["HashLocationStrategy"] },
                 { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["LOCALE_ID"], useValue: 'vi' }
             ],
-            bootstrap: [__WEBPACK_IMPORTED_MODULE_21__app_component__["a" /* AppComponent */]]
+            bootstrap: [__WEBPACK_IMPORTED_MODULE_22__app_component__["a" /* AppComponent */]]
         })
     ], AppModule);
     return AppModule;
@@ -3802,7 +3873,7 @@ module.exports = "agm-map {\r\n  height: 300px;\r\n  width: 100%;\r\n}\r\ninput{
 /***/ "./src/app/main/layout/map-service/map-service.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngFor=\"let value of checkboxTypes\" class=\"example-section\">\n    <mat-checkbox class=\"example-margin\" [value]=\"value\" [checked]=\"value === 'store' || value === 'school' || value==='hospital' ? true : false \"  (change)=\"onChange($event)\">{{ value }}</mat-checkbox> \n</div>\n\n <!-- MAP -->\n<agm-map [latitude]=\"latitude\" [longitude]=\"longitude\" [scrollwheel]=\"false\" [zoom]=\"zoom\">\n    <agm-marker  [latitude]=\"latitude\" [longitude]=\"longitude\">\n        <agm-snazzy-info-window [maxWidth]=\"200\" [closeWhenOthersOpen]=\"true\">\n            <ng-template>\n             Your position\n            </ng-template>\n          </agm-snazzy-info-window>\n    </agm-marker>  \n    <div *ngFor=\"let item of listService\">\n        <agm-marker  [latitude]=\"item.lat\" [longitude]=\"item.lng\" [iconUrl]=\"item.icon\">\n          <agm-snazzy-info-window [maxWidth]=\"200\" [closeWhenOthersOpen]=\"true\">\n              <ng-template>\n               <p>{{item.name}}</p>\n              </ng-template>\n            </agm-snazzy-info-window>\n       </agm-marker> \n      </div> \n      <agm-circle [latitude]=\"latitude\" [longitude]=\"longitude\" \n                    [radius]=\"radius\" [fillColor]=\"circleProps.fillColor\" \n                    [strokeColor]=\"circleProps.strokeColor\"\n                    [fillOpacity]=\"circleProps.fillOpacity\"\n                    [strokeOpacity]= \"circleProps.strokeOpacity\" \n                    ></agm-circle>\n</agm-map>"
+module.exports = "<div *ngFor=\"let value of checkboxTypes\" class=\"example-section\">\n    <mat-checkbox class=\"example-margin\" [value]=\"value\"   (change)=\"onChange($event)\">{{ value }}</mat-checkbox> \n</div>\n\n <!-- MAP -->\n<agm-map [latitude]=\"latitude\" [longitude]=\"longitude\" [scrollwheel]=\"false\" [zoom]=\"zoom\">\n    <agm-marker  [latitude]=\"latitude\" [longitude]=\"longitude\">\n        <agm-snazzy-info-window [maxWidth]=\"200\" [closeWhenOthersOpen]=\"true\">\n            <ng-template>\n             Your position\n            </ng-template>\n          </agm-snazzy-info-window>\n    </agm-marker>  \n    <div *ngFor=\"let item of listService\">\n        <agm-marker  [latitude]=\"item.lat\" [longitude]=\"item.lng\" [iconUrl]=\"item.icon\">\n          <agm-snazzy-info-window [maxWidth]=\"200\" [closeWhenOthersOpen]=\"true\">\n              <ng-template>\n               <p>{{item.name}}</p>\n              </ng-template>\n            </agm-snazzy-info-window>\n       </agm-marker> \n      </div> \n      <agm-circle [latitude]=\"latitude\" [longitude]=\"longitude\" \n                    [radius]=\"radius\" [fillColor]=\"circleProps.fillColor\" \n                    [strokeColor]=\"circleProps.strokeColor\"\n                    [fillOpacity]=\"circleProps.fillOpacity\"\n                    [strokeOpacity]= \"circleProps.strokeOpacity\" \n                    ></agm-circle>\n</agm-map>"
 
 /***/ }),
 
@@ -3861,7 +3932,7 @@ var MapServiceComponent = (function () {
         this.checkboxGroup = new __WEBPACK_IMPORTED_MODULE_1__angular_forms__["d" /* FormGroup */]({});
         this.checkboxTypes = ['store', 'school', 'hospital', 'health',
             'restaurant', 'bus_station', 'lodging', 'local_government_office'];
-        this.types = ['store']; // types selected
+        this.types = []; // types selected
     }
     MapServiceComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -4093,7 +4164,7 @@ module.exports = "\r\n\r\n.fill-remaining-space {\r\n    /*This fills the remain
 /***/ "./src/app/main/layout/nav/nav.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"contact-header\">\n    <div class=\"col-xs-6 contact-float-left\">\n        <p><span style=\"padding-right: 10px\"><a (click)=\"translate.use('vi')\">VI</a></span> | <span style=\"padding-left:10px;\"><a (click)=\"translate.use('en')\">EN</a></span></p>\n    </div>\n</div>\n<mat-toolbar color=\"primary\" *ngIf=\"isTopOfPage\">\n    \n    <button mat-button routerLink=\"/\" [ngStyle]=\"{'color': colorStyle === 'WHITE' ? 'white' : 'black'}\">\n    <mat-icon>home</mat-icon> \n    {{ 'PAGE.HOME' | translate}}</button>\n\n    <!-- This fills the remaining space of the current row -->\n    <span class=\"fill-remaining-space\"></span>\n    <div fxLayout=\"row\" fxShow=\"false\" fxShow.gt-sm [ngStyle]=\"{'color': colorStyle === 'WHITE' ? 'white' : 'black'}\">\n        <button mat-button routerLink=\"['/home']\">{{ 'PAGE.HOME' | translate}}</button>\n        <button mat-button routerLink=\"['/home']\">{{ 'PAGE.D9' | translate}}</button>\n        <button mat-button routerLink=\"['/home']\">{{ 'PAGE.DThuDuc' | translate}}</button>\n        <button mat-button routerLink=\"['/home']\">{{ 'PAGE.MORE' | translate}}</button>\n        <button mat-button [routerLink]=\"['/add']\">{{ 'PAGE.ADD' | translate}}</button>\n        <button mat-button [routerLink]=\"['/login']\" *ngIf=\"!loginStatus\">{{ 'PAGE.LOGIN' | translate}}</button>\n        <button mat-button [routerLink]=\"['/login']\" *ngIf=\"loginStatus\">{{ 'PAGE.LOGOUT' | translate}}</button>\n        <button mat-button [routerLink]=\"['/show-map']\" [queryParams]=\"{ lat: data.lat, lng: data.lng}\">{{ 'PAGE.OVERVIEW' | translate}}</button>\n\n\n        \n    </div>\n    <button mat-button [mat-menu-trigger-for]=\"menu\" fxHide=\"false\" fxHide.gt-sm>\n     <mat-icon>menu</mat-icon>\n    </button>\n\n</mat-toolbar>\n<mat-menu x-position=\"before\" #menu=\"matMenu\">\n    <button mat-menu-item routerLink=\"['/home']\">Home</button>\n        <button mat-menu-item [routerLink]=\"['/add']\">Add</button>\n        <button  mat-menu-item [routerLink]=\"['/login']\">{{loginStatus}}</button>\n        <button  mat-menu-item [routerLink]=\"['/show-map']\" [queryParams]=\"{ lat: data.lat, lng: data.lng}\">Overview</button>\n    <!--<button mat-menu-item>Help</button>-->\n</mat-menu>\n"
+module.exports = "<div class=\"contact-header\">\n    <div class=\"col-xs-6 contact-float-left\">\n        <p><span style=\"padding-right: 10px\"><a (click)=\"translate.use('vi')\">VI</a></span> | <span style=\"padding-left:10px;\"><a (click)=\"translate.use('en')\">EN</a></span></p>\n    </div>\n</div>\n<mat-toolbar color=\"primary\" *ngIf=\"isTopOfPage\">\n    \n    <button mat-button routerLink=\"/\" [ngStyle]=\"{'color': colorStyle === 'WHITE' ? 'white' : 'black'}\">\n    <mat-icon>home</mat-icon> \n    {{ 'PAGE.HOME' | translate}}</button>\n\n    <!-- This fills the remaining space of the current row -->\n    <span class=\"fill-remaining-space\"></span>\n    <div fxLayout=\"row\" fxShow=\"false\" fxShow.gt-sm [ngStyle]=\"{'color': colorStyle === 'WHITE' ? 'white' : 'black'}\">\n        <button mat-button [routerLink]=\"['/home']\">{{ 'PAGE.HOME' | translate}}</button>\n        <button mat-button [routerLink]=\"['/add']\">{{ 'PAGE.ADD' | translate}}</button>\n        <button mat-button [routerLink]=\"['/user']\"*ngIf=\"loginStatus\">{{ 'PAGE.USER' | translate}}</button>\n        <button mat-button [routerLink]=\"['/login']\" *ngIf=\"!loginStatus\">{{ 'PAGE.LOGIN' | translate}}</button>\n        <button mat-button [routerLink]=\"['/login']\" *ngIf=\"loginStatus\">{{ 'PAGE.LOGOUT' | translate}}</button>\n        <button mat-button [routerLink]=\"['/show-map']\" [queryParams]=\"{ lat: data.lat, lng: data.lng}\">{{ 'PAGE.OVERVIEW' | translate}}</button>\n\n\n        \n    </div>\n    <button mat-button [mat-menu-trigger-for]=\"menu\" fxHide=\"false\" fxHide.gt-sm>\n     <mat-icon>menu</mat-icon>\n    </button>\n\n</mat-toolbar>\n<mat-menu x-position=\"before\" #menu=\"matMenu\">\n    <button mat-menu-item routerLink=\"['/home']\">Home</button>\n        <button mat-menu-item [routerLink]=\"['/add']\">Add</button>\n        <button  mat-menu-item [routerLink]=\"['/login']\">{{loginStatus}}</button>\n        <button  mat-menu-item [routerLink]=\"['/show-map']\" [queryParams]=\"{ lat: data.lat, lng: data.lng}\">Overview</button>\n    <!--<button mat-menu-item>Help</button>-->\n</mat-menu>\n"
 
 /***/ }),
 
@@ -4176,7 +4247,7 @@ module.exports = "\r\n  .card img {\r\n    width: 100%;\r\n    height: auto;\r\n
 /***/ "./src/app/main/layout/recent-post/recent-post.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row recent\" style=\"margin-left: 0; margin-right: 0;\"> \n    <div class=\"recent-title\">\n      <div class=\"hr-title\"></div>\n      <div class=\"rencent-title-h4\">\n          <h2>{{title}}</h2>\n      </div>\n      <div class=\"hr-title\"></div>\n        \n    </div>\n  <div class=\"wrapper\">\n      <div class=\"col-lg-4 col-md-4 col-sm-6 col-xs-12 card\"   *ngFor=\"let motel of motels | async\" style=\"margin-bottom:20px;margin-top:20px;\">\n          <mat-card class=\"example-card\"  >\n              <div class=\"imageHolder\">\n                <a [routerLink]=\"['/item', motel._id]\">\n                <img mat-card-image src=\"/assets/{{motel.img[0]}}\"  alt=\"Photo of a Motel\" style=\"width: 400px; height: 251px;\">\n                </a>\n                \n              </div> \n             \n              <mat-card-content>\n                \n                <div class=\"infor\">\n                    \n                    <div class=\"address\">\n                        <div class=\"timeAgo\">\n                            <b>{{ 'HOME.POST_AT' | translate}}:</b> {{motel.created_at | date}} <small>{{ 'HOME.ABOUT_TIME' | translate}} {{motel.created_at | amTimeAgo}}</small>\n                        </div>\n                        <div class=\"category\">\n                            <p>{{motel.category}}</p>\n                        </div>\n                        {{motel.add}} , {{motel.street}}, {{motel.ward}}, {{motel.district}} <br>\n                        {{motel.city}}\n                        <p>Cách thức liên hệ: {{motel.contact}}</p>\n                        <div class=\"price\">\n                            <b>{{ 'HOME.PRICE' | translate}}:</b> <p>{{motel.price}} {{ 'HOME.PER_MONTH' | translate}}</p>\n                        </div>\n                    </div>\n                </div>\n                \n               \n              </mat-card-content>\n              <mat-card-actions>\n                <button mat-button>LIKE</button>\n                <button mat-raised-button color=\"warn\" *ngIf=\"moderator\" (click)=\"_delete(motel._id)\">DELETE</button>\n                <button mat-button><a [routerLink]=\"['/item', motel._id]\">Show Details</a></button>\n              </mat-card-actions>\n            </mat-card>\n          \n      </div>\n  </div>\n    \n\n\n</div>\n    "
+module.exports = "<div class=\"row recent\" style=\"margin-left: 0; margin-right: 0;\"> \n    <div class=\"recent-title\">\n      <div class=\"hr-title\"></div>\n      <div class=\"rencent-title-h4\">\n          <h2>{{title}}</h2>\n      </div>\n      <div class=\"hr-title\"></div>\n        \n    </div>\n  <div class=\"wrapper\">\n      <div class=\"col-lg-4 col-md-4 col-sm-6 col-xs-12 card\"   *ngFor=\"let motel of motels | async | paginate: { itemsPerPage: 3, currentPage: p }\" style=\"margin-bottom:20px;margin-top:20px;\">\n          <mat-card class=\"example-card\"  >\n              <div class=\"imageHolder\">\n                <a [routerLink]=\"['/item', motel._id]\">\n                <img mat-card-image src=\"/assets/{{motel.img[0]}}\"  alt=\"Photo of a Motel\" style=\"width: 400px; height: 251px;\">\n                </a>\n                \n              </div> \n             \n              <mat-card-content>\n                \n                <div class=\"infor\">\n                    \n                    <div class=\"address\">\n                        <div class=\"timeAgo\">\n                            <b>{{ 'HOME.POST_AT' | translate}}:</b> {{motel.created_at | date}} <small>{{ 'HOME.ABOUT_TIME' | translate}} {{motel.created_at | amTimeAgo}}</small>\n                        </div>\n                        <div class=\"category\">\n                            <p>{{motel.category}}</p>\n                        </div>\n                        {{motel.add}} , {{motel.street}}, {{motel.ward}}, {{motel.district}} <br>\n                        {{motel.city}}\n                        <p>Cách thức liên hệ: {{motel.contact}}</p>\n                        <div class=\"price\">\n                            <b>{{ 'HOME.PRICE' | translate}}:</b> <p>{{motel.price}} {{ 'HOME.PER_MONTH' | translate}}</p>\n                        </div>\n                    </div>\n                </div>\n                \n               \n              </mat-card-content>\n              <mat-card-actions>\n                <button mat-button>LIKE</button>\n                <button mat-raised-button color=\"warn\" *ngIf=\"moderator\" (click)=\"_delete(motel._id)\">DELETE</button>\n                <button mat-button><a [routerLink]=\"['/item', motel._id]\">Show Details</a></button>\n              </mat-card-actions>\n            </mat-card>\n          \n      </div>\n      <pagination-controls (pageChange)=\"p = $event\"></pagination-controls>\n  </div>\n    \n\n\n</div>\n    "
 
 /***/ }),
 
@@ -4201,6 +4272,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var RecentPostComponent = (function () {
     // public translate: TranslateService
     function RecentPostComponent() {
+        this.p = 1;
         // list motel
         this.data = {};
         // map : MapComponent;
@@ -4241,7 +4313,7 @@ module.exports = "*.home-wrap h1,*/\r\n.home-wrap h2,\r\n.home-wrap h3,\r\n.home
 /***/ "./src/app/main/layout/search/search.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<section id=\"home\" class=\"home\">\n  <div class=\"home_overlay\">\n      <div class=\"container\">\n          <div class=\"row\">\n              <div class=\"main_slider_area\">\n                  <div class=\"slider\">\n                      <div class=\"single_slider\">\n                          <p class=\"home-title\">{{ 'HOME.TITLE' | translate}}</p>\n                          <p>{{ 'HOME.MODERN' | translate}}  -  {{ 'HOME.FAST' | translate}}  -  {{ 'HOME.RELIABLE' | translate}}</p>\n                          \n                          <div class=\"col-sm-8 col-sm-offset-2\">\n                              <div class=\"home_searce_domain_area\">\n                                  <div class=\"input-search\">\n                                      <mat-form-field>\n                                        <input type=\"text\" matInput placeholder=\"Type text here\" [(ngModel)] = \"query\">\n                                      </mat-form-field>\n                                          \n                                            \n                                     \n                                      <button mat-raised-button (click)=\"onSearchClick()\" color=\"primary\"><mat-icon>search</mat-icon>Search</button>\n                                      <button mat-raised-button color=\"warn\" routerLink=\"['/advance']\"><mat-icon>assignment</mat-icon>Advance</button>\n                                  </div>\n                              </div>\n                          </div>\n                      </div>\n\n                  </div>\n              </div>\n          </div>\n      </div>\n  </div>\n</section><!-- End of Banner Section -->\n<app-recent-post [motels] = \"motels\" [title]=\"title\" *ngIf=\"hasRs\"></app-recent-post>"
+module.exports = "<section id=\"home\" class=\"home\">\n  <div class=\"home_overlay\">\n      <div class=\"container\">\n          <div class=\"row\">\n              <div class=\"main_slider_area\">\n                  <div class=\"slider\">\n                      <div class=\"single_slider\">\n                          <p class=\"home-title\">{{ 'HOME.TITLE' | translate}}</p>\n                          <p>{{ 'HOME.MODERN' | translate}}  -  {{ 'HOME.FAST' | translate}}  -  {{ 'HOME.RELIABLE' | translate}}</p>\n                          \n                          <div class=\"col-sm-8 col-sm-offset-2\">\n                              <div class=\"home_searce_domain_area\">\n                                  <div class=\"input-search\">\n                                      <mat-form-field>\n                                        <input type=\"text\" matInput placeholder=\"Type text here\" [(ngModel)] = \"query\">\n                                      </mat-form-field>\n                                          \n                                            \n                                     \n                                      <button mat-raised-button (click)=\"onSearchClick()\" color=\"primary\"><mat-icon>search</mat-icon>Search</button>\n                                      <button mat-raised-button color=\"warn\" [routerLink]=\"['/advance']\"><mat-icon>assignment</mat-icon>Advance</button>\n                                  </div>\n                              </div>\n                          </div>\n                      </div>\n\n                  </div>\n              </div>\n          </div>\n      </div>\n  </div>\n</section><!-- End of Banner Section -->\n<app-recent-post [motels] = \"motels\" [title]=\"title\" *ngIf=\"hasRs\"></app-recent-post>"
 
 /***/ }),
 
@@ -4465,7 +4537,7 @@ module.exports = "body{\r\n\tbackground-color: #e91e63!important;\r\n\tfont-fami
 /***/ "./src/app/main/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"login\">\n  <mat-grid-list cols=\"3\">\n    <mat-grid-tile></mat-grid-tile>\n    <!-- Writing markup for login starts -->\n    <mat-grid-tile class='login-element'>\n        <div class=\"login-container\">\n  \n            <!-- Template Header starts -->\n            <div class=\"login-box-header\">\n                <h1>LOGIN</h1>\n                \n            </div>\n            <!-- Template Header ends -->\n            <alert></alert>\n            <!-- Template Body starts -->\n            <div class=\"login-box-body\">\n  \n                <!-- Markup for getting Username starts -->\n                <mat-grid-list cols=\"9\" rowHeight=\"75px\">\n                    <mat-grid-tile [rowspan]=\"1\" class=\"login-icon\">\n                        <mat-icon>lock</mat-icon>\n                    </mat-grid-tile>\n                    <mat-grid-tile [colspan]=\"7\">\n                        <mat-input-container class=\"justifier\">\n                            <input style=\"color:black;\" matInput placeholder=\"Username\" text=\"text\" required id=\"username\" name=\"username\" [(ngModel)]=\"user.username\"  #username=\"ngModel\" [ngModelOptions]=\"{standalone: true}\" >\n                            <mat-error  *ngIf=\"username.invalid && (username.dirty || username.touched)\">\n                              Usename cannot be blank\n                            </mat-error>\n                           \n                        </mat-input-container>\n                       \n                    </mat-grid-tile>\n                    \n                </mat-grid-list>\n                <!-- Markup for getting Username ends -->\n                <div class=\"wrapper\">\n                  <div></div>\n                  <div> \n                     <p class=\"help-block\" *ngIf=\"this.handleValidate.usnMinLength\" style=\"margin-left: auto; font-size: 12px; color: red;\">\n                        Username requires atleast 6 character </p>  \n                    <p class=\"help-block\" *ngIf=\"this.handleValidate.usnMaxLength\" style=\"margin-left: auto; font-size: 12px; color: red;\">\n                        Username max length is 32 character\n                      </p>  \n                       \n                  </div>\n                  <div></div>\n                </div>\n              \n                <!-- Markup for getting Password starts -->\n                <mat-grid-list cols=\"9\" rowHeight=\"100px\">\n                    <mat-grid-tile [rowspan]=\"1\"  class=\"login-icon\">\n                        <mat-icon>remove_red_eye</mat-icon>\n                    </mat-grid-tile>\n                    <mat-grid-tile [colspan]=\"7\">\n                        <mat-input-container class=\"justifier\">\n                            <input style=\"color:black;\" matInput placeholder=\"Password\" text=\"password\" type=\"password\" required id=\"password\" name=\"password\" [(ngModel)]=\"user.password\"  #password=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                        </mat-input-container>\n                    </mat-grid-tile>\n                </mat-grid-list>\n                <!-- Markup for getting Password ends -->\n                <div class=\"wrapper\">\n                    <div></div>\n                    <div>\n                        <p class=\"help-block\" *ngIf=\"this.handleValidate.pwdMinLength\" style=\"margin-left: auto; font-size: 12px; color: red;\">\n                            password requires atleast 6 character</p>  \n                            <p class=\"help-block\" *ngIf=\"this.handleValidate.pwdMaxLength\" style=\"margin-left: auto; font-size: 12px; color: red;\">\n                                password max length is 32 character\n                              </p>  \n                    </div>\n                    <div></div>\n                  </div>\n                <button mat-raised-button class=\"login-button\" [disabled]=\"username.invalid || password.invalid \" (click)=\"before_login();\"> \n                    <mat-icon>input</mat-icon> Login\n                </button>\n                <p style=\"color: #7986CB\">Don't have account? <button mat-button color=\"primary\" (click)=\"openDialog()\">Register</button> </p>\n                \n  \n            </div>\n            <!-- Template Body ends -->\n            \n        </div>\n    </mat-grid-tile>\n    <!-- Writing markup for login ends -->\n    <mat-grid-tile></mat-grid-tile>\n  \n  </mat-grid-list>\n</div>\n<app-footer style=\"margin-top: 0px!important\"></app-footer>"
+module.exports = "<app-nav></app-nav>\n<div class=\"login\">\n  <mat-grid-list cols=\"3\">\n    <mat-grid-tile></mat-grid-tile>\n    <!-- Writing markup for login starts -->\n    <mat-grid-tile class='login-element'>\n        <div class=\"login-container\">\n  \n            <!-- Template Header starts -->\n            <div class=\"login-box-header\">\n                <h1>LOGIN</h1>\n                \n            </div>\n            <!-- Template Header ends -->\n            <alert></alert>\n            <!-- Template Body starts -->\n            <div class=\"login-box-body\">\n  \n                <!-- Markup for getting Username starts -->\n                <mat-grid-list cols=\"9\" rowHeight=\"75px\">\n                    <mat-grid-tile [rowspan]=\"1\" class=\"login-icon\">\n                        <mat-icon>lock</mat-icon>\n                    </mat-grid-tile>\n                    <mat-grid-tile [colspan]=\"7\">\n                        <mat-input-container class=\"justifier\">\n                            <input style=\"color:black;\" matInput placeholder=\"Username\" text=\"text\" required id=\"username\" name=\"username\" [(ngModel)]=\"user.username\"  #username=\"ngModel\" [ngModelOptions]=\"{standalone: true}\" >\n                            <mat-error  *ngIf=\"username.invalid && (username.dirty || username.touched)\">\n                              Usename cannot be blank\n                            </mat-error>\n                           \n                        </mat-input-container>\n                       \n                    </mat-grid-tile>\n                    \n                </mat-grid-list>\n                <!-- Markup for getting Username ends -->\n                <div class=\"wrapper\">\n                  <div></div>\n                  <div> \n                     <p class=\"help-block\" *ngIf=\"this.handleValidate.usnMinLength\" style=\"margin-left: auto; font-size: 12px; color: red;\">\n                        Username requires atleast 6 character </p>  \n                    <p class=\"help-block\" *ngIf=\"this.handleValidate.usnMaxLength\" style=\"margin-left: auto; font-size: 12px; color: red;\">\n                        Username max length is 32 character\n                      </p>  \n                       \n                  </div>\n                  <div></div>\n                </div>\n              \n                <!-- Markup for getting Password starts -->\n                <mat-grid-list cols=\"9\" rowHeight=\"100px\">\n                    <mat-grid-tile [rowspan]=\"1\"  class=\"login-icon\">\n                        <mat-icon>remove_red_eye</mat-icon>\n                    </mat-grid-tile>\n                    <mat-grid-tile [colspan]=\"7\">\n                        <mat-input-container class=\"justifier\">\n                            <input style=\"color:black;\" matInput placeholder=\"Password\" text=\"password\" type=\"password\" required id=\"password\" name=\"password\" [(ngModel)]=\"user.password\"  #password=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                        </mat-input-container>\n                    </mat-grid-tile>\n                </mat-grid-list>\n                <!-- Markup for getting Password ends -->\n                <div class=\"wrapper\">\n                    <div></div>\n                    <div>\n                        <p class=\"help-block\" *ngIf=\"this.handleValidate.pwdMinLength\" style=\"margin-left: auto; font-size: 12px; color: red;\">\n                            password requires atleast 6 character</p>  \n                            <p class=\"help-block\" *ngIf=\"this.handleValidate.pwdMaxLength\" style=\"margin-left: auto; font-size: 12px; color: red;\">\n                                password max length is 32 character\n                              </p>  \n                    </div>\n                    <div></div>\n                  </div>\n                <button mat-raised-button class=\"login-button\" [disabled]=\"username.invalid || password.invalid \" (click)=\"before_login();\"> \n                    <mat-icon>input</mat-icon> Login\n                </button>\n                <p style=\"color: #7986CB\">Don't have account? <button mat-button color=\"primary\" (click)=\"openDialog()\">Register</button> </p>\n                \n  \n            </div>\n            <!-- Template Body ends -->\n            \n        </div>\n    </mat-grid-tile>\n    <!-- Writing markup for login ends -->\n    <mat-grid-tile></mat-grid-tile>\n  \n  </mat-grid-list>\n</div>\n<app-footer style=\"margin-top: 0px!important\"></app-footer>"
 
 /***/ }),
 
@@ -4556,7 +4628,7 @@ var LoginComponent = (function () {
             .subscribe(function (data) {
             // login successful
             console.log(JSON.parse(localStorage.getItem('currentUser')).role);
-            if (JSON.parse(localStorage.getItem('currentUser')).role > 1) {
+            if (JSON.parse(localStorage.getItem('currentUser')).role < 3) {
                 _this.router.navigate(['/admin']); // navigate to admin page
             }
             else {

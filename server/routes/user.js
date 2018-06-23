@@ -6,6 +6,7 @@ var service = require('../services/user.service');
 
 // routes
 router.get('/:lim',getLimit);
+router.get('/check-role/:id', checkRole);
 router.post('/authenticate', authenticate);
 router.post('/register', register);
 router.post('/find-mod',findMod);
@@ -14,6 +15,20 @@ router.put('/:id', update);
 router.put('/change-password/:id', changePassword);
 router.delete('/:id', _delete);
 module.exports = router;
+function checkRole(req,res) {
+    // console.log(req.params.id);
+    service.checkRole(req.params.id).then(function (role) {
+        if(role) {
+            res.status(200).send(role);
+        } else {
+            res.status(404).send('User not found');
+        }
+    }).catch(
+        function (err) {
+            res.status(400).send(err);
+        }
+    );
+}
 function findById(req,res) {
     service.findById(req.body.id)
             .then(function (user) {

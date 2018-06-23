@@ -67,3 +67,15 @@
     padding: 0!important;
     font-size: 20px;
 }
+.footer-distributed{
+	background: url(/assets/pc_skinfooter.jpg) 50% 100% no-repeat;	
+	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+    box-sizing: border-box;
+    min-height: 200px;
+	width: 100%;
+	text-align: left;
+	font: bold 16px sans-serif;
+	background-size: cover;
+	padding: 55px 50px;
+
+}

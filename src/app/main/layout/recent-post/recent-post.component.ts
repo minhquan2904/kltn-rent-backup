@@ -12,6 +12,7 @@ export class RecentPostComponent implements OnInit {
 
   public latitude: number;
   public longitude: number;
+  p: Number = 1;
 
   @Input('motels') motels: Observable<Motel[]>;
   @Input('title') title: String;

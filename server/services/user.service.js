@@ -16,6 +16,7 @@ service.delete = _delete;
 service.findMod = findMod;
 service.findById = findById;
 service.getListNewest = getListNewest;
+service.checkRole = checkRole;
 module.exports = service;
 
 function getListNewest(lim) {
@@ -38,7 +39,26 @@ function getListNewest(lim) {
 
     return deferred.promise;
 }
+function checkRole(_id) {
+    var deferred = Q.defer();
+    
+    // console.log(_id);
+    users.findOne({"_id": _id}, function (err, user) {
+        if(err)
+          deferred.reject(err.name + ': ' + err.message);
+        if(user) {
+            // success
+            
+            deferred.resolve({
+                role: user.role});
+        } else {
+            //create new motel
+            deferred.reject("No result found");
+        }
+    });
 
+    return deferred.promise;
+}
 function findById(id) {
     var deferred = Q.defer();
     users.findOne({"_id": id}, function (err, user) {

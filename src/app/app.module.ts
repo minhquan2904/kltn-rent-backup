@@ -15,8 +15,10 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { customHttpProvider, NullDefaultValueDirective } from './_helpers/index';
 import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { StatisticSerivce,
-  AuthenticationService, AlertService, MotelService, CommentService, LocationService, LevelService, WINDOW_PROVIDERS } from './_services/index';
+  AuthenticationService, AlertService, MotelService, CommentService,
+   LocationService, LevelService, WINDOW_PROVIDERS } from './_services/index';
 import { AgmCoreModule } from '@agm/core';
+import {NgxPaginationModule} from 'ngx-pagination';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatAutocompleteModule,
   MatButtonModule,
@@ -169,6 +171,7 @@ registerLocaleData(localEn);
   MatToolbarModule,
   MatTooltipModule,
   MatStepperModule,
+  NgxPaginationModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [

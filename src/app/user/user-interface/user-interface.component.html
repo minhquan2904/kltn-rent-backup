@@ -14,7 +14,7 @@
           </mat-card>
           <mat-card>
             <mat-card-content>
-              <h4 class="example-h2">Level {{user.level}}</h4>
+              <h4 class="example-h2">Level {{user?.rating.level}}</h4>
               <div class="wrapper">
                 <div></div>
                 <div>
@@ -30,7 +30,7 @@
                     <p class="percent">{{value}}%</p>
                   </div>
                     
-                  <p>Your exp: {{user.exp}}/{{maxExp}}</p> 
+                  <p>Your exp: {{user?.rating.exp}}/{{maxExp}}</p> 
                 </div>
                 <div></div>
               </div>
@@ -152,4 +152,5 @@
       </mat-card>
     </div>
   </div>
+  <div class="footer-distributed"></div>
 </div>

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AdminGuard } from '../../_guards/index';
 
 import { MatButtonModule, MatCheckboxModule, MatTabsModule, MatPaginatorModule, 
         MatTableModule, MatSortModule, MatFormFieldModule, MatInputModule} from '@angular/material';
@@ -28,6 +29,7 @@ import { AlertComponent } from '../layout/alert/alert.component';
     AdminTableMotelComponent,
     AdminTableCommentComponent,
     AlertComponent
-  ]
+  ],
+  providers: [AdminGuard]
 })
 export class AdminModule { }

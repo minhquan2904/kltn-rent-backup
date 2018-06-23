@@ -24,24 +24,13 @@ export class UserInterfaceComponent implements OnInit {
     this.getUser(id);
     console.log(this.user);
   }
-  getProgress() {
-    const data = {
-      num: this.user.level,
-      exp: this.user.exp
-    };
-    this.levelService.getProgress(data).subscribe( res => {
-      const result = res.json();
-      this.value = Number.parseInt(result.progress);
-      this.maxExp = result.maxExp;
-    }, err => {
-      this.alertService.error(err);
-    });
-  }
   getUser(id) {
     this.authService.findById(id)
       .subscribe( res => {
         this.user = res;
-        this.getProgress();
+        this.maxExp = this.user.rating.level * 60 * 1.5;
+        console.log(this.user.rating.exp);
+        this.value = Math.trunc((this.user.rating.exp / this.maxExp) * 100);
       }, err => {
         this.alertService.error(err);
       });

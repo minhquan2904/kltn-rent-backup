@@ -6,7 +6,8 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class AuthenticationService {
     constructor(private http: Http) { }
-
+    isLoggedIn: Boolean = false;
+    isAdmin: Boolean = false;
     login(username: string, password: string) {
         return this.http.post('/users/authenticate', { username: username, password: password })
             .map((response: Response) => {
@@ -15,6 +16,12 @@ export class AuthenticationService {
                 if (user) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify(user));
+                    this.isLoggedIn = true;
+                    if (user.role < 3) {
+                        this.isAdmin = true;
+                    } else {
+                        this.isAdmin = false;
+                    }
                 }
 
                 return user;
@@ -49,4 +56,5 @@ export class AuthenticationService {
     _delete(id) {
         return this.http.delete('/users/' + id);
     }
+   
 }
