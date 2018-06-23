@@ -3,7 +3,7 @@
         <p><span style="padding-right: 10px"><a (click)="translate.use('vi')">VI</a></span> | <span style="padding-left:10px;"><a (click)="translate.use('en')">EN</a></span></p>
     </div>
 </div>
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" *ngIf="isTopOfPage">
     
     <button mat-button routerLink="/" [ngStyle]="{'color': colorStyle === 'WHITE' ? 'white' : 'black'}">
     <mat-icon>home</mat-icon> 

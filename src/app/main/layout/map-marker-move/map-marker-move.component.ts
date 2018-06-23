@@ -3,6 +3,8 @@ import { ElementRef, NgZone, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { } from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
+
+import { MotelService } from '../../../_services/index';
 @Component({
   selector: 'app-map-marker-move',
   templateUrl: './map-marker-move.component.html',
@@ -10,7 +12,6 @@ import { MapsAPILoader } from '@agm/core';
 })
 export class MapMarkerMoveComponent implements OnInit {
   @Output() locationChild: EventEmitter<any> = new EventEmitter<any>();
-  @Output() latlngChild: EventEmitter<any> = new EventEmitter<any>();
 
   data: any = {};
   public latitude: number;
@@ -18,11 +19,13 @@ export class MapMarkerMoveComponent implements OnInit {
   public searchControl: FormControl;
   public zoom: number;
   checkCurrentPage = true;
+  listLocation: Array<any> = [];
+
   @Input() myData;
   @ViewChild('search')
   public searchElementRef: ElementRef;
   constructor(private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone) { }
+    private ngZone: NgZone, private motelService: MotelService) { }
 
   ngOnInit() {
     // set google maps defaults
@@ -54,7 +57,7 @@ export class MapMarkerMoveComponent implements OnInit {
           this.data.lat = this.latitude = place.geometry.location.lat();
           this.data.lng =  this.longitude = place.geometry.location.lng();
           this.zoom = 12;
-          this.latlngChild.emit(this.data);
+          // /this.latlngChild.emit(this.data);
         });
       });
     });
@@ -66,7 +69,7 @@ export class MapMarkerMoveComponent implements OnInit {
          this.data.lat = this.latitude = position.coords.latitude;
          this.data.lng =  this.longitude = position.coords.longitude;
          this.zoom = 12;
-         this.latlngChild.emit(this.data);
+        //  this.latlngChild.emit(this.data);
       });
     }
 
@@ -82,10 +85,23 @@ export class MapMarkerMoveComponent implements OnInit {
       if (status.toString() === 'OK') {
         this.data.lat = this.latitude = results[0].geometry.location.lat();
         this.data.lng = this.longitude = results[0].geometry.location.lng();
-        this.latlngChild.emit(this.data);
-        
+        // this.latlngChild.emit(this.data);
         this.zoom = 13;
       }
+    });
+  }
+
+  onSearchClick() {
+    this.data.distance = 5;
+    this.motelService.getListNearBy(this.data).subscribe(res => {
+      this.locationChild.emit(res);
+      this.zoom = 15;
+      res.map( item => {
+        let location: any = item;
+        location.lat = Number.parseFloat(item.lat.toString());
+        location.lng = Number.parseFloat(item.lng.toString());
+        this.listLocation.push(location);
+      });
     });
   }
 

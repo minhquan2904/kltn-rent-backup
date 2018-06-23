@@ -4281,6 +4281,10 @@ ngx-moment@^3.0.1:
   dependencies:
     tslib "^1.9.0"
 
+ngx-pagination@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/ngx-pagination/-/ngx-pagination-3.1.1.tgz#fcde5cb5fd4a1bd6aa785ff062a55f3deefcd3ac"
+
 no-case@^2.2.0:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/no-case/-/no-case-2.3.2.tgz#60b813396be39b3f1288a4c1ed5d1e7d28b464ac"

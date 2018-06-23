@@ -60,7 +60,7 @@ export class MapServiceComponent implements OnInit {
   checkboxGroup = new FormGroup({});
   checkboxTypes = ['store', 'school', 'hospital', 'health',
                   'restaurant', 'bus_station', 'lodging', 'local_government_office'];
-  types = ['school', 'hospital', 'store']; // types selected
+  types = []; // types selected
   ngOnInit() {
     this.agmMap.triggerResize(true);
     // set google maps defaults

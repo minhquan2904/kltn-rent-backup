@@ -18,8 +18,22 @@ router.get('/statistic/num-post', getNumPost);
 router.get('/find-recent', findRecent);
 router.post('/search', search); // advance search
 router.get('/full-search/:q', fullSearch);
+router.get('/full-search-test/:q', fullSearchTest);
+
 router.get('/find-by-status/:status', findByStatus);
 module.exports = router;
+function fullSearchTest(req,res) {
+    motelService.test(req.params.q).then(function (motels) {
+        if (motels.length > 0) {
+            res.status(200).send(motels);
+        } else {
+            res.status(404).send("No results");
+        }
+   })
+   .catch(function (err) {
+       res.status(400).send(err);
+   })
+}
 function findRecent(req, res) {
     motelService.findRecent().then(function(comments){
         if(comments)
@@ -163,10 +177,10 @@ function getListNearBy(req,res)
         if(motels)
         // search successful
         res.status(200).send(motels);
-    else{
-        // search fail
-        res.status(400).send("No Result");
-    }
+        else{
+            // search fail
+            res.status(404).send("No Result");
+        }
     })
     .catch(
         function (err) {

@@ -47,9 +47,10 @@ export class ShowMapComponent implements OnInit {
   getListNearBy() {
     this.motelService.getListNearBy(this.data).subscribe((res) => {
       res.map(item => {
-        item.lat = Number.parseFloat(item.lat);
-        item.lng = Number.parseFloat(item.lng);
-        this.listLocation.push(item);
+        let location;
+        location.lat = Number.parseFloat(item.lat.toString());
+        location.lng = Number.parseFloat(item.lng.toString());
+        this.listLocation.push(location);
       });
     }, (err) => {
       this.alertService.error('ERR');

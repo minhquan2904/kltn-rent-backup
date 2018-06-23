@@ -134,15 +134,60 @@ export class MotelService {
    _delte(id) {
        return this.http.delete('/motel/' + id);
    }
-   getListNearBy(data) {
+   getListNearBy(data): Observable<Motel[]> {
     return this.http.post('/motel/get-list-nearby', data)
-    .map((response: Response) => {
-        const motel = response.json();
-        return motel;
+    .map( res => {
+        return res.json().map(item => {
+            return new Motel(
+                item._id,
+                item.title,
+                item.category,
+                item.customer,
+                item.description,
+                item.price,
+                item.area,
+                item.city,
+                item.district,
+                item.street,
+                item.ward,
+                item.add,
+                item.address,
+                item.lat,
+                item.lng,
+                item.img,
+                item.contact,
+                item.status,
+                item.created_at
+            );
+        });
     });
    }
-   search(data) {
-       return this.http.post('/motel/search', data);
+   search(data): Observable<Motel[]> {
+       return this.http.post('/motel/search', data).map( res => {
+        return res.json().map(item => {
+            return new Motel(
+                item._id,
+                item.title,
+                item.category,
+                item.customer,
+                item.description,
+                item.price,
+                item.area,
+                item.city,
+                item.district,
+                item.street,
+                item.ward,
+                item.add,
+                item.address,
+                item.lat,
+                item.lng,
+                item.img,
+                item.contact,
+                item.status,
+                item.created_at
+            );
+        });
+    });
    }
    fullSearch(data): Observable<Motel[]> {
        return this.http.get('/motel/full-search/' + data)

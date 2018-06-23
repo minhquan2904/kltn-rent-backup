@@ -1,5 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Inject, HostListener } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
+
+import {WINDOW } from '../../../_services/index';
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
@@ -10,10 +12,21 @@ export class NavComponent implements OnInit {
   @Input() colorStyle: String;
   data: any = {};
   loginStatus: Boolean;
-  constructor(public translate: TranslateService) { }
+  isTopOfPage: Boolean = true;
+  constructor(public translate: TranslateService, @Inject(WINDOW) private window: Window) { }
 
   ngOnInit() {
     console.log(this.colorStyle);
     this.loginStatus = localStorage.getItem('currentUser') ? true : false;
+  }
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    let number = window.pageYOffset || 0;
+    if (number !== 0) {
+      this.isTopOfPage = false;
+    } else {
+      this.isTopOfPage = true;
+    }
   }
 }

@@ -18,8 +18,23 @@ service.fullSearch = fullSearch;
 service.getListNearBy = getListNearBy;
 service.getLatLng = getLatLng;
 service.updateStatus = updateStatus;
+service.test = test;
 module.exports = service;
 
+function test(searchString) {
+    var deferred = Q.defer();
+    
+    motels.find({$text: {$search: searchString}})
+    .skip(20)
+    .limit(10)
+    .exec(function(err, motels) {
+        if(err) { 
+            deferred.reject(err);
+        }
+        deferred.resolve(motels);
+     });
+    return deferred.promise;     
+}
 function fullSearch(value) {
     var deferred = Q.defer();
 
@@ -286,6 +301,7 @@ function getListNearBy(data)
 {
     var deferred = Q.defer();
     var listNearBy = [] ;
+    console.log(data);
     motels.find(
          {},
         function(err,motels)

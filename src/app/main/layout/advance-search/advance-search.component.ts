@@ -1,7 +1,10 @@
 import { Component, OnInit} from '@angular/core';
-import { appConfig } from '../../../app.config';
-import { MotelService, AlertService } from '../../../_services/index';
+import { appConfig } from '../../../app.config'; 
+import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
 
+import { MotelService, AlertService } from '../../../_services/index';
+import { Motel} from '../../../_models/index';
 @Component({
   selector: 'app-advance-search',
   templateUrl: './advance-search.component.html',
@@ -19,8 +22,10 @@ export class AdvanceSearchComponent implements OnInit {
     ward: '',
     street: ''
   };
-  motelArray: any = []; // data recceive after search
+  hasRs: Boolean = false;
+  motels: Observable<Motel[]>; // data recceive after search
   city: any = {};
+  title: String = 'Results';
   ngOnInit() {
     this.resultArray = Object.keys(this.location).map( res => {
       const city = this.location[res];
@@ -43,15 +48,22 @@ export class AdvanceSearchComponent implements OnInit {
     if (this.wordCount(this.query.district) > 2) {
       this.query.district = this.query.district.substr(this.query.district.indexOf(' ') + 1);
     }
-    this.motelService.search(this.query).subscribe( res => {
-      this.motelArray = Array.of(res.json());
-      console.log(this.motelArray);
-    }, err => {
-      this.alertService.error(err);
-    });
+    this.motels = this.motelService.search(this.query);
+    this.hasRs = true;
   }
 
   wordCount(str) {
     return str.split(' ').length;
   }
+
+  onMapSearchClick(data: any) {
+    this.hasRs = false;
+    data.distance = 5;
+    this.handleSearhNearBy(data);
+  }
+  handleSearhNearBy(data) {
+    this.motels = of(data);
+    this.hasRs = true;
+   }
+
 }

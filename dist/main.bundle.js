@@ -964,7 +964,8 @@ var CommentService = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__comment_service__ = __webpack_require__("./src/app/_services/comment.service.ts");
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_4__comment_service__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__window_service__ = __webpack_require__("./src/app/_services/window.service.ts");
-/* unused harmony namespace reexport */
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "i", function() { return __WEBPACK_IMPORTED_MODULE_5__window_service__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "j", function() { return __WEBPACK_IMPORTED_MODULE_5__window_service__["b"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__location_service__ = __webpack_require__("./src/app/_services/location.service.ts");
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_6__location_service__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__api_service__ = __webpack_require__("./src/app/_services/api.service.ts");
@@ -1209,13 +1210,18 @@ var MotelService = (function () {
     };
     MotelService.prototype.getListNearBy = function (data) {
         return this.http.post('/motel/get-list-nearby', data)
-            .map(function (response) {
-            var motel = response.json();
-            return motel;
+            .map(function (res) {
+            return res.json().map(function (item) {
+                return new __WEBPACK_IMPORTED_MODULE_4__models_motel_model__["a" /* Motel */](item._id, item.title, item.category, item.customer, item.description, item.price, item.area, item.city, item.district, item.street, item.ward, item.add, item.address, item.lat, item.lng, item.img, item.contact, item.status, item.created_at);
+            });
         });
     };
     MotelService.prototype.search = function (data) {
-        return this.http.post('/motel/search', data);
+        return this.http.post('/motel/search', data).map(function (res) {
+            return res.json().map(function (item) {
+                return new __WEBPACK_IMPORTED_MODULE_4__models_motel_model__["a" /* Motel */](item._id, item.title, item.category, item.customer, item.description, item.price, item.area, item.city, item.district, item.street, item.ward, item.add, item.address, item.lat, item.lng, item.img, item.contact, item.status, item.created_at);
+            });
+        });
     };
     MotelService.prototype.fullSearch = function (data) {
         return this.http.get('/motel/full-search/' + data)
@@ -1398,31 +1404,80 @@ var UserService = (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony export WindowService */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-var WindowService = (function () {
-    function WindowService() {
-    }
-    WindowService.prototype.getNativeWindow = function () {
-        return window;
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return WINDOW; });
+/* unused harmony export WindowRef */
+/* unused harmony export BrowserWindowRef */
+/* unused harmony export windowFactory */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return WINDOW_PROVIDERS; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common__ = __webpack_require__("./node_modules/@angular/common/esm5/common.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
-    WindowService = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-        __metadata("design:paramtypes", [])
-    ], WindowService);
-    return WindowService;
+})();
+
+
+/* Create a new injection token for injecting the window into a component. */
+var WINDOW = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["InjectionToken"]('WindowToken');
+/* Define abstract class for obtaining reference to the global window object. */
+var WindowRef = (function () {
+    function WindowRef() {
+    }
+    Object.defineProperty(WindowRef.prototype, "nativeWindow", {
+        get: function () {
+            throw new Error('Not implemented.');
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return WindowRef;
 }());
 
+/* Define class that implements the abstract class and returns the native window object. */
+var BrowserWindowRef = (function (_super) {
+    __extends(BrowserWindowRef, _super);
+    function BrowserWindowRef() {
+        return _super.call(this) || this;
+    }
+    Object.defineProperty(BrowserWindowRef.prototype, "nativeWindow", {
+        get: function () {
+            return window;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return BrowserWindowRef;
+}(WindowRef));
+
+/* Create an factory function that returns the native window object. */
+function windowFactory(browserWindowRef, platformId) {
+    if (Object(__WEBPACK_IMPORTED_MODULE_0__angular_common__["isPlatformBrowser"])(platformId)) {
+        return browserWindowRef.nativeWindow;
+    }
+    return new Object();
+}
+/* Create a injectable provider for the WindowRef token that uses the BrowserWindowRef class. */
+var browserWindowProvider = {
+    provide: WindowRef,
+    useClass: BrowserWindowRef
+};
+/* Create an injectable provider that uses the windowFactory function for returning the native window object. */
+var windowProvider = {
+    provide: WINDOW,
+    useFactory: windowFactory,
+    deps: [WindowRef, __WEBPACK_IMPORTED_MODULE_1__angular_core__["PLATFORM_ID"]]
+};
+/* Create an array of providers. */
+var WINDOW_PROVIDERS = [
+    browserWindowProvider,
+    windowProvider
+];
 
 
 /***/ }),
@@ -1490,9 +1545,8 @@ var AppComponent = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return appConfig; });
 var appConfig = {
-    // 
-    // apiUrl: 'http://localhost:3000',
-    apiUrl: 'https://rent-deploy.herokuapp.com',
+    apiUrl: 'http://localhost:3000',
+    // apiUrl: 'https://rent-deploy.herokuapp.com',
     vn: {
         '1': {
             'name': 'Cần Thơ',
@@ -2709,6 +2763,7 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_6__angular_router__["d" /* RouterModule */].forRoot(appRoutes)
             ],
             providers: [
+                __WEBPACK_IMPORTED_MODULE_16__services_index__["j" /* WINDOW_PROVIDERS */],
                 __WEBPACK_IMPORTED_MODULE_12__guards_index__["a" /* AuthGuard */],
                 __WEBPACK_IMPORTED_MODULE_16__services_index__["d" /* LevelService */],
                 __WEBPACK_IMPORTED_MODULE_16__services_index__["g" /* StatisticSerivce */],
@@ -3227,14 +3282,14 @@ var UserContactDialog = (function () {
 /***/ "./src/app/main/layout/advance-search/advance-search.component.css":
 /***/ (function(module, exports) {
 
-module.exports = ".container-fluid {\n    padding-top: 65px;\n    width: calc(100% - 100px);\n    margin: 0 auto;\n}\n.input-price{\n    margin: auto;\n    width: calc(100% -100px);\n}\n.mat-card img{\n    height: 210px;\n\n}"
+module.exports = ".container{\n    padding-top: 65px;\n    width: 100%;\n    margin: 0 auto;\n}\n.input-price{\n    margin: auto;\n    width: calc(100% -100px);\n}\n.mat-card img{\n    height: 210px;\n\n}"
 
 /***/ }),
 
 /***/ "./src/app/main/layout/advance-search/advance-search.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n    <div class=\"row\">\n            <mat-tab-group>\n                <mat-tab label=\"Tìm kiếm địa chỉ\"> <h4 class=\"text-center\">Dữ liệu địa chỉ có thể không chính xác. Để tùy chỉnh, nhập vào khung \"Địa chỉ\"</h4>\n                    <mat-form-field class=\"col-sm-3\">\n                        <mat-select placeholder=\"Tỉnh/ Thành phố\"  (change)=\"onCityChange();\" [(ngModel)]=\"city.id\" #id=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                          <mat-option *ngFor=\"let item of resultArray; let i = index\" [value]=\"i\">\n                            {{ item.name }}\n                          </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                \n                    <mat-form-field class=\"col-sm-3\">\n                        <mat-select placeholder=\"Quận/ Huyện\" [(ngModel)]=\"query.district\" #district=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                            <mat-option *ngFor=\"let item of districtArray; let i = index\" [value]=\"item\"  >\n                            {{ item }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                \n                    <mat-form-field class=\"col-sm-3\">\n                        <input matInput placeholder=\"Xã/ Phường\"[(ngModel)]=\"query.ward\" #ward=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                        <mat-hint>\"Chỉ nhập tên xã/ phường\"</mat-hint>\n                    </mat-form-field>\n                    <mat-form-field class=\"col-sm-3\">\n                        <input matInput placeholder=\"Đường \" [(ngModel)]=\"query.street\" #street=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                        <mat-hint>\"Chỉ nhập tên đường\"</mat-hint>\n                    </mat-form-field>\n               \n                    <div class=\"col-sm-12\" style=\"display: inline;\">\n                        Giá tiền: \n                        <mat-form-field>\n                            <input matInput placeholder=\"Từ\" [(ngModel)]=\"query.bottom_price\" #bottomPrice=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                        </mat-form-field>\n                        -\n                        <mat-form-field>\n                            <input matInput placeholder=\"Đến\" [(ngModel)]=\"query.top_price\" #topPrice=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                        </mat-form-field>\n                        <mat-hint>Triệu đồng/ tháng</mat-hint>\n                    </div>\n                    <div class=\"col-sm-6\">\n                        <button mat-raised-button color=\"primary\" (click)=\"onAdvanceSearch()\"><mat-icon>search</mat-icon>Search</button>\n                    </div></mat-tab>\n                <mat-tab label=\"Tìm trên bản đồ\" #mapTab>\n                        <div *ngIf=\"mapTab.isActive\">\n                            <app-map-marker-move></app-map-marker-move>\n                        </div>\n                </mat-tab>\n            </mat-tab-group>\n           \n    </div>\n   <div class=\"row\" *ngIf=\"motelArray.length>0\">\n       <h1 class=\"text-center\">Result</h1>\n       <div class=\"col-md-4 col-lg-3\" *ngFor = \"let motel of motelArray[0]\">\n        <mat-card class=\"example-card\">\n            <mat-card-header>\n              <mat-card-title><b>{{motel.title}}</b></mat-card-title>\n              <mat-card-subtitle></mat-card-subtitle>\n            </mat-card-header>\n\n            <img mat-card-image src=\"/assets/{{motel.img[0]}}\" *ngIf=\"motel.img[0]\">\n            <img mat-card-image src=\"/assets/No_Image_Available.jpg\" *ngIf=\"!motel.img[0]\">\n            \n            <mat-card-content>\n              <p><span  style=\"color: grey;\">Price:</span> {{motel.price}}</p> \n              <p><span  style=\"color: grey;\">Area:</span> {{motel.area}}</p> \n              <p><span  style=\"color: grey;\">Address:</span> {{motel.address}}</p> \n            </mat-card-content>\n            <mat-card-actions>\n              <button mat-button>LIKE</button>\n              <button mat-button>SHARE</button>\n            </mat-card-actions>\n          </mat-card>\n       </div>\n     \n   </div>\n\n</div>\n\n<app-footer></app-footer>"
+module.exports = "<app-nav></app-nav>\n<div class=\"container\">\n    <div class=\"row\">\n            <mat-tab-group>\n                <mat-tab label=\"Tìm kiếm địa chỉ\"> <h4 class=\"text-center\">Dữ liệu địa chỉ có thể không chính xác. Để tùy chỉnh, nhập vào khung \"Địa chỉ\"</h4>\n                    <mat-form-field class=\"col-sm-3\">\n                        <mat-select placeholder=\"Tỉnh/ Thành phố\"  (change)=\"onCityChange();\" [(ngModel)]=\"city.id\" #id=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                          <mat-option *ngFor=\"let item of resultArray; let i = index\" [value]=\"i\">\n                            {{ item.name }}\n                          </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                \n                    <mat-form-field class=\"col-sm-3\">\n                        <mat-select placeholder=\"Quận/ Huyện\" [(ngModel)]=\"query.district\" #district=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                            <mat-option *ngFor=\"let item of districtArray; let i = index\" [value]=\"item\"  >\n                            {{ item }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                \n                    <mat-form-field class=\"col-sm-3\">\n                        <input matInput placeholder=\"Xã/ Phường\"[(ngModel)]=\"query.ward\" #ward=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                        <mat-hint>\"Chỉ nhập tên xã/ phường\"</mat-hint>\n                    </mat-form-field>\n                    <mat-form-field class=\"col-sm-3\">\n                        <input matInput placeholder=\"Đường \" [(ngModel)]=\"query.street\" #street=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                        <mat-hint>\"Chỉ nhập tên đường\"</mat-hint>\n                    </mat-form-field>\n               \n                    <div class=\"col-sm-12\" style=\"display: inline;\">\n                        Giá tiền: \n                        <mat-form-field>\n                            <input matInput placeholder=\"Từ\" [(ngModel)]=\"query.bottom_price\" #bottomPrice=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                        </mat-form-field>\n                        -\n                        <mat-form-field>\n                            <input matInput placeholder=\"Đến\" [(ngModel)]=\"query.top_price\" #topPrice=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                        </mat-form-field>\n                        <mat-hint>Triệu đồng/ tháng</mat-hint>\n                    </div>\n                    <div class=\"col-sm-6\">\n                        <button mat-raised-button color=\"primary\" (click)=\"onAdvanceSearch()\"><mat-icon>search</mat-icon>Search</button>\n                    </div></mat-tab>\n                <mat-tab label=\"Tìm trên bản đồ\" #mapTab>\n                        <div *ngIf=\"mapTab.isActive\">\n                            <app-map-marker-move (locationChild)=\"onMapSearchClick($event)\"></app-map-marker-move>\n                        </div>\n                </mat-tab>\n            </mat-tab-group>\n           \n    </div>\n   <app-recent-post *ngIf=\"hasRs\" [motels]=\"motels\" [title]=\"title\"></app-recent-post>\n\n</div>\n\n<app-footer></app-footer>"
 
 /***/ }),
 
@@ -3245,7 +3300,8 @@ module.exports = "<div class=\"container-fluid\">\n    <div class=\"row\">\n    
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdvanceSearchComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_config__ = __webpack_require__("./src/app/app.config.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_index__ = __webpack_require__("./src/app/_services/index.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_observable_of__ = __webpack_require__("./node_modules/rxjs/_esm5/observable/of.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_index__ = __webpack_require__("./src/app/_services/index.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3255,6 +3311,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -3270,8 +3327,9 @@ var AdvanceSearchComponent = (function () {
             ward: '',
             street: ''
         };
-        this.motelArray = []; // data recceive after search
+        this.hasRs = false;
         this.city = {};
+        this.title = 'Results';
     }
     AdvanceSearchComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -3289,21 +3347,25 @@ var AdvanceSearchComponent = (function () {
         });
     };
     AdvanceSearchComponent.prototype.onAdvanceSearch = function () {
-        var _this = this;
         //  this.query.district = this.query.district.substr(this.query.district.indexOf(' ') + 1);
         //   console.log(this.query);
         if (this.wordCount(this.query.district) > 2) {
             this.query.district = this.query.district.substr(this.query.district.indexOf(' ') + 1);
         }
-        this.motelService.search(this.query).subscribe(function (res) {
-            _this.motelArray = Array.of(res.json());
-            console.log(_this.motelArray);
-        }, function (err) {
-            _this.alertService.error(err);
-        });
+        this.motels = this.motelService.search(this.query);
+        this.hasRs = true;
     };
     AdvanceSearchComponent.prototype.wordCount = function (str) {
         return str.split(' ').length;
+    };
+    AdvanceSearchComponent.prototype.onMapSearchClick = function (data) {
+        this.hasRs = false;
+        data.distance = 5;
+        this.handleSearhNearBy(data);
+    };
+    AdvanceSearchComponent.prototype.handleSearhNearBy = function (data) {
+        this.motels = Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_observable_of__["a" /* of */])(data);
+        this.hasRs = true;
     };
     AdvanceSearchComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
@@ -3311,7 +3373,7 @@ var AdvanceSearchComponent = (function () {
             template: __webpack_require__("./src/app/main/layout/advance-search/advance-search.component.html"),
             styles: [__webpack_require__("./src/app/main/layout/advance-search/advance-search.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__services_index__["f" /* MotelService */], __WEBPACK_IMPORTED_MODULE_2__services_index__["a" /* AlertService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__services_index__["f" /* MotelService */], __WEBPACK_IMPORTED_MODULE_3__services_index__["a" /* AlertService */]])
     ], AdvanceSearchComponent);
     return AdvanceSearchComponent;
 }());
@@ -3590,7 +3652,7 @@ module.exports = "agm-map {\n    height: 300px;\n    width: 100%;\n  }\ninput{\n
 /***/ "./src/app/main/layout/map-marker-move/map-marker-move.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"form-group\" >\n    <mat-form-field class=\"col-sm-6\" style=\"width: calc(100% - 100px); margin: auto;\"> \n        <input matInput placeholder=\"search for location\" autocorrect=\"off\" autocapitalize=\"off\" spellcheck=\"off\" type=\"text\"  #search [formControl]=\"searchControl\" style=\"width:500px;\">            \n    </mat-form-field>\n    \n</div>\n<div id=\"map_container\"></div>\n<agm-map  [latitude]=\"latitude\" \n          [longitude]=\"longitude\" \n          [scrollwheel]=\"false\" \n          [zoom]=\"zoom\"\n          (mapClick)=\"onMapClick($event)\"\n          >\n  <agm-marker [latitude]=\"latitude\" [longitude]=\"longitude\">\n    <agm-snazzy-info-window [maxWidth]=\"200\" [closeWhenOthersOpen]=\"true\">\n        <ng-template>\n         Your position\n        </ng-template>\n      </agm-snazzy-info-window>\n  </agm-marker>\n</agm-map>\n<div class=\"col-xs-12\">\n    <div class=\"col-xs-6\">\n        input\n    </div>\n    <div class=\"col-xs-6\">\n        <button mat-raised-button color=\"primary\"><mat-icon>search</mat-icon> Search</button>\n    </div>\n</div>\n"
+module.exports = "<div class=\"form-group\" >\n    <mat-form-field class=\"col-sm-6\" style=\"width: calc(100% - 100px); margin: auto;\"> \n        <input matInput placeholder=\"search for location\" autocorrect=\"off\" autocapitalize=\"off\" spellcheck=\"off\" type=\"text\"  #search [formControl]=\"searchControl\" style=\"width:500px;\">            \n    </mat-form-field>\n    \n</div>\n<div id=\"map_container\"></div>\n<agm-map  [latitude]=\"latitude\" \n          [longitude]=\"longitude\" \n          [scrollwheel]=\"false\" \n          [zoom]=\"zoom\"\n          (mapClick)=\"onMapClick($event)\"\n          >\n  <agm-marker [latitude]=\"latitude\" [longitude]=\"longitude\">\n    <agm-snazzy-info-window [maxWidth]=\"200\" [closeWhenOthersOpen]=\"true\">\n        <ng-template>\n         Your position\n        </ng-template>\n      </agm-snazzy-info-window>\n  </agm-marker>\n  <div *ngFor=\"let item of listLocation\">\n    <agm-marker  [latitude]=\"item.lat\" [longitude]=\"item.lng\">\n      <agm-snazzy-info-window [maxWidth]=\"1000\" [closeWhenOthersOpen]=\"true\" style=\"min-width: 400px;\">\n          <ng-template >\n           <p>{{item.category}}</p>\n           <a [routerLink]=\"['/item', item._id]\" target=\"_blank\">Show Details</a>\n          </ng-template>\n        </agm-snazzy-info-window>\n   </agm-marker> \n  </div> \n</agm-map>\n<div class=\"col-xs-12\">\n    <div class=\"col-xs-6\">\n        input\n    </div>\n    <div class=\"col-xs-6\">\n        <button mat-raised-button color=\"primary\" (click)=\"onSearchClick()\"><mat-icon>search</mat-icon> Search</button>\n    </div>\n</div>\n"
 
 /***/ }),
 
@@ -3602,6 +3664,7 @@ module.exports = "<div class=\"form-group\" >\n    <mat-form-field class=\"col-s
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__("./node_modules/@angular/forms/esm5/forms.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__agm_core__ = __webpack_require__("./node_modules/@agm/core/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_index__ = __webpack_require__("./src/app/_services/index.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3615,14 +3678,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var MapMarkerMoveComponent = (function () {
-    function MapMarkerMoveComponent(mapsAPILoader, ngZone) {
+    function MapMarkerMoveComponent(mapsAPILoader, ngZone, motelService) {
         this.mapsAPILoader = mapsAPILoader;
         this.ngZone = ngZone;
+        this.motelService = motelService;
         this.locationChild = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
-        this.latlngChild = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         this.data = {};
         this.checkCurrentPage = true;
+        this.listLocation = [];
     }
     MapMarkerMoveComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -3653,7 +3718,7 @@ var MapMarkerMoveComponent = (function () {
                     _this.data.lat = _this.latitude = place.geometry.location.lat();
                     _this.data.lng = _this.longitude = place.geometry.location.lng();
                     _this.zoom = 12;
-                    _this.latlngChild.emit(_this.data);
+                    // /this.latlngChild.emit(this.data);
                 });
             });
         });
@@ -3666,7 +3731,7 @@ var MapMarkerMoveComponent = (function () {
                 _this.data.lat = _this.latitude = position.coords.latitude;
                 _this.data.lng = _this.longitude = position.coords.longitude;
                 _this.zoom = 12;
-                _this.latlngChild.emit(_this.data);
+                //  this.latlngChild.emit(this.data);
             });
         }
     };
@@ -3680,19 +3745,29 @@ var MapMarkerMoveComponent = (function () {
             if (status.toString() === 'OK') {
                 _this.data.lat = _this.latitude = results[0].geometry.location.lat();
                 _this.data.lng = _this.longitude = results[0].geometry.location.lng();
-                _this.latlngChild.emit(_this.data);
+                // this.latlngChild.emit(this.data);
                 _this.zoom = 13;
             }
+        });
+    };
+    MapMarkerMoveComponent.prototype.onSearchClick = function () {
+        var _this = this;
+        this.data.distance = 5;
+        this.motelService.getListNearBy(this.data).subscribe(function (res) {
+            _this.locationChild.emit(res);
+            _this.zoom = 15;
+            res.map(function (item) {
+                var location = item;
+                location.lat = Number.parseFloat(item.lat.toString());
+                location.lng = Number.parseFloat(item.lng.toString());
+                _this.listLocation.push(location);
+            });
         });
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"])
     ], MapMarkerMoveComponent.prototype, "locationChild", void 0);
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"])
-    ], MapMarkerMoveComponent.prototype, "latlngChild", void 0);
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
         __metadata("design:type", Object)
@@ -3708,7 +3783,7 @@ var MapMarkerMoveComponent = (function () {
             styles: [__webpack_require__("./src/app/main/layout/map-marker-move/map-marker-move.component.css")]
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__agm_core__["e" /* MapsAPILoader */],
-            __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"]])
+            __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"], __WEBPACK_IMPORTED_MODULE_3__services_index__["f" /* MotelService */]])
     ], MapMarkerMoveComponent);
     return MapMarkerMoveComponent;
 }());
@@ -3786,7 +3861,7 @@ var MapServiceComponent = (function () {
         this.checkboxGroup = new __WEBPACK_IMPORTED_MODULE_1__angular_forms__["d" /* FormGroup */]({});
         this.checkboxTypes = ['store', 'school', 'hospital', 'health',
             'restaurant', 'bus_station', 'lodging', 'local_government_office'];
-        this.types = ['school', 'hospital', 'store']; // types selected
+        this.types = ['store']; // types selected
     }
     MapServiceComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -4018,7 +4093,7 @@ module.exports = "\r\n\r\n.fill-remaining-space {\r\n    /*This fills the remain
 /***/ "./src/app/main/layout/nav/nav.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"contact-header\">\n    <div class=\"col-xs-6 contact-float-left\">\n        <p><span style=\"padding-right: 10px\"><a (click)=\"translate.use('vi')\">VI</a></span> | <span style=\"padding-left:10px;\"><a (click)=\"translate.use('en')\">EN</a></span></p>\n    </div>\n</div>\n<mat-toolbar color=\"primary\">\n    \n    <button mat-button routerLink=\"/\" [ngStyle]=\"{'color': colorStyle === 'WHITE' ? 'white' : 'black'}\">\n    <mat-icon>home</mat-icon> \n    {{ 'PAGE.HOME' | translate}}</button>\n\n    <!-- This fills the remaining space of the current row -->\n    <span class=\"fill-remaining-space\"></span>\n    <div fxLayout=\"row\" fxShow=\"false\" fxShow.gt-sm [ngStyle]=\"{'color': colorStyle === 'WHITE' ? 'white' : 'black'}\">\n        <button mat-button routerLink=\"['/home']\">{{ 'PAGE.HOME' | translate}}</button>\n        <button mat-button routerLink=\"['/home']\">{{ 'PAGE.D9' | translate}}</button>\n        <button mat-button routerLink=\"['/home']\">{{ 'PAGE.DThuDuc' | translate}}</button>\n        <button mat-button routerLink=\"['/home']\">{{ 'PAGE.MORE' | translate}}</button>\n        <button mat-button [routerLink]=\"['/add']\">{{ 'PAGE.ADD' | translate}}</button>\n        <button mat-button [routerLink]=\"['/login']\" *ngIf=\"!loginStatus\">{{ 'PAGE.LOGIN' | translate}}</button>\n        <button mat-button [routerLink]=\"['/login']\" *ngIf=\"loginStatus\">{{ 'PAGE.LOGOUT' | translate}}</button>\n        <button mat-button [routerLink]=\"['/show-map']\" [queryParams]=\"{ lat: data.lat, lng: data.lng}\">{{ 'PAGE.OVERVIEW' | translate}}</button>\n\n\n        \n    </div>\n    <button mat-button [mat-menu-trigger-for]=\"menu\" fxHide=\"false\" fxHide.gt-sm>\n     <mat-icon>menu</mat-icon>\n    </button>\n\n</mat-toolbar>\n<mat-menu x-position=\"before\" #menu=\"matMenu\">\n    <button mat-menu-item routerLink=\"['/home']\">Home</button>\n        <button mat-menu-item [routerLink]=\"['/add']\">Add</button>\n        <button  mat-menu-item [routerLink]=\"['/login']\">{{loginStatus}}</button>\n        <button  mat-menu-item [routerLink]=\"['/show-map']\" [queryParams]=\"{ lat: data.lat, lng: data.lng}\">Overview</button>\n    <!--<button mat-menu-item>Help</button>-->\n</mat-menu>\n"
+module.exports = "<div class=\"contact-header\">\n    <div class=\"col-xs-6 contact-float-left\">\n        <p><span style=\"padding-right: 10px\"><a (click)=\"translate.use('vi')\">VI</a></span> | <span style=\"padding-left:10px;\"><a (click)=\"translate.use('en')\">EN</a></span></p>\n    </div>\n</div>\n<mat-toolbar color=\"primary\" *ngIf=\"isTopOfPage\">\n    \n    <button mat-button routerLink=\"/\" [ngStyle]=\"{'color': colorStyle === 'WHITE' ? 'white' : 'black'}\">\n    <mat-icon>home</mat-icon> \n    {{ 'PAGE.HOME' | translate}}</button>\n\n    <!-- This fills the remaining space of the current row -->\n    <span class=\"fill-remaining-space\"></span>\n    <div fxLayout=\"row\" fxShow=\"false\" fxShow.gt-sm [ngStyle]=\"{'color': colorStyle === 'WHITE' ? 'white' : 'black'}\">\n        <button mat-button routerLink=\"['/home']\">{{ 'PAGE.HOME' | translate}}</button>\n        <button mat-button routerLink=\"['/home']\">{{ 'PAGE.D9' | translate}}</button>\n        <button mat-button routerLink=\"['/home']\">{{ 'PAGE.DThuDuc' | translate}}</button>\n        <button mat-button routerLink=\"['/home']\">{{ 'PAGE.MORE' | translate}}</button>\n        <button mat-button [routerLink]=\"['/add']\">{{ 'PAGE.ADD' | translate}}</button>\n        <button mat-button [routerLink]=\"['/login']\" *ngIf=\"!loginStatus\">{{ 'PAGE.LOGIN' | translate}}</button>\n        <button mat-button [routerLink]=\"['/login']\" *ngIf=\"loginStatus\">{{ 'PAGE.LOGOUT' | translate}}</button>\n        <button mat-button [routerLink]=\"['/show-map']\" [queryParams]=\"{ lat: data.lat, lng: data.lng}\">{{ 'PAGE.OVERVIEW' | translate}}</button>\n\n\n        \n    </div>\n    <button mat-button [mat-menu-trigger-for]=\"menu\" fxHide=\"false\" fxHide.gt-sm>\n     <mat-icon>menu</mat-icon>\n    </button>\n\n</mat-toolbar>\n<mat-menu x-position=\"before\" #menu=\"matMenu\">\n    <button mat-menu-item routerLink=\"['/home']\">Home</button>\n        <button mat-menu-item [routerLink]=\"['/add']\">Add</button>\n        <button  mat-menu-item [routerLink]=\"['/login']\">{{loginStatus}}</button>\n        <button  mat-menu-item [routerLink]=\"['/show-map']\" [queryParams]=\"{ lat: data.lat, lng: data.lng}\">Overview</button>\n    <!--<button mat-menu-item>Help</button>-->\n</mat-menu>\n"
 
 /***/ }),
 
@@ -4029,6 +4104,7 @@ module.exports = "<div class=\"contact-header\">\n    <div class=\"col-xs-6 cont
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NavComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__ = __webpack_require__("./node_modules/@ngx-translate/core/@ngx-translate/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_index__ = __webpack_require__("./src/app/_services/index.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4038,28 +4114,50 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+
 
 
 var NavComponent = (function () {
-    function NavComponent(translate) {
+    function NavComponent(translate, window) {
         this.translate = translate;
+        this.window = window;
         this.data = {};
+        this.isTopOfPage = true;
     }
     NavComponent.prototype.ngOnInit = function () {
         console.log(this.colorStyle);
         this.loginStatus = localStorage.getItem('currentUser') ? true : false;
     };
+    NavComponent.prototype.onWindowScroll = function () {
+        var number = window.pageYOffset || 0;
+        if (number !== 0) {
+            this.isTopOfPage = false;
+        }
+        else {
+            this.isTopOfPage = true;
+        }
+    };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
         __metadata("design:type", String)
     ], NavComponent.prototype, "colorStyle", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["HostListener"])('window:scroll', []),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", []),
+        __metadata("design:returntype", void 0)
+    ], NavComponent.prototype, "onWindowScroll", null);
     NavComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-nav',
             template: __webpack_require__("./src/app/main/layout/nav/nav.component.html"),
             styles: [__webpack_require__("./src/app/main/layout/nav/nav.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__["c" /* TranslateService */]])
+        __param(1, Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Inject"])(__WEBPACK_IMPORTED_MODULE_2__services_index__["i" /* WINDOW */])),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__["c" /* TranslateService */], Window])
     ], NavComponent);
     return NavComponent;
 }());
@@ -4143,7 +4241,7 @@ module.exports = "*.home-wrap h1,*/\r\n.home-wrap h2,\r\n.home-wrap h3,\r\n.home
 /***/ "./src/app/main/layout/search/search.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<section id=\"home\" class=\"home\">\n  <div class=\"home_overlay\">\n      <div class=\"container\">\n          <div class=\"row\">\n              <div class=\"main_slider_area\">\n                  <div class=\"slider\">\n                      <div class=\"single_slider\">\n                          <p class=\"home-title\">{{ 'HOME.TITLE' | translate}}</p>\n                          <p>{{ 'HOME.MODERN' | translate}}  -  {{ 'HOME.FAST' | translate}}  -  {{ 'HOME.RELIABLE' | translate}}</p>\n                          \n                          <div class=\"col-sm-8 col-sm-offset-2\">\n                              <div class=\"home_searce_domain_area\">\n                                  <div class=\"input-search\">\n                                      <mat-form-field>\n                                        <input type=\"text\" matInput placeholder=\"Type text here\" [(ngModel)] = \"query\">\n                                      </mat-form-field>\n                                          \n                                            \n                                     \n                                      <button mat-raised-button (click)=\"onSearchClick()\" color=\"primary\"><mat-icon>search</mat-icon>Search</button>\n                                      <button mat-raised-button color=\"warn\"><mat-icon>assignment</mat-icon>Advance</button>\n                                  </div>\n                              </div>\n                          </div>\n                      </div>\n\n                  </div>\n              </div>\n          </div>\n      </div>\n  </div>\n</section><!-- End of Banner Section -->\n<app-recent-post [motels] = \"motels\" [title]=\"title\" *ngIf=\"hasRs\"></app-recent-post>"
+module.exports = "<section id=\"home\" class=\"home\">\n  <div class=\"home_overlay\">\n      <div class=\"container\">\n          <div class=\"row\">\n              <div class=\"main_slider_area\">\n                  <div class=\"slider\">\n                      <div class=\"single_slider\">\n                          <p class=\"home-title\">{{ 'HOME.TITLE' | translate}}</p>\n                          <p>{{ 'HOME.MODERN' | translate}}  -  {{ 'HOME.FAST' | translate}}  -  {{ 'HOME.RELIABLE' | translate}}</p>\n                          \n                          <div class=\"col-sm-8 col-sm-offset-2\">\n                              <div class=\"home_searce_domain_area\">\n                                  <div class=\"input-search\">\n                                      <mat-form-field>\n                                        <input type=\"text\" matInput placeholder=\"Type text here\" [(ngModel)] = \"query\">\n                                      </mat-form-field>\n                                          \n                                            \n                                     \n                                      <button mat-raised-button (click)=\"onSearchClick()\" color=\"primary\"><mat-icon>search</mat-icon>Search</button>\n                                      <button mat-raised-button color=\"warn\" routerLink=\"['/advance']\"><mat-icon>assignment</mat-icon>Advance</button>\n                                  </div>\n                              </div>\n                          </div>\n                      </div>\n\n                  </div>\n              </div>\n          </div>\n      </div>\n  </div>\n</section><!-- End of Banner Section -->\n<app-recent-post [motels] = \"motels\" [title]=\"title\" *ngIf=\"hasRs\"></app-recent-post>"
 
 /***/ }),
 
@@ -4266,9 +4364,10 @@ var ShowMapComponent = (function () {
         var _this = this;
         this.motelService.getListNearBy(this.data).subscribe(function (res) {
             res.map(function (item) {
-                item.lat = Number.parseFloat(item.lat);
-                item.lng = Number.parseFloat(item.lng);
-                _this.listLocation.push(item);
+                var location;
+                location.lat = Number.parseFloat(item.lat.toString());
+                location.lng = Number.parseFloat(item.lng.toString());
+                _this.listLocation.push(location);
             });
         }, function (err) {
             _this.alertService.error('ERR');

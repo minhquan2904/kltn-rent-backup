@@ -18,12 +18,22 @@
         </ng-template>
       </agm-snazzy-info-window>
   </agm-marker>
+  <div *ngFor="let item of listLocation">
+    <agm-marker  [latitude]="item.lat" [longitude]="item.lng">
+      <agm-snazzy-info-window [maxWidth]="1000" [closeWhenOthersOpen]="true" style="min-width: 400px;">
+          <ng-template >
+           <p>{{item.category}}</p>
+           <a [routerLink]="['/item', item._id]" target="_blank">Show Details</a>
+          </ng-template>
+        </agm-snazzy-info-window>
+   </agm-marker> 
+  </div> 
 </agm-map>
 <div class="col-xs-12">
     <div class="col-xs-6">
         input
     </div>
     <div class="col-xs-6">
-        <button mat-raised-button color="primary"><mat-icon>search</mat-icon> Search</button>
+        <button mat-raised-button color="primary" (click)="onSearchClick()"><mat-icon>search</mat-icon> Search</button>
     </div>
 </div>

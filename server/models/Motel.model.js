@@ -1,8 +1,5 @@
 var mongoose = require("mongoose");
-
 var Schema = mongoose.Schema; 
-
-
 var motelSchema = new Schema({
     _creator:       { type: Schema.Types.ObjectId, ref: 'User' },
     add:            String,
@@ -26,19 +23,7 @@ var motelSchema = new Schema({
     title:          { type: String, required: true },
     ward:           String
 },{collection : 'motels'});
-
 motelSchema.set('autoIndex', false);
-motelSchema.index(
-    { "category" : "text", 
-        "city": "text"
-    },
-    {
-        "weights": {
-            "category": 5,
-            "city": 2
-        }
-    }
-    );
+motelSchema.index({'$**': 'text'});
 var motels  = mongoose.model("motels", motelSchema);
-
 module.exports = motels;
