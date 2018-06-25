@@ -3,7 +3,7 @@ import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
-import { environment } from '../../environments/environment'
+import { environment } from '../../environments/environment';
 import { Motel } from '../_models/motel.model';
 @Injectable()
 export class MotelService {
@@ -38,16 +38,35 @@ export class MotelService {
     vote(param)    {
         return this.http.post('/vote/like', param);
     }
-   findByUser(param)   {
-       const data = {
-           id: String
-       } ;
-       data.id = param;
-       return this.http.post('/motel/find-by-user', data)
-        .map((response: Response) => {
-            const motel = response.json();
-            return motel;
+   findByUser(param): Observable<Motel[]>   {
+       return this.http.get('/motel/find-by-user/' + param)
+       .map( res => {
+        return res.json().map(item => {
+            return new Motel(
+                item._id,
+                item.title,
+                item.category,
+                item.customer,
+                item.description,
+                item.price,
+                item.area,
+                item.city,
+                item.district,
+                item.street,
+                item.ward,
+                item.add,
+                item.address,
+                item.lat,
+                item.lng,
+                item.img,
+                item.rating,
+                item.expired,
+                item.contact,
+                item.status,
+                item.created_at
+            );
         });
+    });
    }
    findById(id) {
     return new Promise((resolve, reject) => {
@@ -81,6 +100,8 @@ export class MotelService {
                     item.lat,
                     item.lng,
                     item.img,
+                    item.rating,
+                    item.expired,
                     item.contact,
                     item.status,
                     item.created_at
@@ -110,6 +131,8 @@ export class MotelService {
                     item.lat,
                     item.lng,
                     item.img,
+                    item.rating,
+                    item.expired,
                     item.contact,
                     item.status,
                     item.created_at
@@ -155,6 +178,8 @@ export class MotelService {
                 item.lat,
                 item.lng,
                 item.img,
+                item.rating,
+                item.expired,
                 item.contact,
                 item.status,
                 item.created_at
@@ -182,6 +207,8 @@ export class MotelService {
                 item.lat,
                 item.lng,
                 item.img,
+                item.rating,
+                item.expired,
                 item.contact,
                 item.status,
                 item.created_at
@@ -210,6 +237,8 @@ export class MotelService {
                 item.lat,
                 item.lng,
                 item.img,
+                item.rating,
+                item.expired,
                 item.contact,
                 item.status,
                 item.created_at

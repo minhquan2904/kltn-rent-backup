@@ -39,7 +39,7 @@
           </mat-card>
     </div>
     <div class="col-sm-9 col-xs-12">
-      <mat-card style="height:100%;">
+      <mat-card style="height:100%;" *ngIf="isShowListMotel">
           <mat-card-content>
               <h4 class="example-h2">Your infomation</h4>
               
@@ -130,12 +130,14 @@
                 <button mat-raised-button color="warn" (click)= "changePasswordFlag=!changePasswordFlag">Change password</button>
               </div>
               <div>
-                  <button mat-raised-button style="background-color: #8C9EFF!important">See Your posts</button>
+                  <button mat-raised-button style="background-color: #8C9EFF!important" (click)="onSeeMotel()">See Your posts</button>
                 </div>
             </div> 
             
           </mat-card-footer>
       </mat-card>
+      <app-user-table-motel *ngIf="!isShowListMotel"></app-user-table-motel>
+      <button mat-raised-button color="primary" *ngIf="!isShowListMotel" (click)="onSeeMotel()"> Return to Infomation</button>
       <mat-card *ngIf="changePasswordFlag">
         <div class="mat-card-password">
             <mat-form-field>

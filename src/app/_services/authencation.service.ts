@@ -8,6 +8,7 @@ export class AuthenticationService {
     constructor(private http: Http) { }
     isLoggedIn: Boolean = false;
     isAdmin: Boolean = false;
+    userID: String = '';
     login(username: string, password: string) {
         return this.http.post('/users/authenticate', { username: username, password: password })
             .map((response: Response) => {
@@ -37,6 +38,7 @@ export class AuthenticationService {
         return this.http.post('/users/find-by-id', req)
             .map((response: Response) => {
             const user = response.json();
+            this.userID = response.json()._id;
             return user;
         });
     }

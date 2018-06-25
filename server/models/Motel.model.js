@@ -12,6 +12,7 @@ var motelSchema = new Schema({
     customer:       String,
     description:    String,
     district:       String,
+    expired:        {type: Boolean, default: false},
     fields:         { type: [String], index: true, text: true },
     img:            {type: [String]},
     lng:            String,

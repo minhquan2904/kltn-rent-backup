@@ -10,7 +10,7 @@ router.post('/insert', insert);
 router.put('/:id', update );
 
 router.post('/get-lat-lng', getLatLng);
-router.post('/find-by-user', findByUser);
+router.get('/find-by-user/:id', findByUser);
 router.post('/get-list-nearby', getListNearBy);
 router.post('/find-lt-price', findLtPrice);
 router.get('/find-by-id/:id', findById);
@@ -243,7 +243,7 @@ function _delete(req, res) {
 }
 function findByUser(req,res)
 {
-    motelService.findByUser(req.body["id"])
+    motelService.findByUser(req.params.id)
         .then(function(motels){
             if(motels)
             // search successful

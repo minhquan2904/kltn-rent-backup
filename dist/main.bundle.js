@@ -671,7 +671,7 @@ var Comment = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Motel; });
 var Motel = (function () {
-    function Motel(_id, title, category, customer, description, price, area, city, district, street, ward, add, address, lat, lng, img, contact, status, created_at) {
+    function Motel(_id, title, category, customer, description, price, area, city, district, street, ward, add, address, lat, lng, img, rating, expired, contact, status, created_at) {
         this._id = _id;
         this.title = title;
         this.category = category;
@@ -688,6 +688,8 @@ var Motel = (function () {
         this.lat = lat;
         this.lng = lng;
         this.img = img;
+        this.rating = rating;
+        this.expired = expired;
         this.contact = contact;
         this.status = status;
         this.created_at = created_at;
@@ -890,6 +892,7 @@ var AuthenticationService = (function () {
         this.http = http;
         this.isLoggedIn = false;
         this.isAdmin = false;
+        this.userID = '';
     }
     AuthenticationService.prototype.login = function (username, password) {
         var _this = this;
@@ -915,12 +918,14 @@ var AuthenticationService = (function () {
         return this.http.post('/users/register', user);
     };
     AuthenticationService.prototype.findById = function (id) {
+        var _this = this;
         var req = {};
         req.id = id;
         //  console.log(req);
         return this.http.post('/users/find-by-id', req)
             .map(function (response) {
             var user = response.json();
+            _this.userID = response.json()._id;
             return user;
         });
     };
@@ -1218,14 +1223,11 @@ var MotelService = (function () {
         return this.http.post('/vote/like', param);
     };
     MotelService.prototype.findByUser = function (param) {
-        var data = {
-            id: String
-        };
-        data.id = param;
-        return this.http.post('/motel/find-by-user', data)
-            .map(function (response) {
-            var motel = response.json();
-            return motel;
+        return this.http.get('/motel/find-by-user/' + param)
+            .map(function (res) {
+            return res.json().map(function (item) {
+                return new __WEBPACK_IMPORTED_MODULE_4__models_motel_model__["a" /* Motel */](item._id, item.title, item.category, item.customer, item.description, item.price, item.area, item.city, item.district, item.street, item.ward, item.add, item.address, item.lat, item.lng, item.img, item.rating, item.expired, item.contact, item.status, item.created_at);
+            });
         });
     };
     MotelService.prototype.findById = function (id) {
@@ -1245,7 +1247,7 @@ var MotelService = (function () {
         return this.http.get('/motel/find-by-status/' + status)
             .map(function (res) {
             return res.json().map(function (item) {
-                return new __WEBPACK_IMPORTED_MODULE_4__models_motel_model__["a" /* Motel */](item._id, item.title, item.category, item.customer, item.description, item.price, item.area, item.city, item.district, item.street, item.ward, item.add, item.address, item.lat, item.lng, item.img, item.contact, item.status, item.created_at);
+                return new __WEBPACK_IMPORTED_MODULE_4__models_motel_model__["a" /* Motel */](item._id, item.title, item.category, item.customer, item.description, item.price, item.area, item.city, item.district, item.street, item.ward, item.add, item.address, item.lat, item.lng, item.img, item.rating, item.expired, item.contact, item.status, item.created_at);
             });
         });
     };
@@ -1254,7 +1256,7 @@ var MotelService = (function () {
         return this.http.get('/motel/find-recent')
             .map(function (res) {
             return res.json().map(function (item) {
-                return new __WEBPACK_IMPORTED_MODULE_4__models_motel_model__["a" /* Motel */](item._id, item.title, item.category, item.customer, item.description, item.price, item.area, item.city, item.district, item.street, item.ward, item.add, item.address, item.lat, item.lng, item.img, item.contact, item.status, item.created_at);
+                return new __WEBPACK_IMPORTED_MODULE_4__models_motel_model__["a" /* Motel */](item._id, item.title, item.category, item.customer, item.description, item.price, item.area, item.city, item.district, item.street, item.ward, item.add, item.address, item.lat, item.lng, item.img, item.rating, item.expired, item.contact, item.status, item.created_at);
             });
         });
     };
@@ -1280,14 +1282,14 @@ var MotelService = (function () {
         return this.http.post('/motel/get-list-nearby', data)
             .map(function (res) {
             return res.json().map(function (item) {
-                return new __WEBPACK_IMPORTED_MODULE_4__models_motel_model__["a" /* Motel */](item._id, item.title, item.category, item.customer, item.description, item.price, item.area, item.city, item.district, item.street, item.ward, item.add, item.address, item.lat, item.lng, item.img, item.contact, item.status, item.created_at);
+                return new __WEBPACK_IMPORTED_MODULE_4__models_motel_model__["a" /* Motel */](item._id, item.title, item.category, item.customer, item.description, item.price, item.area, item.city, item.district, item.street, item.ward, item.add, item.address, item.lat, item.lng, item.img, item.rating, item.expired, item.contact, item.status, item.created_at);
             });
         });
     };
     MotelService.prototype.search = function (data) {
         return this.http.post('/motel/search', data).map(function (res) {
             return res.json().map(function (item) {
-                return new __WEBPACK_IMPORTED_MODULE_4__models_motel_model__["a" /* Motel */](item._id, item.title, item.category, item.customer, item.description, item.price, item.area, item.city, item.district, item.street, item.ward, item.add, item.address, item.lat, item.lng, item.img, item.contact, item.status, item.created_at);
+                return new __WEBPACK_IMPORTED_MODULE_4__models_motel_model__["a" /* Motel */](item._id, item.title, item.category, item.customer, item.description, item.price, item.area, item.city, item.district, item.street, item.ward, item.add, item.address, item.lat, item.lng, item.img, item.rating, item.expired, item.contact, item.status, item.created_at);
             });
         });
     };
@@ -1295,7 +1297,7 @@ var MotelService = (function () {
         return this.http.get('/motel/full-search/' + data)
             .map(function (res) {
             return res.json().map(function (item) {
-                return new __WEBPACK_IMPORTED_MODULE_4__models_motel_model__["a" /* Motel */](item._id, item.title, item.category, item.customer, item.description, item.price, item.area, item.city, item.district, item.street, item.ward, item.add, item.address, item.lat, item.lng, item.img, item.contact, item.status, item.created_at);
+                return new __WEBPACK_IMPORTED_MODULE_4__models_motel_model__["a" /* Motel */](item._id, item.title, item.category, item.customer, item.description, item.price, item.area, item.city, item.district, item.street, item.ward, item.add, item.address, item.lat, item.lng, item.img, item.rating, item.expired, item.contact, item.status, item.created_at);
             });
         });
     };
@@ -1613,8 +1615,8 @@ var AppComponent = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return appConfig; });
 var appConfig = {
-    apiUrl: 'http://localhost:3000',
-    // apiUrl: 'https://rent-deploy.herokuapp.com',
+    // apiUrl: 'http://localhost:3000',
+    apiUrl: 'https://rent-deploy.herokuapp.com',
     vn: {
         '1': {
             'name': 'Cần Thơ',
@@ -2806,30 +2808,30 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_20__angular_material__["f" /* MatCheckboxModule */],
                 __WEBPACK_IMPORTED_MODULE_20__angular_material__["g" /* MatChipsModule */],
                 __WEBPACK_IMPORTED_MODULE_20__angular_material__["h" /* MatDatepickerModule */],
-                __WEBPACK_IMPORTED_MODULE_20__angular_material__["j" /* MatDialogModule */],
-                __WEBPACK_IMPORTED_MODULE_20__angular_material__["l" /* MatExpansionModule */],
-                __WEBPACK_IMPORTED_MODULE_20__angular_material__["n" /* MatGridListModule */],
-                __WEBPACK_IMPORTED_MODULE_20__angular_material__["p" /* MatIconModule */],
-                __WEBPACK_IMPORTED_MODULE_20__angular_material__["q" /* MatInputModule */],
-                __WEBPACK_IMPORTED_MODULE_20__angular_material__["r" /* MatListModule */],
-                __WEBPACK_IMPORTED_MODULE_20__angular_material__["s" /* MatMenuModule */],
-                __WEBPACK_IMPORTED_MODULE_20__angular_material__["t" /* MatNativeDateModule */],
-                __WEBPACK_IMPORTED_MODULE_20__angular_material__["v" /* MatPaginatorModule */],
-                __WEBPACK_IMPORTED_MODULE_20__angular_material__["w" /* MatProgressBarModule */],
-                __WEBPACK_IMPORTED_MODULE_20__angular_material__["x" /* MatProgressSpinnerModule */],
-                __WEBPACK_IMPORTED_MODULE_20__angular_material__["y" /* MatRadioModule */],
-                __WEBPACK_IMPORTED_MODULE_20__angular_material__["z" /* MatRippleModule */],
-                __WEBPACK_IMPORTED_MODULE_20__angular_material__["A" /* MatSelectModule */],
-                __WEBPACK_IMPORTED_MODULE_20__angular_material__["B" /* MatSidenavModule */],
-                __WEBPACK_IMPORTED_MODULE_20__angular_material__["D" /* MatSliderModule */],
-                __WEBPACK_IMPORTED_MODULE_20__angular_material__["C" /* MatSlideToggleModule */],
-                __WEBPACK_IMPORTED_MODULE_20__angular_material__["E" /* MatSnackBarModule */],
-                __WEBPACK_IMPORTED_MODULE_20__angular_material__["F" /* MatSortModule */],
-                __WEBPACK_IMPORTED_MODULE_20__angular_material__["I" /* MatTableModule */],
-                __WEBPACK_IMPORTED_MODULE_20__angular_material__["J" /* MatTabsModule */],
-                __WEBPACK_IMPORTED_MODULE_20__angular_material__["K" /* MatToolbarModule */],
-                __WEBPACK_IMPORTED_MODULE_20__angular_material__["L" /* MatTooltipModule */],
-                __WEBPACK_IMPORTED_MODULE_20__angular_material__["G" /* MatStepperModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["k" /* MatDialogModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["m" /* MatExpansionModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["o" /* MatGridListModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["q" /* MatIconModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["r" /* MatInputModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["s" /* MatListModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["t" /* MatMenuModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["u" /* MatNativeDateModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["w" /* MatPaginatorModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["x" /* MatProgressBarModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["y" /* MatProgressSpinnerModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["z" /* MatRadioModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["A" /* MatRippleModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["B" /* MatSelectModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["C" /* MatSidenavModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["E" /* MatSliderModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["D" /* MatSlideToggleModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["F" /* MatSnackBarModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["G" /* MatSortModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["J" /* MatTableModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["K" /* MatTabsModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["L" /* MatToolbarModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["M" /* MatTooltipModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material__["H" /* MatStepperModule */],
                 __WEBPACK_IMPORTED_MODULE_18_ngx_pagination__["a" /* NgxPaginationModule */],
                 __WEBPACK_IMPORTED_MODULE_6__angular_router__["d" /* RouterModule */].forRoot(appRoutes)
             ],
@@ -2880,7 +2882,7 @@ module.exports = "/*Test grid*/\nbody {\n  height: 100%;\n  background-color: #e
 /***/ "./src/app/form/form.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<style>\n  .my-drop-zone { border: dotted 3px lightgray; }\n  .nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */\n  .another-file-over-class { border: dotted 3px green; }\n\n  html, body { height: 100%; }\n</style>\n\n<div class=\"wrapper\" >\n  <div>\n  </div>\n  \n  <div style=\"background: #FAFAFA!important; \">\n        <alert></alert>\n        <form class=\"example-container\" [formGroup]=\"options\" (ngSubmit)=\"options.valid &&onSubmit()\">\n                <mat-horizontal-stepper [linear]=\"isLinear\" id=\"stepper\">\n                        <mat-step label=\"Fill basic infomation\" [completed]=\"step1Completed\">\n                                        <mat-form-field class=\"col-xs-12\">\n                                                <mat-label>Tiêu đề</mat-label>\n                                                <input matInput placeholder=\"Tiêu đề\" required id=\"title\" name=\"title\" [(ngModel)]=\"motel.title\"  #title=\"ngModel\" [ngModelOptions]=\"{standalone: true}\" >\n                                                <mat-error  *ngIf=\"title.invalid && (title.dirty || title.touched)\">\n                                                        Title can not be blank\n                                                </mat-error>\n                                                \n                                        </mat-form-field>\n                                        <mat-form-field class=\"col-xs-12\">\n                                                <mat-label>Giới thiệu về nhà trọ</mat-label>\n                                                <textarea matInput placeholder=\"Autosize textarea\" matTextareaAutosize matAutosizeMinRows=\"2\"\n                                                matAutosizeMaxRows=\"5\" [(ngModel)]=\"motel.description\" #description=\"ngModel\" [ngModelOptions]=\"{standalone: true}\" ></textarea>\n                                                \n                                        </mat-form-field>\n                                                <!-- Price -->\n                                        <mat-form-field class=\"col-xs-6\">\n        \n                                                <mat-label>Giá tiền</mat-label>\n                                                \n                                                <input matInput type=\"text\" placeholder=\"Giá tiền\" required id=\"price\" name=\"price\" [(ngModel)]=\"motel.price\"  #price=\"ngModel\" [ngModelOptions]=\"{standalone: true}\" >\n                                                <mat-error  *ngIf=\"price.invalid && (price.dirty || price.touched)\">\n                                                                Price can not be blank\n                                                </mat-error>\n                                                <mat-hint>Nhập giá cả, nhập Thỏa thuận nếu giá cả thương lượng</mat-hint>\n                                        </mat-form-field>\n                                      \n                                        <!-- Contact -->\n                                        <mat-form-field class=\"col-xs-6\">\n                                                        <mat-label>Cách thức liên hệ</mat-label>\n                                                        <input matInput placeholder=\"Cách thức liên hệ\" required name=\"contact\" [(ngModel)]=\"motel.contact\" #contact=\"ngModel\" [ngModelOptions]=\"{standalone: true}\"  >\n                                                        <mat-error  *ngIf=\"contact.invalid && (contact.dirty || contact.touched)\">\n                                                                        Contact can not be blank\n                                                        </mat-error>\n                                        </mat-form-field>\n                                        <button mat-button type=\"button\" (click)=\"step_1_next()\" mat-raised-button color=\"primary\" >Next</button>\n                        </mat-step>\n\n                        <mat-step #step2 label=\"Choose type and picture\" [completed]=\"step2Completed\">\n                                <div class=\"col-xs-12\">\n                                                <button type=\"button\" mat-raised-button (click)=\"openDialog()\">Add picture</button>\n                                </div>\n                                <!-- category -->\n                                <mat-form-field class=\"col-xs-6\">\n                                        <mat-select required  name=\"category\" [(ngModel)]=\"motel.category\" #category=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                                        <mat-option>-- Loại nhà trọ --</mat-option>\n                                        <mat-option value=\"nhà nguyên căn\">Nhà nguyên căn</mat-option>\n                                        <mat-option value=\"phòng trọ\">Phòng trọ</mat-option>\n                                        <mat-option value=\"chung cư\">Chung cư</mat-option>                \n                                        </mat-select>\n                                        <mat-placeholder><mat-icon>list</mat-icon> <i> Chọn loại nhà trọ</i></mat-placeholder>\n                                </mat-form-field>\n                                <!-- Price -->\n                                <mat-form-field class=\"col-xs-6\">\n\n                                        <mat-label>Diện tích</mat-label>\n                                        \n                                        <input matInput type=\"number\" placeholder=\"Diện tích\" required id=\"area\" name=\"area\" [(ngModel)]=\"motel.area\"  #area=\"ngModel\" [ngModelOptions]=\"{standalone: true}\" >\n                                        <mat-error  *ngIf=\"area.invalid && (area.dirty || area.touched)\">\n                                                        Diện tích không được để trống\n                                        </mat-error>\n                                        <mat-hint>Đơn vị tính: m2</mat-hint>\n                                </mat-form-field>\n                                <div class=\"col-xs-12\">\n                                        <button mat-button type=\"button\" (click)=\"step_2_next()\" mat-raised-button color=\"primary\" >NextB</button>\n\n                                </div>\n                                \n                        </mat-step>\n                        <mat-step #step3 label=\"Step 3\">\n                                        <app-map *ngIf=\"!getLocation\" (locationChild)=\"passData($event)\"></app-map>\n                                        <button *ngIf=\"!getLocation\"  type=\"button\" mat-raised-button color=\"accent\" (click)=\"getLocation=!getLocation\">Xác nhận địa chỉ</button>\n                                        <div class=\"show\" *ngIf=\"getLocation\">\n                                                <mat-form-field [floatLabel]=\"options.value.floatLabel\">\n                                                        <mat-label>Thành phố</mat-label>\n                                                        <input matInput placeholder=\"Thành phố\" required name=\"city\" [(ngModel)]=\"motel.city\" #city=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                                                </mat-form-field>\n                                                <mat-form-field [floatLabel]=\"options.value.floatLabel\">\n                                                        <mat-label>Quận</mat-label>\n                                                        <input matInput placeholder=\"Quận\" required name=\"district\" [(ngModel)]=\"motel.district\" #district=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                                                </mat-form-field>\n                                                <mat-form-field [floatLabel]=\"options.value.floatLabel\">\n                                                        <mat-label>Phường</mat-label>\n                                                        <input matInput placeholder=\"Phường\" required name=\"ward\" [(ngModel)]=\"motel.ward\" #ward=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                                                </mat-form-field>\n                                                <mat-form-field [floatLabel]=\"options.value.floatLabel\" >\n                                                        <mat-label>Đường</mat-label>\n                                                        <input matInput placeholder=\"Đường\" required name=\"street\" [(ngModel)]=\"motel.street\" #street=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                                                </mat-form-field>\n                                                <mat-form-field [floatLabel]=\"options.value.floatLabel\">\n                                                        <mat-label>Số nhà</mat-label>\n                                                        <input matInput placeholder=\"Số nhà\" required name=\"add\" [(ngModel)]=\"motel.add\" #add=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                                                </mat-form-field>\n                                        \n                        \n                                        </div>\n                                        <!-- Address -->\n                                        <button *ngIf=\"getLocation\"  type=\"button\" mat-raised-button color=\"accent\" (click)=\"getLocation=!getLocation\">Nhập lại địa chỉ</button>\n                                        <button *ngIf=\"getLocation\" type=\"submit\" mat-raised-button color=\"primary\">Submit</button>\n                        </mat-step>\n                </mat-horizontal-stepper>\n       \n            \n               \n                \n        </form>\n      \n  </div>\n  <div>\n  </div>\n</div>\n\n\n<app-footer></app-footer>"
+module.exports = "<style>\n  .my-drop-zone { border: dotted 3px lightgray; }\n  .nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */\n  .another-file-over-class { border: dotted 3px green; }\n\n  html, body { height: 100%; }\n</style>\n<app-nav></app-nav>\n<div class=\"wrapper\" >\n  <div>\n  </div>\n  \n  <div style=\"background: #FAFAFA!important; \">\n        <alert></alert>\n        <form class=\"example-container\" [formGroup]=\"options\" (ngSubmit)=\"options.valid &&onSubmit()\">\n                <mat-horizontal-stepper [linear]=\"isLinear\" id=\"stepper\">\n                        <mat-step label=\"Fill basic infomation\" [completed]=\"step1Completed\">\n                                        <mat-form-field class=\"col-xs-12\">\n                                                <mat-label>Tiêu đề</mat-label>\n                                                <input matInput placeholder=\"Tiêu đề\" required id=\"title\" name=\"title\" [(ngModel)]=\"motel.title\"  #title=\"ngModel\" [ngModelOptions]=\"{standalone: true}\" >\n                                                <mat-error  *ngIf=\"title.invalid && (title.dirty || title.touched)\">\n                                                        Title can not be blank\n                                                </mat-error>\n                                                \n                                        </mat-form-field>\n                                        <mat-form-field class=\"col-xs-12\">\n                                                <mat-label>Giới thiệu về nhà trọ</mat-label>\n                                                <textarea matInput placeholder=\"Autosize textarea\" matTextareaAutosize matAutosizeMinRows=\"2\"\n                                                matAutosizeMaxRows=\"5\" [(ngModel)]=\"motel.description\" #description=\"ngModel\" [ngModelOptions]=\"{standalone: true}\" ></textarea>\n                                                \n                                        </mat-form-field>\n                                                <!-- Price -->\n                                        <mat-form-field class=\"col-xs-6\">\n        \n                                                <mat-label>Giá tiền</mat-label>\n                                                \n                                                <input matInput type=\"text\" placeholder=\"Giá tiền\" required id=\"price\" name=\"price\" [(ngModel)]=\"motel.price\"  #price=\"ngModel\" [ngModelOptions]=\"{standalone: true}\" >\n                                                <mat-error  *ngIf=\"price.invalid && (price.dirty || price.touched)\">\n                                                                Price can not be blank\n                                                </mat-error>\n                                                <mat-hint>Nhập giá cả, nhập Thỏa thuận nếu giá cả thương lượng</mat-hint>\n                                        </mat-form-field>\n                                      \n                                        <!-- Contact -->\n                                        <mat-form-field class=\"col-xs-6\">\n                                                        <mat-label>Cách thức liên hệ</mat-label>\n                                                        <input matInput placeholder=\"Cách thức liên hệ\" required name=\"contact\" [(ngModel)]=\"motel.contact\" #contact=\"ngModel\" [ngModelOptions]=\"{standalone: true}\"  >\n                                                        <mat-error  *ngIf=\"contact.invalid && (contact.dirty || contact.touched)\">\n                                                                        Contact can not be blank\n                                                        </mat-error>\n                                        </mat-form-field>\n                                        <button mat-button type=\"button\" (click)=\"step_1_next()\" mat-raised-button color=\"primary\" >Next</button>\n                        </mat-step>\n\n                        <mat-step #step2 label=\"Choose type and picture\" [completed]=\"step2Completed\">\n                                <div class=\"col-xs-12\">\n                                                <button type=\"button\" mat-raised-button (click)=\"openDialog()\">Add picture</button>\n                                </div>\n                                <!-- category -->\n                                <mat-form-field class=\"col-xs-6\">\n                                        <mat-select required  name=\"category\" [(ngModel)]=\"motel.category\" #category=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                                        <mat-option>-- Loại nhà trọ --</mat-option>\n                                        <mat-option value=\"nhà nguyên căn\">Nhà nguyên căn</mat-option>\n                                        <mat-option value=\"phòng trọ\">Phòng trọ</mat-option>\n                                        <mat-option value=\"chung cư\">Chung cư</mat-option>                \n                                        </mat-select>\n                                        <mat-placeholder><mat-icon>list</mat-icon> <i> Chọn loại nhà trọ</i></mat-placeholder>\n                                </mat-form-field>\n                                <!-- Price -->\n                                <mat-form-field class=\"col-xs-6\">\n\n                                        <mat-label>Diện tích</mat-label>\n                                        \n                                        <input matInput type=\"number\" placeholder=\"Diện tích\" required id=\"area\" name=\"area\" [(ngModel)]=\"motel.area\"  #area=\"ngModel\" [ngModelOptions]=\"{standalone: true}\" >\n                                        <mat-error  *ngIf=\"area.invalid && (area.dirty || area.touched)\">\n                                                        Diện tích không được để trống\n                                        </mat-error>\n                                        <mat-hint>Đơn vị tính: m2</mat-hint>\n                                </mat-form-field>\n                                <div class=\"col-xs-12\">\n                                        <button mat-button type=\"button\" (click)=\"step_2_next()\" mat-raised-button color=\"primary\" >NextB</button>\n\n                                </div>\n                                \n                        </mat-step>\n                        <mat-step #step3 label=\"Step 3\">\n                                        <app-map *ngIf=\"!getLocation\" (locationChild)=\"passData($event)\"></app-map>\n                                        <button *ngIf=\"!getLocation\"  type=\"button\" mat-raised-button color=\"accent\" (click)=\"getLocation=!getLocation\">Xác nhận địa chỉ</button>\n                                        <div class=\"show\" *ngIf=\"getLocation\">\n                                                <mat-form-field [floatLabel]=\"options.value.floatLabel\">\n                                                        <mat-label>Thành phố</mat-label>\n                                                        <input matInput placeholder=\"Thành phố\" required name=\"city\" [(ngModel)]=\"motel.city\" #city=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                                                </mat-form-field>\n                                                <mat-form-field [floatLabel]=\"options.value.floatLabel\">\n                                                        <mat-label>Quận</mat-label>\n                                                        <input matInput placeholder=\"Quận\" required name=\"district\" [(ngModel)]=\"motel.district\" #district=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                                                </mat-form-field>\n                                                <mat-form-field [floatLabel]=\"options.value.floatLabel\">\n                                                        <mat-label>Phường</mat-label>\n                                                        <input matInput placeholder=\"Phường\" required name=\"ward\" [(ngModel)]=\"motel.ward\" #ward=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                                                </mat-form-field>\n                                                <mat-form-field [floatLabel]=\"options.value.floatLabel\" >\n                                                        <mat-label>Đường</mat-label>\n                                                        <input matInput placeholder=\"Đường\" required name=\"street\" [(ngModel)]=\"motel.street\" #street=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                                                </mat-form-field>\n                                                <mat-form-field [floatLabel]=\"options.value.floatLabel\">\n                                                        <mat-label>Số nhà</mat-label>\n                                                        <input matInput placeholder=\"Số nhà\" required name=\"add\" [(ngModel)]=\"motel.add\" #add=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                                                </mat-form-field>\n                                        \n                        \n                                        </div>\n                                        <!-- Address -->\n                                        <button *ngIf=\"getLocation\"  type=\"button\" mat-raised-button color=\"accent\" (click)=\"getLocation=!getLocation\">Nhập lại địa chỉ</button>\n                                        <button *ngIf=\"getLocation\" type=\"submit\" mat-raised-button color=\"primary\">Submit</button>\n                        </mat-step>\n                </mat-horizontal-stepper>\n       \n            \n               \n                \n        </form>\n      \n  </div>\n  <div>\n  </div>\n</div>\n\n\n<app-footer></app-footer>"
 
 /***/ }),
 
@@ -3024,8 +3026,8 @@ var FormComponent = (function () {
         }
     };
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_2__angular_material__["o" /* MatHorizontalStepper */]),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_2__angular_material__["o" /* MatHorizontalStepper */])
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_2__angular_material__["p" /* MatHorizontalStepper */]),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_2__angular_material__["p" /* MatHorizontalStepper */])
     ], FormComponent.prototype, "stepper", void 0);
     FormComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
@@ -3080,7 +3082,7 @@ var DialogOverviewExampleDialog = (function () {
             styles: [__webpack_require__("./src/app/form/dialog-overview-example-dialog.css")]
         }),
         __param(1, Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Inject"])(__WEBPACK_IMPORTED_MODULE_2__angular_material__["a" /* MAT_DIALOG_DATA */])),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_material__["k" /* MatDialogRef */], Object, __WEBPACK_IMPORTED_MODULE_6__services_index__["a" /* AlertService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_material__["l" /* MatDialogRef */], Object, __WEBPACK_IMPORTED_MODULE_6__services_index__["a" /* AlertService */]])
     ], DialogOverviewExampleDialog);
     return DialogOverviewExampleDialog;
 }());
@@ -3341,7 +3343,7 @@ var UserContactDialog = (function () {
             template: __webpack_require__("./src/app/main/item/dialog-overview-example-dialog.html"),
         }),
         __param(1, Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Inject"])(__WEBPACK_IMPORTED_MODULE_3__angular_material__["a" /* MAT_DIALOG_DATA */])),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__angular_material__["k" /* MatDialogRef */], Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__angular_material__["l" /* MatDialogRef */], Object])
     ], UserContactDialog);
     return UserContactDialog;
 }());
@@ -4712,7 +4714,7 @@ var RegisterDialog = (function () {
             template: __webpack_require__("./src/app/main/login/dialog-overview-example-dialog.html"),
         }),
         __param(1, Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Inject"])(__WEBPACK_IMPORTED_MODULE_3__angular_material__["a" /* MAT_DIALOG_DATA */])),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__angular_material__["k" /* MatDialogRef */], Object, __WEBPACK_IMPORTED_MODULE_1__services_index__["a" /* AlertService */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__angular_material__["l" /* MatDialogRef */], Object, __WEBPACK_IMPORTED_MODULE_1__services_index__["a" /* AlertService */],
             __WEBPACK_IMPORTED_MODULE_1__services_index__["b" /* AuthenticationService */],
             __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* ActivatedRoute */],
             __WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* Router */]])

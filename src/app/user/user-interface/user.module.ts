@@ -39,6 +39,9 @@ import { MatAutocompleteModule,
   import { UserRoutingModule } from './user-routing.module';
 import { UserInterfaceComponent } from './user-interface.component';
 import { HeaderComponent } from '../layout/header/header.component';
+import { UserTableMotelComponent, DialogDataComponent } from '../layout/user-table-motel/user-table-motel.component';
+import { AlertComponent } from '../layout/alert/alert.component';
+// import { CourseDialogComponent } from '../layout/dialog/dialog.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -77,6 +80,7 @@ import { HeaderComponent } from '../layout/header/header.component';
   MatFormFieldModule,
   FormsModule, ReactiveFormsModule
   ],
-  declarations: [UserInterfaceComponent, HeaderComponent]
+  declarations: [UserInterfaceComponent, HeaderComponent, UserTableMotelComponent, AlertComponent, DialogDataComponent],
+  entryComponents: [UserTableMotelComponent, DialogDataComponent ]
 })
 export class UserModule { }

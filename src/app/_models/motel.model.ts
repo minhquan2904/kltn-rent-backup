@@ -16,6 +16,8 @@ export class Motel {
         public lat:         String,
         public lng:         String,
         public img:         String[],
+        public rating:      Number,
+        public expired:     Boolean,
         public contact:     string,
         public status:      number,
         public created_at:  Date

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource, MatPaginator} from '@angular/material';
+
 import { AuthenticationService, AlertService, LevelService } from '../../_services/index';
+import { CourseDialogComponent} from '../layout/dialog/dialog.component';
 @Component({
   selector: 'app-user-interface',
   templateUrl: './user-interface.component.html',
@@ -19,9 +22,11 @@ export class UserInterfaceComponent implements OnInit {
   step = 0;
   user: any = {};
   password: any = {}; // model to change password
+  isShowListMotel: Boolean = true; // flag to show list motel
+  id: any;
   ngOnInit() {
-    const id = JSON.parse(localStorage.getItem('currentUser'))._id;
-    this.getUser(id);
+    this.id = JSON.parse(localStorage.getItem('currentUser'))._id;
+    this.getUser(this.id);
     console.log(this.user);
   }
   getUser(id) {
@@ -59,6 +64,9 @@ export class UserInterfaceComponent implements OnInit {
       }
     }
   }
+  onSeeMotel() {
+    this.isShowListMotel = !this.isShowListMotel;
+  }
   setStep(index: number) {
     this.step = index;
   }
@@ -71,3 +79,4 @@ export class UserInterfaceComponent implements OnInit {
     this.step--;
   }
 }
+

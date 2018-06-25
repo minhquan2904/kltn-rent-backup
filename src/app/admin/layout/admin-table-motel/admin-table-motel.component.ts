@@ -20,7 +20,8 @@ export class AdminTableMotelComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatPaginator) paginator2: MatPaginator;
 
-  constructor(private motelService: MotelService, private alertService: AlertService) { }
+  constructor(private motelService: MotelService, private alertService: AlertService
+  ) { }
 
   ngOnInit() {
     this.motelService.findByStatus(0).subscribe(res => {
@@ -48,12 +49,11 @@ export class AdminTableMotelComponent implements OnInit {
   }
   handleUpdateStatus(_id, customer, status, position, type) {
     console.log(position);
-    let motel: any = {
+    const motel: any = {
       customer: customer,
       status: status
     };
     // console.log(_id + " " + JSON.stringify(motel));
-    
     this.motelService.update(_id, motel).subscribe( res => {
      this.alertService.success('update ok');
      if (type === 1 ) {
@@ -63,9 +63,10 @@ export class AdminTableMotelComponent implements OnInit {
       this.dataSourceAccepted.data.splice(position, 1);
       this.dataSourceAccepted = new MatTableDataSource<Element>(this.dataSourceAccepted.data);
      }
-     
     }, err => {
       this.alertService.error(err);
     });
   }
+
+  
 }
