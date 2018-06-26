@@ -8,7 +8,7 @@ var motelService = require('../services/motel.service');
 router.delete('/:id', _delete );
 router.post('/insert', insert);
 router.put('/:id', update );
-
+router.put('/update/:id', updateMotel);
 router.post('/get-lat-lng', getLatLng);
 router.get('/find-by-user/:id', findByUser);
 router.post('/get-list-nearby', getListNearBy);
@@ -226,6 +226,15 @@ function update(req,res)
     //     res.json("Update success!");
     //   });
     motelService.updateStatus(req.params.id, req.body).then(function() {
+        res.status(200).send("update ok");
+    })
+    .catch(function (err) {
+        res.status(400).send(err);
+    });
+}
+function updateMotel(req,res) {
+    delete req.body['_id'];
+    motelService.update(req.params.id, req.body).then(function() {
         res.status(200).send("update ok");
     })
     .catch(function (err) {

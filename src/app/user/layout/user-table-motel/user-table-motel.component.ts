@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { MatTableDataSource, MatPaginator, MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatDialog, MatHorizontalStepper, MatStep,
+  MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA, MatFormField, MatFormFieldControl} from '@angular/material';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import { MotelService, AlertService, AuthenticationService } from '../../../_services/index';
 import { Motel} from '../../../_models/index';
-import { CourseDialogComponent} from '../dialog/dialog.component';
+// import { CourseDialogComponent} from '../dialog/dialog.component';
 @Component({
   selector: 'app-user-table-motel',
   templateUrl: './user-table-motel.component.html',
@@ -60,10 +62,22 @@ export class UserTableMotelComponent implements OnInit {
     // dialogConfig.data = {
     //   title: data.title
     // };
-
+    console.log(dt._id);
     this.dialog.open(DialogDataComponent, {
       data: {
-        title: dt.title
+        _id: dt._id,
+        title: dt.title,
+        customer: dt.customer,
+        description: dt.description,
+        category: dt.category,
+        price: dt.price,
+        area: dt.area,
+        city: dt.city,
+        district: dt.district,
+        street: dt.street,
+        ward: dt.ward,
+        add: dt.add,
+        contact: dt.contact
       }
     });
   }
@@ -74,13 +88,65 @@ export class UserTableMotelComponent implements OnInit {
   templateUrl: 'dialog.component.html',
 })
 export class DialogDataComponent {
-
+  options: FormGroup;
+  @ViewChild(MatHorizontalStepper) stepper: MatHorizontalStepper;
   constructor(
-    public dialogRef: MatDialogRef<DialogDataComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
-
+    public dialogRef: MatDialogRef<DialogDataComponent>, fb: FormBuilder, private _formBuilder: FormBuilder,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private alertService: AlertService, private motelService: MotelService
+  ) {
+      this.options = fb.group({
+        hideRequired: false,
+        floatLabel: 'auto',
+      });
+     }
+  // stepper variable
+  step1Completed = false;
+  step2Completed = false;
+  isLinear = true;
   onNoClick(): void {
     this.dialogRef.close();
   }
+  close(): void {
+    this.dialogRef.close();
+  }
+  onSubmit() {
+    this.motelService.updateMotel(this.data._id, this.data).subscribe( res => {
+      this.alertService.success('Update ok');
+    }, err => {
+      this.alertService.error(err);
+    })
+  }
+  complete() {
+    this.stepper.next();
+  }
 
+  step_1_next() {
+    const price = this.data.price;
+    const contact = this.data.contact;
+    if (!price || !contact) {
+      this.step1Completed = false;
+      this.alertService.error('please fill required inputs');
+    }else {
+      this.step1Completed = true;
+      this.alertService.success('Everything is ok ');
+      setTimeout(() => {
+        this.stepper.next();
+      }, 2);
+    }
+  }
+
+  step_2_next() {
+    const category = this.data.category;
+    if (!category) {
+      this.step2Completed = false;
+      this.alertService.error('please fill required inputs');
+    }else {
+      this.step2Completed = true;
+      this.alertService.success('Everything is ok ');
+      setTimeout(() => {
+        this.stepper.next();
+      }, 2);
+    }
+  }
 }

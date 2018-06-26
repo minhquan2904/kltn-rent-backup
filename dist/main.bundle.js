@@ -1275,6 +1275,9 @@ var MotelService = (function () {
     MotelService.prototype.update = function (id, data) {
         return this.http.put('/motel/' + id, data);
     };
+    MotelService.prototype.updateMotel = function (id, data) {
+        return this.http.put('/motel/update/' + id, data);
+    };
     MotelService.prototype._delte = function (id) {
         return this.http.delete('/motel/' + id);
     };
@@ -1615,8 +1618,8 @@ var AppComponent = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return appConfig; });
 var appConfig = {
-    // apiUrl: 'http://localhost:3000',
-    apiUrl: 'https://rent-deploy.herokuapp.com',
+    apiUrl: 'http://localhost:3000',
+    // apiUrl: 'https://rent-deploy.herokuapp.com',
     vn: {
         '1': {
             'name': 'Cần Thơ',

@@ -18,6 +18,7 @@ service.fullSearch = fullSearch;
 service.getListNearBy = getListNearBy;
 service.getLatLng = getLatLng;
 service.updateStatus = updateStatus;
+service.update = update;
 service.test = test;
 module.exports = service;
 
@@ -81,6 +82,18 @@ function findByStatus(status) {
     });
 
 
+    return deferred.promise;
+}
+function update(_id, motel) {
+    var deferred = Q.defer();
+
+    motels.findByIdAndUpdate(_id, {$set: motel}, function(err, result) {
+        if(err) {
+            deferred.reject(err.name + ': ' + err.message);
+        } else {
+            deferred.resolve();
+        }
+    })
     return deferred.promise;
 }
 function updateStatus(_id, motel) {

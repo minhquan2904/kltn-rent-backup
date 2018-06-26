@@ -79,7 +79,7 @@ function findMod()
 {
     var deferred = Q.defer();
     users.find(
-        {role: 2}).exec(function (err, users) {
+        {role: 3}).exec(function (err, users) {
             if (err) deferred.reject(err.name + ': ' + err.message);
     
             // return users (without hashed passwords)

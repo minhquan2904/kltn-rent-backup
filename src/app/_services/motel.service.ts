@@ -153,7 +153,9 @@ export class MotelService {
    update(id, data) {
     return this.http.put('/motel/' + id, data);
    }
-
+   updateMotel(id, data) {
+    return this.http.put('/motel/update/' + id, data);
+   }
    _delte(id) {
        return this.http.delete('/motel/' + id);
    }

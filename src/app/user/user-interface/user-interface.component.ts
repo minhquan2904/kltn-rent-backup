@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource, MatPaginator} from '@angular/material';
 
 import { AuthenticationService, AlertService, LevelService } from '../../_services/index';
-import { CourseDialogComponent} from '../layout/dialog/dialog.component';
+// import { CourseDialogComponent} from '../layout/dialog/dialog.component';
 @Component({
   selector: 'app-user-interface',
   templateUrl: './user-interface.component.html',
