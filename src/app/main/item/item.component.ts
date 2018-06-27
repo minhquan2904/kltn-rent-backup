@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MotelService, AlertService, WindowService, AuthenticationService } from '../../_services/index';
+import { MotelService, AlertService, AuthenticationService } from '../../_services/index';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { appConfig } from '../../app.config';
 import { MapsAPILoader, AgmMap } from '@agm/core';    // Added AgmMap

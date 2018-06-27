@@ -14,7 +14,8 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { customHttpProvider, NullDefaultValueDirective } from './_helpers/index';
 import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { StatisticSerivce,
-  AuthenticationService, AlertService, MotelService, CommentService, LocationService, LevelService } from './_services/index';
+  AuthenticationService, AlertService, MotelService, CommentService, LocationService,
+   LevelService, WINDOW_PROVIDERS } from './_services/index';
 import { AgmCoreModule } from '@agm/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatAutocompleteModule,
@@ -73,7 +74,7 @@ import { AdvanceSearchComponent } from './main/layout/advance-search/advance-sea
 import { MapMarkerMoveComponent } from './main/layout/map-marker-move/map-marker-move.component';
 
 const appRoutes: Routes = [
-  { path: '', pathMatch: 'full' , component: HomeComponent},
+  
   { path: 'home', component: HomeComponent},
   { path: 'add', component: FormComponent, canActivate: [AuthGuard] },
   { path: 'advance', component: AdvanceSearchComponent},
@@ -170,6 +171,7 @@ registerLocaleData(localEn);
     RouterModule.forRoot(appRoutes)
   ],
   providers: [
+    WINDOW_PROVIDERS,
     AuthGuard,
     LevelService,
     StatisticSerivce,
