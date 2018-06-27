@@ -629,10 +629,11 @@ var NullDefaultValueDirective = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Comment; });
 var Comment = (function () {
-    function Comment(_id, customer_id, customer_name, content, status, motel_id, created_at) {
+    function Comment(_id, customer_id, customer_name, customer_level, content, status, motel_id, created_at) {
         this._id = _id;
         this.customer_id = customer_id;
         this.customer_name = customer_name;
+        this.customer_level = customer_level;
         this.content = content;
         this.status = status;
         this.motel_id = motel_id;
@@ -998,7 +999,7 @@ var CommentService = (function () {
         return this.http.get('/comment/find-by-status/' + stt)
             .map(function (res) {
             return res.json().map(function (item) {
-                return new __WEBPACK_IMPORTED_MODULE_3__models_index__["a" /* Comment */](item._id, item.customer_id, item.customer_name, item.content, item.status, item.motel_id, item.created_at);
+                return new __WEBPACK_IMPORTED_MODULE_3__models_index__["a" /* Comment */](item._id, item.customer_id, item.customer_name, item.customer_level, item.content, item.status, item.motel_id, item.created_at);
             });
         });
     };
@@ -1456,6 +1457,15 @@ var UserService = (function () {
     }
     UserService.prototype.getUser = function (lim) {
         return this.http.get('/users/' + lim)
+            .map(function (res) {
+            return res.json().map(function (item) {
+                return new __WEBPACK_IMPORTED_MODULE_3__models_user_model__["a" /* User */](item.username, item.email, item.firstname, item.lastname, item.rating, item.created_at);
+            });
+        });
+    };
+    UserService.prototype.findMod = function () {
+        var data = {};
+        return this.http.post('/users/find-mod', data)
             .map(function (res) {
             return res.json().map(function (item) {
                 return new __WEBPACK_IMPORTED_MODULE_3__models_user_model__["a" /* User */](item.username, item.email, item.firstname, item.lastname, item.rating, item.created_at);
@@ -3365,7 +3375,7 @@ module.exports = ".container{\n    padding-top: 65px;\n    width: 100%;\n    mar
 /***/ "./src/app/main/layout/advance-search/advance-search.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-nav></app-nav>\n<div class=\"container\">\n    <div class=\"row\">\n            <mat-tab-group>\n                <mat-tab label=\"Tìm kiếm địa chỉ\"> <h4 class=\"text-center\">Dữ liệu địa chỉ có thể không chính xác. Để tùy chỉnh, nhập vào khung \"Địa chỉ\"</h4>\n                    <mat-form-field class=\"col-sm-3\">\n                        <mat-select placeholder=\"Tỉnh/ Thành phố\"  (change)=\"onCityChange();\" [(ngModel)]=\"city.id\" #id=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                          <mat-option *ngFor=\"let item of resultArray; let i = index\" [value]=\"i\">\n                            {{ item.name }}\n                          </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                \n                    <mat-form-field class=\"col-sm-3\">\n                        <mat-select placeholder=\"Quận/ Huyện\" [(ngModel)]=\"query.district\" #district=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                            <mat-option *ngFor=\"let item of districtArray; let i = index\" [value]=\"item\"  >\n                            {{ item }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                \n                    <mat-form-field class=\"col-sm-3\">\n                        <input matInput placeholder=\"Xã/ Phường\"[(ngModel)]=\"query.ward\" #ward=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                        <mat-hint>\"Chỉ nhập tên xã/ phường\"</mat-hint>\n                    </mat-form-field>\n                    <mat-form-field class=\"col-sm-3\">\n                        <input matInput placeholder=\"Đường \" [(ngModel)]=\"query.street\" #street=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                        <mat-hint>\"Chỉ nhập tên đường\"</mat-hint>\n                    </mat-form-field>\n               \n                    <div class=\"col-sm-12\" style=\"display: inline;\">\n                        Giá tiền: \n                        <mat-form-field>\n                            <input matInput placeholder=\"Từ\" [(ngModel)]=\"query.bottom_price\" #bottomPrice=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                        </mat-form-field>\n                        -\n                        <mat-form-field>\n                            <input matInput placeholder=\"Đến\" [(ngModel)]=\"query.top_price\" #topPrice=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                        </mat-form-field>\n                        <mat-hint>Triệu đồng/ tháng</mat-hint>\n                    </div>\n                    <div class=\"col-sm-6\">\n                        <button mat-raised-button color=\"primary\" (click)=\"onAdvanceSearch()\"><mat-icon>search</mat-icon>Search</button>\n                    </div></mat-tab>\n                <mat-tab label=\"Tìm trên bản đồ\" #mapTab>\n                        <div *ngIf=\"mapTab.isActive\">\n                            <app-map-marker-move (locationChild)=\"onMapSearchClick($event)\"></app-map-marker-move>\n                        </div>\n                </mat-tab>\n            </mat-tab-group>\n           \n    </div>\n   <app-recent-post *ngIf=\"hasRs\" [motels]=\"motels\" [title]=\"title\"></app-recent-post>\n\n</div>\n\n<app-footer></app-footer>"
+module.exports = "<app-nav></app-nav>\n<div class=\"container\">\n    <div class=\"row\">\n            <mat-tab-group>\n                <mat-tab label=\"Tìm kiếm địa chỉ\"> \n                    <mat-form-field class=\"col-sm-3\">\n                        <mat-select placeholder=\"Tỉnh/ Thành phố\"  (change)=\"onCityChange();\" [(ngModel)]=\"city.id\" #id=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                          <mat-option *ngFor=\"let item of resultArray; let i = index\" [value]=\"i\">\n                            {{ item.name }}\n                          </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                \n                    <mat-form-field class=\"col-sm-3\">\n                        <mat-select placeholder=\"Quận/ Huyện\" [(ngModel)]=\"query.district\" #district=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                            <mat-option *ngFor=\"let item of districtArray; let i = index\" [value]=\"item\"  >\n                            {{ item }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                \n                    <mat-form-field class=\"col-sm-3\">\n                        <input matInput placeholder=\"Xã/ Phường\"[(ngModel)]=\"query.ward\" #ward=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                        <mat-hint>\"Chỉ nhập tên xã/ phường\"</mat-hint>\n                    </mat-form-field>\n                    <mat-form-field class=\"col-sm-3\">\n                        <input matInput placeholder=\"Đường \" [(ngModel)]=\"query.street\" #street=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                        <mat-hint>\"Chỉ nhập tên đường\"</mat-hint>\n                    </mat-form-field>\n               \n                    <div class=\"col-sm-12\" style=\"display: inline;\">\n                        Giá tiền: \n                        <mat-form-field>\n                            <input matInput placeholder=\"Từ\" [(ngModel)]=\"query.bottom_price\" #bottomPrice=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                        </mat-form-field>\n                        -\n                        <mat-form-field>\n                            <input matInput placeholder=\"Đến\" [(ngModel)]=\"query.top_price\" #topPrice=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                        </mat-form-field>\n                        <mat-hint>Triệu đồng/ tháng</mat-hint>\n                    </div>\n                    <div class=\"col-sm-6\">\n                        <button mat-raised-button color=\"primary\" (click)=\"onAdvanceSearch()\"><mat-icon>search</mat-icon>Search</button>\n                    </div></mat-tab>\n                <mat-tab label=\"Tìm trên bản đồ\" #mapTab>\n                        <div *ngIf=\"mapTab.isActive\">\n                            <app-map-marker-move (locationChild)=\"onMapSearchClick($event)\"></app-map-marker-move>\n                        </div>\n                </mat-tab>\n            </mat-tab-group>\n           \n    </div>\n   <app-recent-post *ngIf=\"hasRs\" [motels]=\"motels\" [title]=\"title\"></app-recent-post>\n\n</div>\n\n<app-footer></app-footer>"
 
 /***/ }),
 
@@ -3505,6 +3515,7 @@ var CommentBoxComponent = (function () {
             var name_1 = user.firstname + ' ' + user.lastname;
             this.comment.customer_name = name_1;
             this.comment.customer_id = user._id;
+            this.comment.customer_level = user.level;
             this.comment.created_at = new Date();
             this.comment.motel_id = this.motelID;
             this.commentService.comment(this.comment).subscribe(function (res) {
@@ -3514,7 +3525,12 @@ var CommentBoxComponent = (function () {
             });
         }
         else {
-            this.alertService.error('Please log in!');
+            if (this.comment.content === '') {
+                this.alertService.error('Comment can not be empty');
+            }
+            else {
+                this.alertService.error('Please log in!');
+            }
         }
     };
     __decorate([
@@ -4169,7 +4185,7 @@ module.exports = "\r\n\r\n.fill-remaining-space {\r\n    /*This fills the remain
 /***/ "./src/app/main/layout/nav/nav.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"contact-header\">\n    <div class=\"col-xs-6 contact-float-left\">\n        <p><span style=\"padding-right: 10px\"><a (click)=\"translate.use('vi')\">VI</a></span> | <span style=\"padding-left:10px;\"><a (click)=\"translate.use('en')\">EN</a></span></p>\n    </div>\n</div>\n<mat-toolbar color=\"primary\" *ngIf=\"isTopOfPage\">\n    \n    <button mat-button routerLink=\"/\" [ngStyle]=\"{'color': colorStyle === 'WHITE' ? 'white' : 'black'}\">\n    <mat-icon>home</mat-icon> \n    {{ 'PAGE.HOME' | translate}}</button>\n\n    <!-- This fills the remaining space of the current row -->\n    <span class=\"fill-remaining-space\"></span>\n    <div fxLayout=\"row\" fxShow=\"false\" fxShow.gt-sm [ngStyle]=\"{'color': colorStyle === 'WHITE' ? 'white' : 'black'}\">\n        <button mat-button [routerLink]=\"['/home']\">{{ 'PAGE.HOME' | translate}}</button>\n        <button mat-button [routerLink]=\"['/add']\">{{ 'PAGE.ADD' | translate}}</button>\n        <button mat-button [routerLink]=\"['/user']\"*ngIf=\"loginStatus\">{{ 'PAGE.USER' | translate}}</button>\n        <button mat-button [routerLink]=\"['/login']\" *ngIf=\"!loginStatus\">{{ 'PAGE.LOGIN' | translate}}</button>\n        <button mat-button [routerLink]=\"['/login']\" *ngIf=\"loginStatus\">{{ 'PAGE.LOGOUT' | translate}}</button>\n        <button mat-button [routerLink]=\"['/show-map']\" [queryParams]=\"{ lat: data.lat, lng: data.lng}\">{{ 'PAGE.OVERVIEW' | translate}}</button>\n\n\n        \n    </div>\n    <button mat-button [mat-menu-trigger-for]=\"menu\" fxHide=\"false\" fxHide.gt-sm>\n     <mat-icon>menu</mat-icon>\n    </button>\n\n</mat-toolbar>\n<mat-menu x-position=\"before\" #menu=\"matMenu\">\n    <button mat-menu-item routerLink=\"['/home']\">Home</button>\n        <button mat-menu-item [routerLink]=\"['/add']\">Add</button>\n        <button  mat-menu-item [routerLink]=\"['/login']\">{{loginStatus}}</button>\n        <button  mat-menu-item [routerLink]=\"['/show-map']\" [queryParams]=\"{ lat: data.lat, lng: data.lng}\">Overview</button>\n    <!--<button mat-menu-item>Help</button>-->\n</mat-menu>\n"
+module.exports = "<div class=\"contact-header\">\n    <div class=\"col-xs-6 contact-float-left\">\n        <p><span style=\"padding-right: 10px\"><a (click)=\"translate.use('vi')\">VI</a></span> | <span style=\"padding-left:10px;\"><a (click)=\"translate.use('en')\">EN</a></span></p>\n    </div>\n</div>\n<mat-toolbar color=\"primary\" *ngIf=\"isTopOfPage\">\n    \n    <button mat-button routerLink=\"/\" [ngStyle]=\"{'color': colorStyle === 'WHITE' ? 'white' : 'black'}\">\n    <mat-icon>home</mat-icon> \n    {{ 'PAGE.HOME' | translate}}</button>\n\n    <!-- This fills the remaining space of the current row -->\n    <span class=\"fill-remaining-space\"></span>\n    <div fxLayout=\"row\" fxShow=\"false\" fxShow.gt-sm [ngStyle]=\"{'color': colorStyle === 'WHITE' ? 'white' : 'black'}\">\n        <button mat-button [routerLink]=\"['/add']\">{{ 'PAGE.ADD' | translate}}</button>\n        <button mat-button [routerLink]=\"['/user']\"*ngIf=\"loginStatus\">{{ 'PAGE.USER' | translate}}</button>\n        <button mat-button [routerLink]=\"['/login']\" *ngIf=\"!loginStatus\">{{ 'PAGE.LOGIN' | translate}}</button>\n        <button mat-button [routerLink]=\"['/login']\" *ngIf=\"loginStatus\">{{ 'PAGE.LOGOUT' | translate}}</button>\n        \n    </div>\n    <button mat-button [mat-menu-trigger-for]=\"menu\" fxHide=\"false\" fxHide.gt-sm>\n     <mat-icon>menu</mat-icon>\n    </button>\n\n</mat-toolbar>\n<mat-menu x-position=\"before\" #menu=\"matMenu\">\n    <button mat-menu-item routerLink=\"['/home']\">Home</button>\n    <button mat-menu-item [routerLink]=\"['/add']\">{{ 'PAGE.ADD' | translate}}</button>\n    <button  mat-menu-item [routerLink]=\"['/login']\" *ngIf=\"!loginStatus\">{{ 'PAGE.LOGIN' | translate}}</button>\n    <button  mat-menu-item [routerLink]=\"['/login']\" *ngIf=\"loginStatus\">{{ 'PAGE.LOGOUT' | translate}}</button>\n    \n</mat-menu>\n"
 
 /***/ }),
 

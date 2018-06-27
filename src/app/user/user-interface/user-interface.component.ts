@@ -55,12 +55,16 @@ export class UserInterfaceComponent implements OnInit {
       if (this.password.newPassword.lenght < 8 || this.password.confirmPassword.length < 8) {
         this.alertService.error('Password must have at least 8 character');
       } else {
-        this.authService.changePassword(JSON.parse(localStorage.getItem('currentUser'))._id, this.password)
+        if (this.password.oldPassword === this.password.newPassword) {
+          this.alertService.error('New password must be different from old password');
+        } else {
+          this.authService.changePassword(JSON.parse(localStorage.getItem('currentUser'))._id, this.password)
           .subscribe(res => {
             this.alertService.success('change success');
           }, err => {
             this.alertService.error(err);
           });
+        }
       }
     }
   }

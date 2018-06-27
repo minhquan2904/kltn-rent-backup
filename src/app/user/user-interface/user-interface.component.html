@@ -6,11 +6,6 @@
           <div class="img-avt">
               <img class="img-responsive" mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
           </div>
-            
-            <div class="text-center"> 
-              <button mat-button color="primary">Update</button>
-            </div>
-           
           </mat-card>
           <mat-card>
             <mat-card-content>
@@ -139,6 +134,7 @@
       <app-user-table-motel *ngIf="!isShowListMotel"></app-user-table-motel>
       <button mat-raised-button color="primary" *ngIf="!isShowListMotel" (click)="onSeeMotel()"> Return to Infomation</button>
       <mat-card *ngIf="changePasswordFlag">
+        <user-alert></user-alert>
         <div class="mat-card-password">
             <mat-form-field>
                 <input type="password" matInput placeholder="Current password"  [(ngModel)]= "password.oldPassword" #oldPassword="ngModel" [ngModelOptions]="{standalone: true}" >

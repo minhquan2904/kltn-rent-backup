@@ -21,6 +21,7 @@ export class CommentBoxComponent implements OnInit {
       const name = user.firstname + ' ' +  user.lastname;
       this.comment.customer_name = name;
       this.comment.customer_id = user._id;
+      this.comment.customer_level = user.level;
       this.comment.created_at = new Date();
       this.comment.motel_id = this.motelID;
       this.commentService.comment(this.comment).subscribe(res => {
@@ -29,7 +30,11 @@ export class CommentBoxComponent implements OnInit {
         this.alertService.error(err);
       });
     } else {
-      this.alertService.error('Please log in!');
+      if (this.comment.content === '') {
+        this.alertService.error('Comment can not be empty');
+      } else {
+        this.alertService.error('Please log in!');
+      }
     }
   }
 

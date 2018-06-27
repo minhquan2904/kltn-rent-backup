@@ -27,6 +27,7 @@ export class CommentService {
                         item._id,
                         item.customer_id,
                         item.customer_name,
+                        item.customer_level,
                         item.content,
                         item.status,
                         item.motel_id,

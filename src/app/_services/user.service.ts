@@ -24,4 +24,21 @@ export class UserService {
                 });
             });
     }
+
+    findMod(): Observable<User[]> {
+        const data: any = {};
+        return this.http.post('/users/find-mod', data)
+            .map(res => {
+                return res.json().map(item => {
+                    return new User(
+                        item.username,
+                        item.email,
+                        item.firstname,
+                        item.lastname,
+                        item.rating,
+                        item.created_at
+                    );
+                });
+            });
+    }
 }

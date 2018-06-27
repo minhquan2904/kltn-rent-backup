@@ -2,7 +2,7 @@
 <div class="container">
     <div class="row">
             <mat-tab-group>
-                <mat-tab label="Tìm kiếm địa chỉ"> <h4 class="text-center">Dữ liệu địa chỉ có thể không chính xác. Để tùy chỉnh, nhập vào khung "Địa chỉ"</h4>
+                <mat-tab label="Tìm kiếm địa chỉ"> 
                     <mat-form-field class="col-sm-3">
                         <mat-select placeholder="Tỉnh/ Thành phố"  (change)="onCityChange();" [(ngModel)]="city.id" #id="ngModel" [ngModelOptions]="{standalone: true}">
                           <mat-option *ngFor="let item of resultArray; let i = index" [value]="i">

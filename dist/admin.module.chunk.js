@@ -10,7 +10,7 @@ module.exports = "\n\n\n/* breadcrum */\n.breadcrumb{\n  background: #cccccc;\n 
 /***/ "./src/app/admin/admin-page/admin-page.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-admin-nav></app-admin-nav>\n \n<section id=\"breadcrumb\">\n    <div class=\"container\">\n        \n        <ol class=\"breadcrumb\">\n            <li class=\"active\">Dashboard</li>\n        </ol>\n    </div>\n  </section>\n\n\n  <section id=\"main\">\n      <div class=\"container\">\n          <div class=\"row\">\n              <div class=\"col-md-3\">\n                <div class=\"list-group\">\n                    <a href=\"#\" class=\"list-group-item active main-color-bg\">\n                        <span class=\"glyphicon glyphicon-cog\" aria-hidden=\"true\"></span> Dashboard\n                    </a>\n                    <a [routerLink]=\"['/admin/motel']\" class=\"list-group-item\"><span class=\"glyphicon glyphicon-list-alt\" aria-hidden=\"true\"></span> Motel <span class=\"badge\">12</span></a>\n                    <a [routerLink]=\"['/admin/comment']\" class=\"list-group-item\"><span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span> Comment <span class=\"badge\">0</span></a>\n                    <a href=\"#\" class=\"list-group-item\"><span class=\"glyphicon glyphicon-user\" aria-hidden=\"true\"></span> User <span class=\"badge\">56</span></a>\n                    \n                </div>\n\n                <div class=\"well\">\n                    <h4>Post verified</h4>\n                    <div class=\"progress\">\n                        <div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"60\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 60%;\">\n                          60%\n                        </div>\n                      </div>\n                </div>\n              </div>\n              <div class=\"col-md-9\">\n                    <div class=\"panel panel-default\">\n        \n                            <div class=\"panel-heading main-color-bg\">Dashboard</div>\n                            <div class=\"panel-body\">\n                                <div class=\"col-md-3\">\n                                    <div class=\"well dash-box\">\n                                        <h2><div class=\"glyphicon glyphicon-user\" aria-hidden=\"true\"></div> {{static?.num_users}}</h2>\n                                        <h4>Users</h4>\n                                    </div>\n                                </div>\n                                <div class=\"col-md-3\">\n                                    <div class=\"well dash-box\">\n                                        <h2><div class=\"glyphicon glyphicon-list-alt\" aria-hidden=\"true\"></div> 56</h2>\n                                        <h4>Pages</h4>\n                                    </div>\n                                </div>\n                                <div class=\"col-md-3\">\n                                    <div class=\"well dash-box\">\n                                        <h2><div class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></div> {{static?.num_motels}}</h2>\n                                        <h4>Posts</h4>\n                                    </div>\n                                </div>\n                                <div class=\"col-md-3\">\n                                    <div class=\"well dash-box\">\n                                        <h2><div class=\"glyphicon glyphicon-stats\" aria-hidden=\"true\"></div>{{static?.visitors}}</h2>\n                                        <h4>Visitors</h4>\n                                    </div>\n                                </div>\n                            </div>\n                          </div> <!-- end first panel-->\n                    <router-outlet></router-outlet>\n              </div> \n            </div>\n        </div>\n    </section>\n"
+module.exports = "<app-admin-nav></app-admin-nav>\n \n<section id=\"breadcrumb\">\n    <div class=\"container\">\n        \n        <ol class=\"breadcrumb\">\n            <li class=\"active\">Dashboard</li>\n        </ol>\n    </div>\n  </section>\n\n\n  <section id=\"main\">\n      <div class=\"container\">\n          <div class=\"row\">\n              <div class=\"col-md-3\">\n                <div class=\"list-group\">\n                    <a href=\"#\" class=\"list-group-item active main-color-bg\">\n                        <span class=\"glyphicon glyphicon-cog\" aria-hidden=\"true\"></span> Dashboard\n                    </a>\n                    <a [routerLink]=\"['/admin/motel']\" class=\"list-group-item\"><span class=\"glyphicon glyphicon-list-alt\" aria-hidden=\"true\"></span> Motel <span class=\"badge\">12</span></a>\n                    <a [routerLink]=\"['/admin/comment']\" class=\"list-group-item\"><span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span> Comment <span class=\"badge\">0</span></a>\n                    <a [routerLink]=\"['/admin/mod']\" class=\"list-group-item\"><span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span> Mod <span class=\"badge\">0</span></a>\n                    \n                </div>\n\n                <div class=\"well\">\n                    <h4>Post verified</h4>\n                    <div class=\"progress\">\n                        <div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"60\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 60%;\">\n                          60%\n                        </div>\n                      </div>\n                </div>\n              </div>\n              <div class=\"col-md-9\">\n                    <div class=\"panel panel-default\">\n        \n                            <div class=\"panel-heading main-color-bg\">Dashboard</div>\n                            <div class=\"panel-body\">\n                                <div class=\"col-md-3\">\n                                    <div class=\"well dash-box\">\n                                        <h2><div class=\"glyphicon glyphicon-user\" aria-hidden=\"true\"></div> {{static?.num_users}}</h2>\n                                        <h4>Users</h4>\n                                    </div>\n                                </div>\n                                <div class=\"col-md-3\">\n                                    <div class=\"well dash-box\">\n                                        <h2><div class=\"glyphicon glyphicon-list-alt\" aria-hidden=\"true\"></div> 56</h2>\n                                        <h4>Pages</h4>\n                                    </div>\n                                </div>\n                                <div class=\"col-md-3\">\n                                    <div class=\"well dash-box\">\n                                        <h2><div class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></div> {{static?.num_motels}}</h2>\n                                        <h4>Posts</h4>\n                                    </div>\n                                </div>\n                                <div class=\"col-md-3\">\n                                    <div class=\"well dash-box\">\n                                        <h2><div class=\"glyphicon glyphicon-stats\" aria-hidden=\"true\"></div>{{static?.visitors}}</h2>\n                                        <h4>Visitors</h4>\n                                    </div>\n                                </div>\n                            </div>\n                          </div> <!-- end first panel-->\n                    <router-outlet></router-outlet>\n              </div> \n            </div>\n        </div>\n    </section>\n"
 
 /***/ }),
 
@@ -72,13 +72,15 @@ var AdminPageComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__admin_page_component__ = __webpack_require__("./src/app/admin/admin-page/admin-page.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__layout_admin_dash_admin_dash_component__ = __webpack_require__("./src/app/admin/layout/admin-dash/admin-dash.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__layout_admin_table_motel_admin_table_motel_component__ = __webpack_require__("./src/app/admin/layout/admin-table-motel/admin-table-motel.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__layout_admin_table_comment_admin_table_comment_component__ = __webpack_require__("./src/app/admin/layout/admin-table-comment/admin-table-comment.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__layout_admin_mode_admin_table_mod_component__ = __webpack_require__("./src/app/admin/layout/admin-mode/admin-table-mod.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__layout_admin_table_comment_admin_table_comment_component__ = __webpack_require__("./src/app/admin/layout/admin-table-comment/admin-table-comment.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -98,7 +100,8 @@ var routes = [
                     { path: '', component: __WEBPACK_IMPORTED_MODULE_4__layout_admin_dash_admin_dash_component__["a" /* AdminDashComponent */] },
                     { path: 'home', component: __WEBPACK_IMPORTED_MODULE_4__layout_admin_dash_admin_dash_component__["a" /* AdminDashComponent */] },
                     { path: 'motel', component: __WEBPACK_IMPORTED_MODULE_5__layout_admin_table_motel_admin_table_motel_component__["a" /* AdminTableMotelComponent */] },
-                    { path: 'comment', component: __WEBPACK_IMPORTED_MODULE_6__layout_admin_table_comment_admin_table_comment_component__["a" /* AdminTableCommentComponent */] }
+                    { path: 'comment', component: __WEBPACK_IMPORTED_MODULE_7__layout_admin_table_comment_admin_table_comment_component__["a" /* AdminTableCommentComponent */] },
+                    { path: 'mod', component: __WEBPACK_IMPORTED_MODULE_6__layout_admin_mode_admin_table_mod_component__["a" /* AdminTableModComponent */] }
                 ]
             },
         ]
@@ -129,20 +132,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__("./node_modules/@angular/common/esm5/common.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__guards_index__ = __webpack_require__("./src/app/_guards/index.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_material__ = __webpack_require__("./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__admin_routing_module__ = __webpack_require__("./src/app/admin/admin-page/admin-routing.module.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__admin_page_component__ = __webpack_require__("./src/app/admin/admin-page/admin-page.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__layout_admin_nav_admin_nav_component__ = __webpack_require__("./src/app/admin/layout/admin-nav/admin-nav.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__layout_admin_dash_admin_dash_component__ = __webpack_require__("./src/app/admin/layout/admin-dash/admin-dash.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__layout_admin_table_motel_admin_table_motel_component__ = __webpack_require__("./src/app/admin/layout/admin-table-motel/admin-table-motel.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__layout_admin_table_comment_admin_table_comment_component__ = __webpack_require__("./src/app/admin/layout/admin-table-comment/admin-table-comment.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__layout_alert_alert_component__ = __webpack_require__("./src/app/admin/layout/alert/alert.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__("./node_modules/@angular/forms/esm5/forms.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_material__ = __webpack_require__("./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__admin_routing_module__ = __webpack_require__("./src/app/admin/admin-page/admin-routing.module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__admin_page_component__ = __webpack_require__("./src/app/admin/admin-page/admin-page.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__layout_admin_nav_admin_nav_component__ = __webpack_require__("./src/app/admin/layout/admin-nav/admin-nav.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__layout_admin_dash_admin_dash_component__ = __webpack_require__("./src/app/admin/layout/admin-dash/admin-dash.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__layout_admin_table_motel_admin_table_motel_component__ = __webpack_require__("./src/app/admin/layout/admin-table-motel/admin-table-motel.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__layout_admin_table_comment_admin_table_comment_component__ = __webpack_require__("./src/app/admin/layout/admin-table-comment/admin-table-comment.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__layout_alert_alert_component__ = __webpack_require__("./src/app/admin/layout/alert/alert.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__layout_admin_mode_admin_table_mod_component__ = __webpack_require__("./src/app/admin/layout/admin-mode/admin-table-mod.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -161,18 +168,20 @@ var AdminModule = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
             imports: [
                 __WEBPACK_IMPORTED_MODULE_1__angular_common__["CommonModule"],
-                __WEBPACK_IMPORTED_MODULE_4__admin_routing_module__["a" /* AdminRoutingModule */],
-                __WEBPACK_IMPORTED_MODULE_3__angular_material__["c" /* MatButtonModule */], __WEBPACK_IMPORTED_MODULE_3__angular_material__["f" /* MatCheckboxModule */], __WEBPACK_IMPORTED_MODULE_3__angular_material__["K" /* MatTabsModule */],
-                __WEBPACK_IMPORTED_MODULE_3__angular_material__["w" /* MatPaginatorModule */], __WEBPACK_IMPORTED_MODULE_3__angular_material__["J" /* MatTableModule */], __WEBPACK_IMPORTED_MODULE_3__angular_material__["G" /* MatSortModule */],
-                __WEBPACK_IMPORTED_MODULE_3__angular_material__["n" /* MatFormFieldModule */], __WEBPACK_IMPORTED_MODULE_3__angular_material__["r" /* MatInputModule */]
+                __WEBPACK_IMPORTED_MODULE_5__admin_routing_module__["a" /* AdminRoutingModule */],
+                __WEBPACK_IMPORTED_MODULE_4__angular_material__["c" /* MatButtonModule */], __WEBPACK_IMPORTED_MODULE_4__angular_material__["f" /* MatCheckboxModule */], __WEBPACK_IMPORTED_MODULE_4__angular_material__["K" /* MatTabsModule */],
+                __WEBPACK_IMPORTED_MODULE_4__angular_material__["w" /* MatPaginatorModule */], __WEBPACK_IMPORTED_MODULE_4__angular_material__["J" /* MatTableModule */], __WEBPACK_IMPORTED_MODULE_4__angular_material__["G" /* MatSortModule */],
+                __WEBPACK_IMPORTED_MODULE_4__angular_material__["n" /* MatFormFieldModule */], __WEBPACK_IMPORTED_MODULE_4__angular_material__["r" /* MatInputModule */],
+                __WEBPACK_IMPORTED_MODULE_3__angular_forms__["f" /* FormsModule */], __WEBPACK_IMPORTED_MODULE_3__angular_forms__["k" /* ReactiveFormsModule */]
             ],
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_5__admin_page_component__["a" /* AdminPageComponent */],
-                __WEBPACK_IMPORTED_MODULE_6__layout_admin_nav_admin_nav_component__["a" /* AdminNavComponent */],
-                __WEBPACK_IMPORTED_MODULE_7__layout_admin_dash_admin_dash_component__["a" /* AdminDashComponent */],
-                __WEBPACK_IMPORTED_MODULE_8__layout_admin_table_motel_admin_table_motel_component__["a" /* AdminTableMotelComponent */],
-                __WEBPACK_IMPORTED_MODULE_9__layout_admin_table_comment_admin_table_comment_component__["a" /* AdminTableCommentComponent */],
-                __WEBPACK_IMPORTED_MODULE_10__layout_alert_alert_component__["a" /* AlertComponent */]
+                __WEBPACK_IMPORTED_MODULE_6__admin_page_component__["a" /* AdminPageComponent */],
+                __WEBPACK_IMPORTED_MODULE_7__layout_admin_nav_admin_nav_component__["a" /* AdminNavComponent */],
+                __WEBPACK_IMPORTED_MODULE_8__layout_admin_dash_admin_dash_component__["a" /* AdminDashComponent */],
+                __WEBPACK_IMPORTED_MODULE_9__layout_admin_table_motel_admin_table_motel_component__["a" /* AdminTableMotelComponent */],
+                __WEBPACK_IMPORTED_MODULE_10__layout_admin_table_comment_admin_table_comment_component__["a" /* AdminTableCommentComponent */],
+                __WEBPACK_IMPORTED_MODULE_12__layout_admin_mode_admin_table_mod_component__["a" /* AdminTableModComponent */],
+                __WEBPACK_IMPORTED_MODULE_11__layout_alert_alert_component__["a" /* AlertComponent */]
             ],
             providers: [__WEBPACK_IMPORTED_MODULE_2__guards_index__["a" /* AdminGuard */]]
         })
@@ -244,6 +253,104 @@ var AdminDashComponent = (function () {
             __WEBPACK_IMPORTED_MODULE_1__services_index__["h" /* UserService */]])
     ], AdminDashComponent);
     return AdminDashComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/admin/layout/admin-mode/admin-table-mod.component.css":
+/***/ (function(module, exports) {
+
+module.exports = "table {\n    width: 100%;\n}\nmat-table {\n    width: 100%;\n    height: 100%;\n}"
+
+/***/ }),
+
+/***/ "./src/app/admin/layout/admin-mode/admin-table-mod.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<!-- Lastest user -->\n<div class=\"panel panel-default\">\n  <div class=\"panel-heading\">\n      <button mat-raised-button color=\"primary\" (click)=\"handleAccepted()\">View accepted posts</button>\n      <admin-alert></admin-alert>\n    </div>\n  <div class=\"panel-body\">\n      <mat-tab-group>\n          <mat-tab label=\"List mod\">\n            <div class=\"example-header\">\n                <mat-form-field>\n                  <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter\">\n                </mat-form-field>\n              </div>\n            <mat-table #table [dataSource]=\"dataSource\">\n\n            <!-- Position Column -->\n            <ng-container matColumnDef=\"position\">\n              <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>\n              <mat-cell *matCellDef=\"let element; let i = index\"> {{i+1}} </mat-cell>\n            </ng-container>\n            <!-- Name Column -->\n            <ng-container matColumnDef=\"name\">\n                <mat-header-cell *matHeaderCellDef > Name </mat-header-cell>\n                <mat-cell *matCellDef=\"let element\"> {{element.lastname}} {{element.firstname}} </mat-cell>\n            </ng-container>\n            <!-- Date Column -->\n            <ng-container matColumnDef=\"created\">\n              <mat-header-cell *matHeaderCellDef > Joined date </mat-header-cell>\n              <mat-cell *matCellDef=\"let element\"> {{element.created_at | date}} </mat-cell>\n            </ng-container>\n\n            <!-- Symbol Column -->\n            <ng-container matColumnDef=\"action\">\n                <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>\n                <mat-cell *matCellDef=\"let element; let j = index\"> \n                  \n                  <button mat-raised-button (click)=\"deleteMod(element._id)\" \n                    color=\"warn\">Delete</button> \n                  \n                </mat-cell>\n              </ng-container>\n        \n            <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n            <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\n          </mat-table>\n          <mat-paginator #paginator\n              [pageSize]=\"10\"\n              [pageSizeOptions]=\"[5, 10, 20]\"\n              [showFirstLastButtons]=\"true\">\n          </mat-paginator>  \n            \n        \n                   \n        </mat-tab>\n        <mat-tab label=\"Add mod\" >\n            <div class=\"mat-card-password\">\n                <mat-form-field>\n                    <input type=\"text\" matInput placeholder=\"User name\"  [(ngModel)]= \"user.username\" #oldPassword=\"ngModel\" [ngModelOptions]=\"{standalone: true}\" >\n                  </mat-form-field>\n                  <mat-form-field>\n                    <input type=\"password\" matInput placeholder=\"New password\" [(ngModel)]= \"password.newPassword\" #newPassword=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                  </mat-form-field>\n                  <mat-form-field>\n                    <input type=\"password\" matInput placeholder=\"Confirm new password\" [(ngModel)]= \"password.confirmPassword\" #confirmPassword=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                  </mat-form-field>\n                  <button mat-raised-button color=\"warn\" (click)=\"createMod()\">Change</button>\n                </div>\n        </mat-tab>\n        </mat-tab-group>\n      \n  </div>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/admin/layout/admin-mode/admin-table-mod.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdminTableModComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_material__ = __webpack_require__("./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_index__ = __webpack_require__("./src/app/_services/index.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var AdminTableModComponent = (function () {
+    function AdminTableModComponent(userService, authService, alertService) {
+        this.userService = userService;
+        this.authService = authService;
+        this.alertService = alertService;
+        this.viewAccepted = false;
+        this.displayedColumns = ['position', 'name', 'created', 'action'];
+        this.user = {};
+        this.password = {}; // object to confirm password
+    }
+    AdminTableModComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.userService.findMod().subscribe(function (res) {
+            console.log(res);
+            _this.dataSource = new __WEBPACK_IMPORTED_MODULE_1__angular_material__["I" /* MatTableDataSource */](res);
+            _this.dataSource.paginator = _this.paginator;
+        }, function (err) {
+            _this.alertService.error(err);
+        });
+    };
+    AdminTableModComponent.prototype.applyFilter = function (filterValue) {
+        filterValue = filterValue.trim(); // Remove whitespace
+        filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+        this.dataSource.filter = filterValue;
+    };
+    AdminTableModComponent.prototype.createMod = function () {
+        var _this = this;
+        if (this.password.newPassword === this.password.confirmPassword) {
+            this.user.password = this.password.confirmPassword;
+            this.user.role = 2;
+            this.authService.register(this.user).subscribe(function (res) {
+                _this.alertService.success('Insert success!');
+            }, function (err) {
+                _this.alertService.error(err);
+            });
+        }
+        else {
+            this.alertService.error('Password confirm incorect');
+        }
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_1__angular_material__["v" /* MatPaginator */]),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__angular_material__["v" /* MatPaginator */])
+    ], AdminTableModComponent.prototype, "paginator", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_1__angular_material__["v" /* MatPaginator */]),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__angular_material__["v" /* MatPaginator */])
+    ], AdminTableModComponent.prototype, "paginator2", void 0);
+    AdminTableModComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'app-admin-table-mod',
+            template: __webpack_require__("./src/app/admin/layout/admin-mode/admin-table-mod.component.html"),
+            styles: [__webpack_require__("./src/app/admin/layout/admin-mode/admin-table-mod.component.css")],
+            providers: [__WEBPACK_IMPORTED_MODULE_2__services_index__["h" /* UserService */]]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__services_index__["h" /* UserService */], __WEBPACK_IMPORTED_MODULE_2__services_index__["b" /* AuthenticationService */], __WEBPACK_IMPORTED_MODULE_2__services_index__["a" /* AlertService */]])
+    ], AdminTableModComponent);
+    return AdminTableModComponent;
 }());
 
 

@@ -7,6 +7,7 @@ var commentSchema = new Schema({
    
     customer_id:    String,
     customer_name:  String,
+    customer_level: Number,
     content:        String,
     created_at:     Date,
     motel_id:       String,

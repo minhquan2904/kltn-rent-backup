@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminGuard } from '../../_guards/index';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule, MatCheckboxModule, MatTabsModule, MatPaginatorModule, 
         MatTableModule, MatSortModule, MatFormFieldModule, MatInputModule} from '@angular/material';
 
@@ -13,6 +13,7 @@ import { AdminTableMotelComponent } from '../layout/admin-table-motel/admin-tabl
 import { AdminMenuComponent } from '../layout/admin-menu/admin-menu.component';
 import { AdminTableCommentComponent } from '../layout/admin-table-comment/admin-table-comment.component';
 import { AlertComponent } from '../layout/alert/alert.component';
+import { AdminTableModComponent} from '../layout/admin-mode/admin-table-mod.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { AlertComponent } from '../layout/alert/alert.component';
     AdminRoutingModule,
     MatButtonModule, MatCheckboxModule, MatTabsModule,
     MatPaginatorModule, MatTableModule, MatSortModule,
-    MatFormFieldModule, MatInputModule
+    MatFormFieldModule, MatInputModule,
+    FormsModule, ReactiveFormsModule
   ],
   declarations: [
     AdminPageComponent,
@@ -28,6 +30,7 @@ import { AlertComponent } from '../layout/alert/alert.component';
     AdminDashComponent,
     AdminTableMotelComponent,
     AdminTableCommentComponent,
+    AdminTableModComponent,
     AlertComponent
   ],
   providers: [AdminGuard]

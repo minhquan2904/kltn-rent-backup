@@ -79,7 +79,7 @@ function findMod()
 {
     var deferred = Q.defer();
     users.find(
-        {role: 3}).exec(function (err, users) {
+        {role: 2}).exec(function (err, users) {
             if (err) deferred.reject(err.name + ': ' + err.message);
     
             // return users (without hashed passwords)
@@ -107,6 +107,7 @@ function authenticate(username, password)
                 username: user.username,
                 firstname: user.firstname,
                 lastname: user.lastname,
+                level: user.rating.level,
                 role: user.role
 
             });

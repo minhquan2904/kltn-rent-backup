@@ -12,14 +12,10 @@
     <!-- This fills the remaining space of the current row -->
     <span class="fill-remaining-space"></span>
     <div fxLayout="row" fxShow="false" fxShow.gt-sm [ngStyle]="{'color': colorStyle === 'WHITE' ? 'white' : 'black'}">
-        <button mat-button [routerLink]="['/home']">{{ 'PAGE.HOME' | translate}}</button>
         <button mat-button [routerLink]="['/add']">{{ 'PAGE.ADD' | translate}}</button>
         <button mat-button [routerLink]="['/user']"*ngIf="loginStatus">{{ 'PAGE.USER' | translate}}</button>
         <button mat-button [routerLink]="['/login']" *ngIf="!loginStatus">{{ 'PAGE.LOGIN' | translate}}</button>
         <button mat-button [routerLink]="['/login']" *ngIf="loginStatus">{{ 'PAGE.LOGOUT' | translate}}</button>
-        <button mat-button [routerLink]="['/show-map']" [queryParams]="{ lat: data.lat, lng: data.lng}">{{ 'PAGE.OVERVIEW' | translate}}</button>
-
-
         
     </div>
     <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
@@ -29,8 +25,8 @@
 </mat-toolbar>
 <mat-menu x-position="before" #menu="matMenu">
     <button mat-menu-item routerLink="['/home']">Home</button>
-        <button mat-menu-item [routerLink]="['/add']">Add</button>
-        <button  mat-menu-item [routerLink]="['/login']">{{loginStatus}}</button>
-        <button  mat-menu-item [routerLink]="['/show-map']" [queryParams]="{ lat: data.lat, lng: data.lng}">Overview</button>
-    <!--<button mat-menu-item>Help</button>-->
+    <button mat-menu-item [routerLink]="['/add']">{{ 'PAGE.ADD' | translate}}</button>
+    <button  mat-menu-item [routerLink]="['/login']" *ngIf="!loginStatus">{{ 'PAGE.LOGIN' | translate}}</button>
+    <button  mat-menu-item [routerLink]="['/login']" *ngIf="loginStatus">{{ 'PAGE.LOGOUT' | translate}}</button>
+    
 </mat-menu>
