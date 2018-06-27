@@ -22,4 +22,8 @@ export class StatisticSerivce {
             //     });
             // });
     }
+
+    updateMonthlyRecord() {
+        return this.http.get('/statistic/update-monthly-record');
+    }
 }

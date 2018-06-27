@@ -7,6 +7,7 @@ var service     = {};
 var moment      = require('moment');
 
 service.getData = createMontlyRecord;
+service.updateMontlyRecord = updateMontlyRecord;
 module.exports = service;
 
 
@@ -86,3 +87,44 @@ function createMontlyRecord() {
 
     return deferred.promise;
   }
+function updateMontlyRecord() {
+    var deferred = Q.defer();
+    
+    statistics.findOne({}, {},{sort: {'created_at': -1}}, function(err, statistic) {
+        if (err) {
+            deferred.reject(err.name + ': ' + err.message);
+        } 
+        // console.log(statistic);
+        motels.count({}, function (err, rs) {
+            if (err) {
+                deferred.reject(err.name + ': ' + err.message);
+            }
+            // console.log(rs);
+    
+            statistic.num_motels = Number.parseInt(rs);
+    
+            users.count({}, function (err, rs) {
+                if (err) {
+                    deferred.reject(err.name + ': ' + err.message);
+                }
+        
+                statistic.num_users = Number.parseInt(rs);
+                update(statistic._id, statistic);
+                
+            });
+        });
+    
+    });
+
+    function update(_id, statistic) {
+        delete statistic["_id"];
+        statistics.findByIdAndUpdate(_id, {$set: statistic}, function(err, doc) {
+            if (err) {
+                deferred.reject(err.name + ': ' + err.message);
+            }
+            deferred.resolve();
+        });
+    }
+
+    return deferred.promise;
+}

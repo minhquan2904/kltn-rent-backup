@@ -10,7 +10,7 @@ module.exports = "\n\n\n/* breadcrum */\n.breadcrumb{\n  background: #cccccc;\n 
 /***/ "./src/app/admin/admin-page/admin-page.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-admin-nav></app-admin-nav>\n \n<section id=\"breadcrumb\">\n    <div class=\"container\">\n        \n        <ol class=\"breadcrumb\">\n            <li class=\"active\">Dashboard</li>\n        </ol>\n    </div>\n  </section>\n\n\n  <section id=\"main\">\n      <div class=\"container\">\n          <div class=\"row\">\n              <div class=\"col-md-3\">\n                <div class=\"list-group\">\n                    <a href=\"#\" class=\"list-group-item active main-color-bg\">\n                        <span class=\"glyphicon glyphicon-cog\" aria-hidden=\"true\"></span> Dashboard\n                    </a>\n                    <a [routerLink]=\"['/admin/motel']\" class=\"list-group-item\"><span class=\"glyphicon glyphicon-list-alt\" aria-hidden=\"true\"></span> Motel <span class=\"badge\">12</span></a>\n                    <a [routerLink]=\"['/admin/comment']\" class=\"list-group-item\"><span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span> Comment <span class=\"badge\">0</span></a>\n                    <a [routerLink]=\"['/admin/mod']\" class=\"list-group-item\"><span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span> Mod <span class=\"badge\">0</span></a>\n                    \n                </div>\n\n                <div class=\"well\">\n                    <h4>Post verified</h4>\n                    <div class=\"progress\">\n                        <div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"60\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 60%;\">\n                          60%\n                        </div>\n                      </div>\n                </div>\n              </div>\n              <div class=\"col-md-9\">\n                    <div class=\"panel panel-default\">\n        \n                            <div class=\"panel-heading main-color-bg\">Dashboard</div>\n                            <div class=\"panel-body\">\n                                <div class=\"col-md-3\">\n                                    <div class=\"well dash-box\">\n                                        <h2><div class=\"glyphicon glyphicon-user\" aria-hidden=\"true\"></div> {{static?.num_users}}</h2>\n                                        <h4>Users</h4>\n                                    </div>\n                                </div>\n                                <div class=\"col-md-3\">\n                                    <div class=\"well dash-box\">\n                                        <h2><div class=\"glyphicon glyphicon-list-alt\" aria-hidden=\"true\"></div> 56</h2>\n                                        <h4>Pages</h4>\n                                    </div>\n                                </div>\n                                <div class=\"col-md-3\">\n                                    <div class=\"well dash-box\">\n                                        <h2><div class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></div> {{static?.num_motels}}</h2>\n                                        <h4>Posts</h4>\n                                    </div>\n                                </div>\n                                <div class=\"col-md-3\">\n                                    <div class=\"well dash-box\">\n                                        <h2><div class=\"glyphicon glyphicon-stats\" aria-hidden=\"true\"></div>{{static?.visitors}}</h2>\n                                        <h4>Visitors</h4>\n                                    </div>\n                                </div>\n                            </div>\n                          </div> <!-- end first panel-->\n                    <router-outlet></router-outlet>\n              </div> \n            </div>\n        </div>\n    </section>\n"
+module.exports = "<app-admin-nav></app-admin-nav>\n \n<section id=\"breadcrumb\">\n    <div class=\"container\">\n        \n        <ol class=\"breadcrumb\">\n            <li class=\"active\">Dashboard</li>\n        </ol>\n    </div>\n  </section>\n\n\n  <section id=\"main\">\n      <div class=\"container\">\n          <div class=\"row\">\n              <div class=\"col-md-3\">\n                <div class=\"list-group\">\n                    <a href=\"#\" class=\"list-group-item active main-color-bg\">\n                        <span class=\"glyphicon glyphicon-cog\" aria-hidden=\"true\"></span> Dashboard\n                    </a>\n                    <a [routerLink]=\"['/admin/motel']\" class=\"list-group-item\"><span class=\"glyphicon glyphicon-list-alt\" aria-hidden=\"true\"></span> Motel <span class=\"badge\">12</span></a>\n                    <a [routerLink]=\"['/admin/comment']\" class=\"list-group-item\"><span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span> Comment <span class=\"badge\">0</span></a>\n                    <a *ngIf=\"isSuperAdmin\" [routerLink]=\"['/admin/mod']\" class=\"list-group-item\"><span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span> Mod <span class=\"badge\">0</span></a>\n                    \n                </div>\n\n                <div class=\"well\">\n                    <h4>Post verified</h4>\n                    <div class=\"progress\">\n                        <div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"60\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 60%;\">\n                          60%\n                        </div>\n                      </div>\n                </div>\n              </div>\n              <div class=\"col-md-9\">\n                    <div class=\"panel panel-default\">\n        \n                            <div class=\"panel-heading main-color-bg\">Dashboard</div>\n                            <div class=\"panel-body\">\n                                <div class=\"col-md-3\">\n                                    <div class=\"well dash-box\">\n                                        <h2><div class=\"glyphicon glyphicon-user\" aria-hidden=\"true\"></div> {{static?.num_users}}</h2>\n                                        <h4>Users</h4>\n                                    </div>\n                                </div>\n                                <div class=\"col-md-3\">\n                                    <div class=\"well dash-box\">\n                                        <h2><div class=\"glyphicon glyphicon-list-alt\" aria-hidden=\"true\"></div> 56</h2>\n                                        <h4>Pages</h4>\n                                    </div>\n                                </div>\n                                <div class=\"col-md-3\">\n                                    <div class=\"well dash-box\">\n                                        <h2><div class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></div> {{static?.num_motels}}</h2>\n                                        <h4>Posts</h4>\n                                    </div>\n                                </div>\n                                <div class=\"col-md-3\">\n                                    <div class=\"well dash-box\">\n                                        <h2><div class=\"glyphicon glyphicon-stats\" aria-hidden=\"true\"></div>{{static?.visitors}}</h2>\n                                        <h4>Visitors</h4>\n                                    </div>\n                                </div>\n                            </div>\n                          </div> <!-- end first panel-->\n                    <router-outlet></router-outlet>\n              </div> \n            </div>\n        </div>\n    </section>\n"
 
 /***/ }),
 
@@ -33,12 +33,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var AdminPageComponent = (function () {
-    function AdminPageComponent(statisticService, alertService) {
+    function AdminPageComponent(statisticService, alertService, authService) {
         this.statisticService = statisticService;
         this.alertService = alertService;
+        this.authService = authService;
+        this.isSuperAdmin = false;
     }
     AdminPageComponent.prototype.ngOnInit = function () {
         var _this = this;
+        console.log(this.authService.isSuperAdmin);
+        this.isSuperAdmin = this.authService.isSuperAdmin;
         this.statisticService.getInfo().subscribe(function (res) {
             _this.static = res.json();
         }, function (err) {
@@ -52,7 +56,8 @@ var AdminPageComponent = (function () {
             styles: [__webpack_require__("./src/app/admin/admin-page/admin-page.component.css")]
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_index__["g" /* StatisticSerivce */],
-            __WEBPACK_IMPORTED_MODULE_1__services_index__["a" /* AlertService */]])
+            __WEBPACK_IMPORTED_MODULE_1__services_index__["a" /* AlertService */],
+            __WEBPACK_IMPORTED_MODULE_1__services_index__["b" /* AuthenticationService */]])
     ], AdminPageComponent);
     return AdminPageComponent;
 }());
@@ -367,7 +372,7 @@ module.exports = "/* navbar */\n.navbar{\n    min-height: 33px!important;\n    m
 /***/ "./src/app/admin/layout/admin-nav/admin-nav.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-default\">\n  <div class=\"container\">\n    <div class=\"navbar-header\">\n      <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#navbar\" aria-expanded=\"false\" aria-controls=\"navbar\">\n        <span class=\"sr-only\">Toggle navigation</span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n      </button>\n      <a class=\"navbar-brand\" routerLink=\"['/home']\">Rent</a>\n    </div>\n    <div id=\"navbar\" class=\"collapse navbar-collapse\">\n      <ul class=\"nav navbar-nav\">\n        <li class=\"active\"><a routerLink=\"['/home']\">Home</a></li>\n      </ul>\n\n\n      <ul class=\"nav navbar-nav navbar-right\">\n          <li><a href=\"#\">User</a></li>\n          <li><a [routerLink]=\"['/login']\">Logout</a></li>\n          <li><button mat-button (click)= \"translate.use('vi')\">VI</button></li>\n          <li><button mat-button (click)= \"translate.use('en')\">EN</button></li>\n        </ul>\n    </div><!--/.nav-collapse -->\n  </div>\n</nav>\n<header id=\"header\">\n    <div class=\"container\">\n        <div class=\"row\">\n            <div class=\"col-md-10\">\n                <h1><span class=\"glyphicon glyphicon-cog\" aria-hidden=\"true\"> </span>Dashboard <small>Manage your site</small></h1>\n            </div>\n            <div class=\"col-md-2\">\n                <div class=\"dropdown create\">\n                    <button class=\"btn btn-default dropdown-toggle\" type=\"button\" id=\"dropdownMenu1\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"true\">\n                           Action\n                        <span class=\"caret\"></span>\n                    </button>\n                    <ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenu1\">\n                        <li><a href=\"#\">Action</a></li>\n                        <li><a href=\"#\">Another action</a></li>\n                        <li><a href=\"#\">Something else here</a></li>\n                        <li role=\"separator\" class=\"divider\"></li>\n                        <li><a href=\"#\">Separated link</a></li>\n                    </ul>\n                    </div>\n            </div>\n        </div>\n    </div>\n</header>"
+module.exports = "<nav class=\"navbar navbar-default\">\n  <div class=\"container\">\n    <div class=\"navbar-header\">\n      <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#navbar\" aria-expanded=\"false\" aria-controls=\"navbar\">\n        <span class=\"sr-only\">Toggle navigation</span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n      </button>\n      <a class=\"navbar-brand\" routerLink=\"['/home']\">Rent</a>\n    </div>\n    <div id=\"navbar\" class=\"collapse navbar-collapse\">\n      <ul class=\"nav navbar-nav\">\n        <li class=\"active\"><a routerLink=\"['/home']\">Home</a></li>\n      </ul>\n\n\n      <ul class=\"nav navbar-nav navbar-right\">\n          <li><a href=\"#\">User</a></li>\n          <li><a [routerLink]=\"['/login']\">Logout</a></li>\n          <li><button mat-button (click)= \"translate.use('vi')\">VI</button></li>\n          <li><button mat-button (click)= \"translate.use('en')\">EN</button></li>\n        </ul>\n    </div><!--/.nav-collapse -->\n  </div>\n</nav>\n<header id=\"header\">\n    <div class=\"container\">\n        <div class=\"row\">\n            <div class=\"col-md-10\">\n                <h1><span class=\"glyphicon glyphicon-cog\" aria-hidden=\"true\"> </span>Dashboard <small>Manage your site</small></h1>\n            </div>\n            <div class=\"col-md-2\">\n                <div class=\"dropdown create\">\n                    <button class=\"btn btn-default dropdown-toggle\" type=\"button\" id=\"dropdownMenu1\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"true\">\n                           Action\n                        <span class=\"caret\"></span>\n                    </button>\n                    <ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenu1\">\n                        <li><a (click)=\"udpateMonthlyRecord()\">Update Record</a></li>\n                        <li><a href=\"#\">Another action</a></li>\n                        <li><a href=\"#\">Something else here</a></li>\n                        <li role=\"separator\" class=\"divider\"></li>\n                        <li><a href=\"#\">Separated link</a></li>\n                    </ul>\n                    </div>\n            </div>\n        </div>\n    </div>\n</header>"
 
 /***/ }),
 
@@ -378,6 +383,7 @@ module.exports = "<nav class=\"navbar navbar-default\">\n  <div class=\"containe
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdminNavComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__ = __webpack_require__("./node_modules/@ngx-translate/core/@ngx-translate/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_index__ = __webpack_require__("./src/app/_services/index.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -389,11 +395,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
 var AdminNavComponent = (function () {
-    function AdminNavComponent(translate) {
+    function AdminNavComponent(translate, statisticService, alertService) {
         this.translate = translate;
+        this.statisticService = statisticService;
+        this.alertService = alertService;
     }
     AdminNavComponent.prototype.ngOnInit = function () {
+    };
+    AdminNavComponent.prototype.udpateMonthlyRecord = function () {
+        var _this = this;
+        this.statisticService.updateMonthlyRecord().subscribe(function (res) {
+            _this.alertService.success('Update record ok');
+        }, function (err) {
+            _this.alertService.error(err);
+        });
     };
     AdminNavComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
@@ -401,7 +418,9 @@ var AdminNavComponent = (function () {
             template: __webpack_require__("./src/app/admin/layout/admin-nav/admin-nav.component.html"),
             styles: [__webpack_require__("./src/app/admin/layout/admin-nav/admin-nav.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__["c" /* TranslateService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__["c" /* TranslateService */],
+            __WEBPACK_IMPORTED_MODULE_2__services_index__["g" /* StatisticSerivce */],
+            __WEBPACK_IMPORTED_MODULE_2__services_index__["a" /* AlertService */]])
     ], AdminNavComponent);
     return AdminNavComponent;
 }());

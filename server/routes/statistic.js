@@ -6,6 +6,7 @@ var statisticService = require('../services/statistic.service');
 // router.get('/create', create);
 
 router.get('/get-info', getInfo);
+router.get('/update-monthly-record', updateMontlyRecord);
 module.exports = router;
 
 function create(req,res) {
@@ -41,4 +42,13 @@ function getInfo(req, res) {
             res.status(400).send(err);
         }
     );
+}
+
+function updateMontlyRecord(req,res) {
+    statisticService.updateMontlyRecord().then(function () {
+        res.status(200).send("update ok");
+    })
+    .catch(function (err) {
+        res.status(400).send(err);
+    });
 }

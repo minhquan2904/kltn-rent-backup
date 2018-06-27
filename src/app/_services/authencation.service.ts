@@ -8,6 +8,7 @@ export class AuthenticationService {
     constructor(private http: Http) { }
     isLoggedIn: Boolean = false;
     isAdmin: Boolean = false;
+    isSuperAdmin: Boolean = false;
     userID: String = '';
     login(username: string, password: string) {
         return this.http.post('/users/authenticate', { username: username, password: password })
@@ -20,6 +21,12 @@ export class AuthenticationService {
                     this.isLoggedIn = true;
                     if (user.role < 3) {
                         this.isAdmin = true;
+                        console.log(user.role);
+                        if (user.role === 1) {
+                            this.isSuperAdmin = true;
+                        } else {
+                            this.isSuperAdmin = false;
+                        }
                     } else {
                         this.isAdmin = false;
                     }

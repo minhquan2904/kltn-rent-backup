@@ -893,6 +893,7 @@ var AuthenticationService = (function () {
         this.http = http;
         this.isLoggedIn = false;
         this.isAdmin = false;
+        this.isSuperAdmin = false;
         this.userID = '';
     }
     AuthenticationService.prototype.login = function (username, password) {
@@ -907,6 +908,13 @@ var AuthenticationService = (function () {
                 _this.isLoggedIn = true;
                 if (user.role < 3) {
                     _this.isAdmin = true;
+                    console.log(user.role);
+                    if (user.role === 1) {
+                        _this.isSuperAdmin = true;
+                    }
+                    else {
+                        _this.isSuperAdmin = false;
+                    }
                 }
                 else {
                     _this.isAdmin = false;
@@ -1417,6 +1425,9 @@ var StatisticSerivce = (function () {
         //         );
         //     });
         // });
+    };
+    StatisticSerivce.prototype.updateMonthlyRecord = function () {
+        return this.http.get('/statistic/update-monthly-record');
     };
     StatisticSerivce = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
