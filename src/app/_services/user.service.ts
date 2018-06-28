@@ -14,6 +14,7 @@ export class UserService {
             .map(res => {
                 return res.json().map(item => {
                     return new User(
+                        item._id,
                         item.username,
                         item.email,
                         item.firstname,
@@ -31,6 +32,7 @@ export class UserService {
             .map(res => {
                 return res.json().map(item => {
                     return new User(
+                        item._id,
                         item.username,
                         item.email,
                         item.firstname,
@@ -40,5 +42,9 @@ export class UserService {
                     );
                 });
             });
+    }
+
+    delete(_id) {
+        return this.http.delete('/users/' + _id);
     }
 }

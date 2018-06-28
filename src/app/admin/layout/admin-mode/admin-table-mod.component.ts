@@ -56,4 +56,14 @@ export class AdminTableModComponent implements OnInit {
       this.alertService.error('Password confirm incorect');
     }
   }
+
+  deleteMod(_id, position) {
+    this.userService.delete(_id).subscribe(res => {
+      this.alertService.success('Delete success!');
+      this.dataSource.data.splice(position, 1);
+      this.dataSource = new MatTableDataSource<Element>(this.dataSource.data);
+    }, err => {
+      this.alertService.error(err);
+    });
+  }
 }

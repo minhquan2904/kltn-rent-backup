@@ -728,7 +728,8 @@ var Statistic = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return User; });
 var User = (function () {
-    function User(username, email, firstname, lastname, rating, created_at) {
+    function User(_id, username, email, firstname, lastname, rating, created_at) {
+        this._id = _id;
         this.username = username;
         this.email = email;
         this.firstname = firstname;
@@ -1470,7 +1471,7 @@ var UserService = (function () {
         return this.http.get('/users/' + lim)
             .map(function (res) {
             return res.json().map(function (item) {
-                return new __WEBPACK_IMPORTED_MODULE_3__models_user_model__["a" /* User */](item.username, item.email, item.firstname, item.lastname, item.rating, item.created_at);
+                return new __WEBPACK_IMPORTED_MODULE_3__models_user_model__["a" /* User */](item._id, item.username, item.email, item.firstname, item.lastname, item.rating, item.created_at);
             });
         });
     };
@@ -1479,9 +1480,12 @@ var UserService = (function () {
         return this.http.post('/users/find-mod', data)
             .map(function (res) {
             return res.json().map(function (item) {
-                return new __WEBPACK_IMPORTED_MODULE_3__models_user_model__["a" /* User */](item.username, item.email, item.firstname, item.lastname, item.rating, item.created_at);
+                return new __WEBPACK_IMPORTED_MODULE_3__models_user_model__["a" /* User */](item._id, item.username, item.email, item.firstname, item.lastname, item.rating, item.created_at);
             });
         });
+    };
+    UserService.prototype.delete = function (_id) {
+        return this.http.delete('/users/' + _id);
     };
     UserService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
@@ -4733,6 +4737,7 @@ var RegisterDialog = (function () {
             .subscribe(function (data) {
             // set success message and pass true paramater to persist the message after redirecting to the login page
             _this.alertService.success('Registration successful', true);
+            _this.dialogRef.close();
             _this.router.navigate(['/login']);
         }, function (error) {
             _this.alertService.error(error);

@@ -1,7 +1,6 @@
 <!-- Lastest user -->
 <div class="panel panel-default">
   <div class="panel-heading">
-      <button mat-raised-button color="primary" (click)="handleAccepted()">View accepted posts</button>
       <admin-alert></admin-alert>
     </div>
   <div class="panel-body">
@@ -35,7 +34,7 @@
                 <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
                 <mat-cell *matCellDef="let element; let j = index"> 
                   
-                  <button mat-raised-button (click)="deleteMod(element._id)" 
+                  <button mat-raised-button (click)="deleteMod(element._id, j)" 
                     color="warn">Delete</button> 
                   
                 </mat-cell>
@@ -56,6 +55,12 @@
         <mat-tab label="Add mod" >
             <div class="mat-card-password">
                 <mat-form-field>
+                    <input type="text" matInput placeholder="First name" [(ngModel)]= "user.firstname" #firstname="ngModel" [ngModelOptions]="{standalone: true}">
+                </mat-form-field>
+                <mat-form-field>
+                    <input type="text" matInput placeholder="Last name" [(ngModel)]= "user.lastname" #lastname="ngModel" [ngModelOptions]="{standalone: true}">
+                </mat-form-field>
+                <mat-form-field>
                     <input type="text" matInput placeholder="User name"  [(ngModel)]= "user.username" #oldPassword="ngModel" [ngModelOptions]="{standalone: true}" >
                   </mat-form-field>
                   <mat-form-field>
@@ -64,7 +69,8 @@
                   <mat-form-field>
                     <input type="password" matInput placeholder="Confirm new password" [(ngModel)]= "password.confirmPassword" #confirmPassword="ngModel" [ngModelOptions]="{standalone: true}">
                   </mat-form-field>
-                  <button mat-raised-button color="warn" (click)="createMod()">Change</button>
+
+                  <button mat-raised-button color="warn" (click)="createMod()">Insert</button>
                 </div>
         </mat-tab>
         </mat-tab-group>
