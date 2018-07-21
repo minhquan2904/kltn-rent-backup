@@ -98,6 +98,7 @@ function search(req, res) {
     var gt;
     var lt;
     var query = {};
+    query.status = 1;
     for(var k in param) {
         if(param.hasOwnProperty(k)) {
             query[k] = {$regex: '.*' + param[k] + '.*'};

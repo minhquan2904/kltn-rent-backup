@@ -39,7 +39,7 @@ function test(searchString) {
 function fullSearch(value) {
     var deferred = Q.defer();
 
-    motels.find({$or:[{title: { $regex: '.*' + value + '.*' } }, {city:{ $regex: '.*' + value + '.*' }}, {district:{ $regex: '.*' + value + '.*' }}, {ward: { $regex: '.*' + value + '.*' }}, {street: { $regex: '.*' + value + '.*' }}, {description: { $regex: '.*' + value + '.*' }}] },  function(err, motels) {
+    motels.find({$or:[{title: { $regex: '.*' + value + '.*' } }, {city:{ $regex: '.*' + value + '.*' }}, {district:{ $regex: '.*' + value + '.*' }}, {ward: { $regex: '.*' + value + '.*' }}, {street: { $regex: '.*' + value + '.*' }}, {description: { $regex: '.*' + value + '.*' }}, {status: 1}] },  function(err, motels) {
         if(err) { 
             deferred.reject(err);
         }
