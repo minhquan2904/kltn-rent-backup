@@ -10,3 +10,4 @@ export * from './location.service';
 export * from './level.service';
 export * from './statistic.service';
 export * from './user.service';
+export * from './api.service';

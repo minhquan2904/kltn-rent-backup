@@ -27,6 +27,7 @@ var upload = multer({ //multer settings
   }
 }).single('file');
 //** API path that will upload the files */
+
 router.post('/', function(req,res)
 {
     upload(req,res,function(err){
@@ -43,4 +44,17 @@ router.post('/', function(req,res)
         
     });
 });
+router.delete('/:fileName', function(req,res) {
+    const fs = require('fs');
+    var fileToDelete = req.params.fileName;
+    fs.unlink('./uploads/'+ fileToDelete, (err) => {
+        if(err){
+            res.status(400).send(err);;
+            return;
+       }
+       res.status(200).send('DLT ok');
+    console.log('successfully deleted /tmp/hello');
+    });
+    // res.send(req.params.fileName);
+})
 module.exports = router;

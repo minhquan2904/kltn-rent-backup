@@ -1,37 +1,43 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Http, Headers, Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import { timer } from 'rxjs/observable/timer';
+import { take, map } from 'rxjs/operators';
 
 @Injectable()
 export class ApiService {
-  API_URL =  'http://localhost:3000/';
-
-  constructor(public http: HttpClient) { }
-  // read method
-  public get(path) {
-
-    const endpoint = this.API_URL + path;
-    return this.http.get(endpoint);
-
+  // timer
+  countDown;
+  count = 300;
+  listImg: Array<any> = [];
+  starRecord: Boolean = false;
+  stopRecord: Boolean = false;
+  public sessionExpired: Boolean = false;
+  constructor(public http: Http) { }
+  deleteImg(fileName) {
+    return this.http.delete('/uploadImg/' + fileName);
   }
-
-  // create method
-  public post(path: String, body: any) {
-
-    const endpoint = this.API_URL + path;
-    return this.http.post(endpoint, body);
-
-  }
-  // delete method
-  public delete(path: String) {
-
-  const endpoint = this.API_URL + path;
-  return this.http.delete(endpoint);
-
-  }
-  // update method
-  public update(path: String, body: any) {
-  const endpoint = this.API_URL + path;
-  return this.http.put(endpoint, body);
+  startRecord() {
+    this.sessionExpired = false;
+    timer(0, 1000).pipe(
+      map(i => this.count - i),
+      take(this.count + 1)) // timer(firstValueDelay, intervalBetweenValues)
+    .subscribe(i => {
+      if (i === 0 && !this.stopRecord) {
+        this.listImg.forEach( item => {
+          this.deleteImg(item).subscribe( res => {
+            console.log(res);
+          }, err => {
+            console.log(err);
+          });
+        });
+        this.count = 300;
+        this.starRecord = false;
+        this.sessionExpired = true;
+        this.stopRecord = false;
+        console.log(this.sessionExpired);
+      }
+    });
   }
 }

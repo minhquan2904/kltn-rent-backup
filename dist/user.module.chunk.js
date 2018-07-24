@@ -226,8 +226,8 @@ var UserTableMotelComponent = (function () {
             template: __webpack_require__("./src/app/user/layout/user-table-motel/user-table-motel.component.html"),
             styles: [__webpack_require__("./src/app/user/layout/user-table-motel/user-table-motel.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__services_index__["b" /* AuthenticationService */],
-            __WEBPACK_IMPORTED_MODULE_3__services_index__["f" /* MotelService */], __WEBPACK_IMPORTED_MODULE_3__services_index__["a" /* AlertService */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__services_index__["c" /* AuthenticationService */],
+            __WEBPACK_IMPORTED_MODULE_3__services_index__["g" /* MotelService */], __WEBPACK_IMPORTED_MODULE_3__services_index__["a" /* AlertService */],
             __WEBPACK_IMPORTED_MODULE_1__angular_material__["i" /* MatDialog */]])
     ], UserTableMotelComponent);
     return UserTableMotelComponent;
@@ -307,7 +307,7 @@ var DialogDataComponent = (function () {
             template: __webpack_require__("./src/app/user/layout/user-table-motel/dialog.component.html"),
         }),
         __param(3, Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Inject"])(__WEBPACK_IMPORTED_MODULE_1__angular_material__["a" /* MAT_DIALOG_DATA */])),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_material__["l" /* MatDialogRef */], __WEBPACK_IMPORTED_MODULE_2__angular_forms__["b" /* FormBuilder */], __WEBPACK_IMPORTED_MODULE_2__angular_forms__["b" /* FormBuilder */], Object, __WEBPACK_IMPORTED_MODULE_3__services_index__["a" /* AlertService */], __WEBPACK_IMPORTED_MODULE_3__services_index__["f" /* MotelService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_material__["l" /* MatDialogRef */], __WEBPACK_IMPORTED_MODULE_2__angular_forms__["b" /* FormBuilder */], __WEBPACK_IMPORTED_MODULE_2__angular_forms__["b" /* FormBuilder */], Object, __WEBPACK_IMPORTED_MODULE_3__services_index__["a" /* AlertService */], __WEBPACK_IMPORTED_MODULE_3__services_index__["g" /* MotelService */]])
     ], DialogDataComponent);
     return DialogDataComponent;
 }());
@@ -432,9 +432,9 @@ var UserInterfaceComponent = (function () {
             template: __webpack_require__("./src/app/user/user-interface/user-interface.component.html"),
             styles: [__webpack_require__("./src/app/user/user-interface/user-interface.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_index__["b" /* AuthenticationService */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_index__["c" /* AuthenticationService */],
             __WEBPACK_IMPORTED_MODULE_1__services_index__["a" /* AlertService */],
-            __WEBPACK_IMPORTED_MODULE_1__services_index__["d" /* LevelService */]])
+            __WEBPACK_IMPORTED_MODULE_1__services_index__["e" /* LevelService */]])
     ], UserInterfaceComponent);
     return UserInterfaceComponent;
 }());

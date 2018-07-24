@@ -1,12 +1,12 @@
 <!-- Lastest user -->
 <div class="panel panel-default">
   <div class="panel-heading">
-      <button mat-raised-button color="primary" (click)="handleAccepted()">View accepted posts</button>
+      <button mat-raised-button color="primary" (click)="handleAccepted()">View accepted motels</button>
       <admin-alert></admin-alert>
     </div>
   <div class="panel-body">
       <mat-tab-group>
-          <mat-tab label="Tab 1">
+          <mat-tab label="Pending motel">
             <div class="example-header">
                 <mat-form-field>
                   <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
@@ -23,7 +23,7 @@
             <!-- Name Column -->
             <ng-container matColumnDef="created">
               <mat-header-cell *matHeaderCellDef > Created date </mat-header-cell>
-              <mat-cell *matCellDef="let element"> Demo day </mat-cell>
+              <mat-cell *matCellDef="let element"> {{element.created_at | date}} </mat-cell>
             </ng-container>
         
           
@@ -59,7 +59,7 @@
         
                    
         </mat-tab>
-        <mat-tab label="Tab 2" *ngIf="viewAccepted">
+        <mat-tab label="Accepted motel" *ngIf="viewAccepted">
             <div class="example-header">
                 <mat-form-field>
                   <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
@@ -76,7 +76,7 @@
             <!-- Name Column -->
             <ng-container matColumnDef="created">
               <mat-header-cell *matHeaderCellDef > Created date </mat-header-cell>
-              <mat-cell *matCellDef="let element"> Demo day </mat-cell>
+              <mat-cell *matCellDef="let element"> {{element.created_at | date}} </mat-cell>
             </ng-container>
         
           

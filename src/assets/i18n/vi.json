@@ -1,5 +1,6 @@
 {
   "HOME": {
+    "EXPIRED": "Đã cho thuê",
     "TITLE":    "Tìm kiếm nơi ở hoàn hảo cho bạn",
     "SELECT":   "Change language",
     "MODERN":   "hiện đại",
@@ -24,12 +25,19 @@
     "ONLY_WARD": "Chỉ nhập tên xã/ phường",
     "STREET": "Tên Đường",
     "ONLY_STREET": "Chỉ nhập tên đường",
+    "ADD": "Số nhà",
     "FROM": "Từ",
     "TO": "Đến"
 
 
   },
   "PAGE": {
+    "AREA": "Diện tích",
+    "AREA_BLANK": "Diện tích không được để trống",
+    "UNIT": "Đơn vị tính",
+    "REMOVE": "Xóa",
+    "CATEGORY": "Loại nhà trọ",
+    "CHOOSE_CATEGORY": "Chọn loại nhà trọ",
     "BASIC_HOUSE": "Nhà nguyên căn",
     "RENT_ROOM": "Phòng trọ",
     "DOOM": "Chung cư",
@@ -60,7 +68,16 @@
     "DESCRIPTION": "Giới thiệu về nhà trọ",
     "PRICE": "Giá tiền",
     "PRICE_BLANK": "Giá tiền không được để trống",
-    "PRICE_NOTE": "Nhập giá tiền hoặc nhập Thương lượng"
+    "PRICE_NOTE": "Nhập giá tiền hoặc nhập Thương lượng",
+    "CONTACT_RIGHT": "Cách thức liên hệ" ,
+    "CONTACT_BLANK": "Liên hệ không được để trống",
+    "BASIC_INFO": "Thông tin cơ bản",
+    "TYPE_PIC": "Hình ảnh",
+    "ADDRESS": "Địa chỉ",
+    "ADD_PICTURE": "Thêm ảnh",
+    "RETYPE_ADDRESS": "Nhập lại địa chỉ",
+    "SUBMIT": "Xác nhận",
+    "SESSION_EXPIRED": "Hình ảnh của bạn đã bị reset do thời gian chờ quá lâu, vui lòng đăng ảnh lại"
   }, 
   "ADMIN": {
     "DASHBOARD":      "Bảng điều  khiển",

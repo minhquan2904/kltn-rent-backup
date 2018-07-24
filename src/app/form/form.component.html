@@ -14,7 +14,7 @@
         <alert></alert>
         <form class="example-container" [formGroup]="options" (ngSubmit)="options.valid &&onSubmit()">
                 <mat-horizontal-stepper [linear]="isLinear" id="stepper">
-                        <mat-step label="Fill basic infomation" [completed]="step1Completed">
+                        <mat-step [label]="'PAGE.BASIC_INFO' | translate" [completed]="step1Completed">
                                         <mat-form-field class="col-xs-12">
                                                 <mat-label>{{ 'PAGE.TITLE' | translate}}</mat-label>
                                                 <input matInput placeholder="Tiêu đề" required id="title" name="title" [(ngModel)]="motel.title"  #title="ngModel" [ngModelOptions]="{standalone: true}" >
@@ -25,7 +25,7 @@
                                         </mat-form-field>
                                         <mat-form-field class="col-xs-12">
                                                 <mat-label>{{ 'PAGE.DESCRIPTION' | translate}}</mat-label>
-                                                <textarea matInput placeholder="Autosize textarea" matTextareaAutosize matAutosizeMinRows="2"
+                                                <textarea matInput [placeholder]="'PAGE.BASIC_INFO' | translate" matTextareaAutosize matAutosizeMinRows="2"
                                                 matAutosizeMaxRows="5" [(ngModel)]="motel.description" #description="ngModel" [ngModelOptions]="{standalone: true}" ></textarea>
                                                 
                                         </mat-form-field>
@@ -34,7 +34,7 @@
         
                                                 <mat-label>{{ 'PAGE.PRICE' | translate}}</mat-label>
                                                 
-                                                <input matInput type="text" placeholder="Giá tiền" required id="price" name="price" [(ngModel)]="motel.price"  #price="ngModel" [ngModelOptions]="{standalone: true}" >
+                                                <input matInput type="text" [placeholder]="'PAGE.PRICE' | translate" required id="price" name="price" [(ngModel)]="motel.price"  #price="ngModel" [ngModelOptions]="{standalone: true}" >
                                                 <mat-error  *ngIf="price.invalid && (price.dirty || price.touched)">
                                                                 {{ 'PAGE.PRICE_BLANK' | translate}}
                                                 </mat-error>
@@ -43,18 +43,18 @@
                                       
                                         <!-- Contact -->
                                         <mat-form-field class="col-xs-6">
-                                                        <mat-label>Cách thức liên hệ</mat-label>
-                                                        <input matInput placeholder="Cách thức liên hệ" required name="contact" [(ngModel)]="motel.contact" #contact="ngModel" [ngModelOptions]="{standalone: true}"  >
+                                                        <mat-label>{{ 'PAGE.CONTACT_RIGHT' | translate}}</mat-label>
+                                                        <input matInput [placeholder]="'PAGE.CONTACT_RIGHT' | translate" required name="contact" [(ngModel)]="motel.contact" #contact="ngModel" [ngModelOptions]="{standalone: true}"  >
                                                         <mat-error  *ngIf="contact.invalid && (contact.dirty || contact.touched)">
-                                                                        Contact can not be blank
+                                                                {{ 'PAGE.CONTACT_BLANK' | translate}}
                                                         </mat-error>
                                         </mat-form-field>
-                                        <button mat-button type="button" (click)="step_1_next()" mat-raised-button color="primary" >Next</button>
+                                        <button mat-button type="button" (click)="step_1_next()" mat-raised-button color="primary" >{{ 'HOME.NEXT' | translate}}</button>
                         </mat-step>
 
-                        <mat-step #step2 label="Choose type and picture" [completed]="step2Completed">
+                        <mat-step #step2 [label]="'PAGE.TYPE_PIC' | translate" [completed]="step2Completed">
                                 <div class="col-xs-12" *ngIf="alertService.numOfImage < 3">
-                                                <button type="button" mat-raised-button (click)="openDialog()">Add picture</button>
+                                                <button type="button" mat-raised-button (click)="openDialog()">{{ 'PAGE.ADD_PICTURE' | translate}}</button>
                                 </div>
                                 <div class="col-xs-12"  *ngIf="alertService.numOfImage > 3">
                                         <h4>{{ 'PAGE.FULL_IMAGE' | translate}}</h4>
@@ -62,70 +62,77 @@
                                 <!-- category -->
                                 <mat-form-field class="col-xs-6">
                                         <mat-select required  name="category" [(ngModel)]="motel.category" #category="ngModel" [ngModelOptions]="{standalone: true}">
-                                        <mat-option>-- Loại nhà trọ --</mat-option>
-                                        <mat-option value="nhà nguyên căn">Nhà nguyên căn</mat-option>
-                                        <mat-option value="phòng trọ">Phòng trọ</mat-option>
-                                        <mat-option value="chung cư">Chung cư</mat-option>                
+                                        <mat-option>--{{ 'PAGE.CATEGORY' | translate}}--</mat-option>
+                                        <mat-option value="nhà nguyên căn">{{ 'PAGE.BASIC_HOUSE' | translate}}</mat-option>
+                                        <mat-option value="phòng trọ">{{ 'PAGE.RENT_ROOM' | translate}}</mat-option>
+                                        <mat-option value="chung cư">{{ 'PAGE.DOOM' | translate}}</mat-option>                
                                         </mat-select>
-                                        <mat-placeholder><mat-icon>list</mat-icon> <i> Chọn loại nhà trọ</i></mat-placeholder>
+                                        <mat-placeholder><mat-icon>list</mat-icon> <i> {{ 'PAGE.CHOOSE_CATEGORY' | translate}}</i></mat-placeholder>
                                 </mat-form-field>
                                 <!-- Price -->
                                 <mat-form-field class="col-xs-6">
 
-                                        <mat-label>Diện tích</mat-label>
+                                        <mat-label>{{ 'PAGE.AREA' | translate}}</mat-label>
                                         
-                                        <input matInput type="number" placeholder="Diện tích" required id="area" name="area" [(ngModel)]="motel.area"  #area="ngModel" [ngModelOptions]="{standalone: true}" >
+                                        <input matInput type="number" [placeholder]="'PAGE.AREA' | translate" required id="area" name="area" [(ngModel)]="motel.area"  #area="ngModel" [ngModelOptions]="{standalone: true}" >
                                         <mat-error  *ngIf="area.invalid && (area.dirty || area.touched)">
-                                                        Diện tích không được để trống
+                                                        {{ 'PAGE.AREA_BLANK' | translate}}
                                         </mat-error>
-                                        <mat-hint>Đơn vị tính: m2</mat-hint>
+                                        <mat-hint>{{ 'PAGE.UNIT' | translate}}: m2</mat-hint>
                                 </mat-form-field>
                                 <div class="col-xs-12">
-                                        <button mat-button type="button" (click)="step_2_next()" mat-raised-button color="primary" >NextB</button>
+                                        <button mat-button type="button" (click)="step_2_next()" mat-raised-button color="primary" >{{ 'HOME.NEXT' | translate}}</button>
 
                                 </div>
                                 <!-- IMG -->
                                 <div class="col-xs-12">
-                                                <h2>{{ 'PAGE.IMG_UPLOAD' | translate}}</h2>
+                                                <h2>{{ 'PAGE.IMG_UPLOAD' | translate}}: {{alertService.numOfImage}}</h2>
+                                                <h3 *ngIf="expired" class="text-center" style="color:red;">{{ 'PAGE.SESSION_EXPIRED' | translate}}</h3>
                                                 <div class="img" *ngIf="alertService.typeUpload">
                                                        
                                                         <div *ngFor="let i of img; let k = index">
-                                                                <img src="/assets/{{i}}" alt="Event Image" class="img-responsive" >
+                                                                <div style="padding-top: 10px;">
+                                                                                <img src="/assets/{{i}}" alt="Event Image" class="img-responsive" >
+                                                                </div>
+                                                                <div id="wrapperBtn">
+                                                                        <button type="button" mat-raised-button color="warn" class="btn-center" (click)="deleteImg(i)">{{ 'PAGE.REMOVE' | translate}}</button>
+                                                                </div>
                                                         </div>
                                                 </div>
                                 </div>
                                 
                         </mat-step>
-                        <mat-step #step3 label="Step 3">
+                        <mat-step #step3 [label]="'PAGE.ADDRESS' | translate">
                                         <app-map *ngIf="!getLocation" (locationChild)="passData($event)"></app-map>
                                         <button *ngIf="!getLocation"  type="button" mat-raised-button color="accent" (click)="getLocation=!getLocation">Xác nhận địa chỉ</button>
                                         <div class="show" *ngIf="getLocation">
                                                 <mat-form-field [floatLabel]="options.value.floatLabel">
-                                                        <mat-label>Thành phố</mat-label>
-                                                        <input matInput placeholder="Thành phố" required name="city" [(ngModel)]="motel.city" #city="ngModel" [ngModelOptions]="{standalone: true}">
+                                                        <mat-label>{{'HOME.CITY' | translate}}</mat-label>
+                                                        <input matInput [placeholder]="'HOME.CITY' | translate" required name="city" [(ngModel)]="motel.city" #city="ngModel" [ngModelOptions]="{standalone: true}">
                                                 </mat-form-field>
                                                 <mat-form-field [floatLabel]="options.value.floatLabel">
-                                                        <mat-label>Quận</mat-label>
-                                                        <input matInput placeholder="Quận" required name="district" [(ngModel)]="motel.district" #district="ngModel" [ngModelOptions]="{standalone: true}">
+                                                        <mat-label>{{'HOME.DISTRICT' | translate}}</mat-label>
+                                                        <input matInput [placeholder]="'HOME.DISTRICT' | translate" required name="district" [(ngModel)]="motel.district" #district="ngModel" [ngModelOptions]="{standalone: true}">
                                                 </mat-form-field>
                                                 <mat-form-field [floatLabel]="options.value.floatLabel">
-                                                        <mat-label>Phường</mat-label>
-                                                        <input matInput placeholder="Phường" required name="ward" [(ngModel)]="motel.ward" #ward="ngModel" [ngModelOptions]="{standalone: true}">
+                                                        <mat-label>{{'HOME.WARD' | translate}}</mat-label>
+                                                        <input matInput [placeholder]="'HOME.WARD' | translate" required name="ward" [(ngModel)]="motel.ward" #ward="ngModel" [ngModelOptions]="{standalone: true}">
                                                 </mat-form-field>
                                                 <mat-form-field [floatLabel]="options.value.floatLabel" >
-                                                        <mat-label>Đường</mat-label>
-                                                        <input matInput placeholder="Đường" required name="street" [(ngModel)]="motel.street" #street="ngModel" [ngModelOptions]="{standalone: true}">
+                                                        <mat-label>{{'HOME.STREET' | translate}}</mat-label>
+                                                        <input matInput [placeholder]="'HOME.STREET' | translate" required name="street" [(ngModel)]="motel.street" #street="ngModel" [ngModelOptions]="{standalone: true}">
                                                 </mat-form-field>
                                                 <mat-form-field [floatLabel]="options.value.floatLabel">
-                                                        <mat-label>Số nhà</mat-label>
-                                                        <input matInput placeholder="Số nhà" required name="add" [(ngModel)]="motel.add" #add="ngModel" [ngModelOptions]="{standalone: true}">
+                                                        <mat-label>{{'HOME.ADD' | translate}}</mat-label>
+                                                        <input matInput [placeholder]="'HOME.ADD' | translate" required name="add" [(ngModel)]="motel.add" #add="ngModel" [ngModelOptions]="{standalone: true}">
                                                 </mat-form-field>
                                         
                         
                                         </div>
                                         <!-- Address -->
-                                        <button *ngIf="getLocation"  type="button" mat-raised-button color="accent" (click)="getLocation=!getLocation">Nhập lại địa chỉ</button>
-                                        <button *ngIf="getLocation" type="submit" mat-raised-button color="primary">Submit</button>
+                                        <button *ngIf="getLocation"  type="button" mat-raised-button color="accent" (click)="getLocation=!getLocation">{{ 'PAGE.RETYPE_ADDRESS' | translate}}</button>
+                                        <button *ngIf="getLocation" type="submit" mat-raised-button color="primary">{{ 'PAGE.SUBMIT' | translate}}</button>
+                                        <h3 *ngIf="expired" class="text-center" style="color:red;">{{ 'PAGE.SESSION_EXPIRED' | translate}}</h3>
                         </mat-step>
                 </mat-horizontal-stepper>
        

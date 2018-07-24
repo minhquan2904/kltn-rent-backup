@@ -39,13 +39,16 @@ export class AdminTableMotelComponent implements OnInit {
   }
   handleAccepted() {
     this.viewAccepted = !this.viewAccepted;
+    this.loadAccepted();
+
+  }
+  loadAccepted() {
     this.motelService.findByStatus(1).subscribe(res => {
       this.dataSourceAccepted = new MatTableDataSource(res);
       this.dataSourceAccepted.paginator = this.paginator2;
     }, err => {
       this.alertService.error(err);
     });
-
   }
   handleUpdateStatus(_id, customer, status, position, type) {
     console.log(position);
@@ -56,6 +59,8 @@ export class AdminTableMotelComponent implements OnInit {
     // console.log(_id + " " + JSON.stringify(motel));
     this.motelService.update(_id, motel).subscribe( res => {
      this.alertService.success('update ok');
+     this.ngOnInit();
+     this.loadAccepted();
      if (type === 1 ) {
       this.dataSource.data.splice(position, 1);
       this.dataSource = new MatTableDataSource<Element>(this.dataSource.data);

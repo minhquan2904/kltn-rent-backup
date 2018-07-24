@@ -403,7 +403,7 @@ var AdminGuard = (function () {
     };
     AdminGuard = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */], __WEBPACK_IMPORTED_MODULE_2__services_index__["b" /* AuthenticationService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */], __WEBPACK_IMPORTED_MODULE_2__services_index__["c" /* AuthenticationService */]])
     ], AdminGuard);
     return AdminGuard;
 }());
@@ -819,10 +819,12 @@ var AlertService = (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony export ApiService */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ApiService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__("./node_modules/rxjs/_esm5/add/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_observable_timer__ = __webpack_require__("./node_modules/rxjs/_esm5/observable/timer.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_operators__ = __webpack_require__("./node_modules/rxjs/_esm5/operators.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -835,34 +837,44 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 var ApiService = (function () {
     function ApiService(http) {
         this.http = http;
-        this.API_URL = 'http://localhost:3000/';
+        this.count = 300;
+        this.listImg = [];
+        this.starRecord = false;
+        this.stopRecord = false;
+        this.sessionExpired = false;
     }
-    // read method
-    ApiService.prototype.get = function (path) {
-        var endpoint = this.API_URL + path;
-        return this.http.get(endpoint);
+    ApiService.prototype.deleteImg = function (fileName) {
+        return this.http.delete('/uploadImg/' + fileName);
     };
-    // create method
-    ApiService.prototype.post = function (path, body) {
-        var endpoint = this.API_URL + path;
-        return this.http.post(endpoint, body);
-    };
-    // delete method
-    ApiService.prototype.delete = function (path) {
-        var endpoint = this.API_URL + path;
-        return this.http.delete(endpoint);
-    };
-    // update method
-    ApiService.prototype.update = function (path, body) {
-        var endpoint = this.API_URL + path;
-        return this.http.put(endpoint, body);
+    ApiService.prototype.startRecord = function () {
+        var _this = this;
+        this.sessionExpired = false;
+        Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_observable_timer__["a" /* timer */])(0, 1000).pipe(Object(__WEBPACK_IMPORTED_MODULE_4_rxjs_operators__["a" /* map */])(function (i) { return _this.count - i; }), Object(__WEBPACK_IMPORTED_MODULE_4_rxjs_operators__["b" /* take */])(this.count + 1)) // timer(firstValueDelay, intervalBetweenValues)
+            .subscribe(function (i) {
+            if (i === 0 && !_this.stopRecord) {
+                _this.listImg.forEach(function (item) {
+                    _this.deleteImg(item).subscribe(function (res) {
+                        console.log(res);
+                    }, function (err) {
+                        console.log(err);
+                    });
+                });
+                _this.count = 300;
+                _this.starRecord = false;
+                _this.sessionExpired = true;
+                _this.stopRecord = false;
+                console.log(_this.sessionExpired);
+            }
+        });
     };
     ApiService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Http */]])
     ], ApiService);
     return ApiService;
 }());
@@ -1039,29 +1051,31 @@ var CommentService = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__authencation_service__ = __webpack_require__("./src/app/_services/authencation.service.ts");
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__authencation_service__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_0__authencation_service__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__alert_service__ = __webpack_require__("./src/app/_services/alert.service.ts");
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__alert_service__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__notebook_service__ = __webpack_require__("./src/app/_services/notebook.service.ts");
 /* unused harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__motel_service__ = __webpack_require__("./src/app/_services/motel.service.ts");
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_3__motel_service__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_3__motel_service__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__comment_service__ = __webpack_require__("./src/app/_services/comment.service.ts");
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_4__comment_service__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_4__comment_service__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__window_service__ = __webpack_require__("./src/app/_services/window.service.ts");
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "i", function() { return __WEBPACK_IMPORTED_MODULE_5__window_service__["a"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "j", function() { return __WEBPACK_IMPORTED_MODULE_5__window_service__["b"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "j", function() { return __WEBPACK_IMPORTED_MODULE_5__window_service__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "k", function() { return __WEBPACK_IMPORTED_MODULE_5__window_service__["b"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__location_service__ = __webpack_require__("./src/app/_services/location.service.ts");
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_6__location_service__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_6__location_service__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__api_service__ = __webpack_require__("./src/app/_services/api.service.ts");
-/* unused harmony namespace reexport */
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_7__api_service__["a"]; });
 /* unused harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__level_service__ = __webpack_require__("./src/app/_services/level.service.ts");
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_8__level_service__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_8__level_service__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__statistic_service__ = __webpack_require__("./src/app/_services/statistic.service.ts");
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_9__statistic_service__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "h", function() { return __WEBPACK_IMPORTED_MODULE_9__statistic_service__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__user_service__ = __webpack_require__("./src/app/_services/user.service.ts");
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "h", function() { return __WEBPACK_IMPORTED_MODULE_10__user_service__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "i", function() { return __WEBPACK_IMPORTED_MODULE_10__user_service__["a"]; });
+/* unused harmony namespace reexport */
+
 
 
 
@@ -2866,15 +2880,15 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_6__angular_router__["d" /* RouterModule */].forRoot(appRoutes)
             ],
             providers: [
-                __WEBPACK_IMPORTED_MODULE_16__services_index__["j" /* WINDOW_PROVIDERS */],
+                __WEBPACK_IMPORTED_MODULE_16__services_index__["k" /* WINDOW_PROVIDERS */],
                 __WEBPACK_IMPORTED_MODULE_12__guards_index__["b" /* AuthGuard */],
-                __WEBPACK_IMPORTED_MODULE_16__services_index__["d" /* LevelService */],
-                __WEBPACK_IMPORTED_MODULE_16__services_index__["g" /* StatisticSerivce */],
-                __WEBPACK_IMPORTED_MODULE_16__services_index__["b" /* AuthenticationService */],
+                __WEBPACK_IMPORTED_MODULE_16__services_index__["e" /* LevelService */],
+                __WEBPACK_IMPORTED_MODULE_16__services_index__["h" /* StatisticSerivce */],
+                __WEBPACK_IMPORTED_MODULE_16__services_index__["c" /* AuthenticationService */],
                 __WEBPACK_IMPORTED_MODULE_16__services_index__["a" /* AlertService */],
-                __WEBPACK_IMPORTED_MODULE_16__services_index__["e" /* LocationService */],
+                __WEBPACK_IMPORTED_MODULE_16__services_index__["f" /* LocationService */],
                 __WEBPACK_IMPORTED_MODULE_14__helpers_index__["b" /* customHttpProvider */],
-                __WEBPACK_IMPORTED_MODULE_14__helpers_index__["a" /* NullDefaultValueDirective */], __WEBPACK_IMPORTED_MODULE_16__services_index__["f" /* MotelService */], __WEBPACK_IMPORTED_MODULE_16__services_index__["c" /* CommentService */],
+                __WEBPACK_IMPORTED_MODULE_14__helpers_index__["a" /* NullDefaultValueDirective */], __WEBPACK_IMPORTED_MODULE_16__services_index__["g" /* MotelService */], __WEBPACK_IMPORTED_MODULE_16__services_index__["d" /* CommentService */], __WEBPACK_IMPORTED_MODULE_16__services_index__["b" /* ApiService */],
                 { provide: __WEBPACK_IMPORTED_MODULE_7__angular_common__["LocationStrategy"], useClass: __WEBPACK_IMPORTED_MODULE_7__angular_common__["HashLocationStrategy"] },
                 { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["LOCALE_ID"], useValue: 'vi' }
             ],
@@ -2898,21 +2912,21 @@ module.exports = ".inputfile {\r\n\twidth: 0.1px;\r\n\theight: 0.1px;\r\n\topaci
 /***/ "./src/app/form/dialog-overview-example-dialog.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h2>Nhập ảnh</h2>\r\n<div class=\"row\">\r\n    <alert></alert>\r\n     <h4>Chọn tệp</h4>\r\n    <input type=\"file\" ng2FileSelect [uploader]=\"uploader\" />\r\n</div>\r\n\r\n<div class=\"row\">\r\n\r\n    <h3>Upload queue</h3>\r\n    <p>Queue length: {{ uploader?.queue?.length }}</p>\r\n    <div class=\"table-responsive\">\r\n            <table class=\"table\">\r\n                    <thead>\r\n                    <tr>\r\n                        <th width=\"50%\">Name</th>\r\n                        <th>Size</th>\r\n                        <th>Progress</th>\r\n                        <th>Status</th>\r\n                        <th>Actions</th>\r\n                    </tr>\r\n                    </thead>\r\n                    <tbody>\r\n                    <tr *ngFor=\"let item of uploader.queue\">\r\n                        <td><strong>{{ item?.file?.name }}</strong></td>\r\n                        <td *ngIf=\"uploader.isHTML5\" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>\r\n                        <td *ngIf=\"uploader.isHTML5\">\r\n                            <div class=\"progress\" style=\"margin-bottom: 0;\">\r\n                                <div class=\"progress-bar\" role=\"progressbar\" [ngStyle]=\"{ 'width': item.progress + '%' }\"></div>\r\n                            </div>\r\n                        </td>\r\n                        <td class=\"text-center\">\r\n                            <span *ngIf=\"item.isSuccess\"><i class=\"glyphicon glyphicon-ok\"></i></span>\r\n                            <span *ngIf=\"item.isCancel\"><i class=\"glyphicon glyphicon-ban-circle\"></i></span>\r\n                            <span *ngIf=\"item.isError\"><i class=\"glyphicon glyphicon-remove\"></i></span>\r\n                        </td>\r\n                        <td nowrap>\r\n                            <button type=\"button\" mat-raised-button color=\"primary\"\r\n                                    (click)=\"item.upload()\" [disabled]=\"item.isReady || item.isUploading || item.isSuccess\">\r\n                                <span class=\"glyphicon glyphicon-upload\"></span> Upload\r\n                            </button>\r\n                            <button type=\"button\" mat-raised-button color=\"accent\"\r\n                                    (click)=\"item.cancel()\" [disabled]=\"!item.isUploading\">\r\n                                <span class=\"glyphicon glyphicon-ban-circle\"></span> Cancel\r\n                            </button>\r\n                            <button type=\"button\" mat-raised-button color=\"warn\"\r\n                                    (click)=\"item.remove()\">\r\n                                <span class=\"glyphicon glyphicon-trash\"></span> Remove\r\n                            </button>\r\n                        </td>\r\n                    </tr>\r\n                    </tbody>\r\n                </table>\r\n    </div>\r\n    \r\n\r\n    <div>\r\n        <div>\r\n            Queue progress:\r\n            <div class=\"progress\" style=\"\">\r\n                <div class=\"progress-bar\" role=\"progressbar\" [ngStyle]=\"{ 'width': uploader.progress + '%' }\"></div>\r\n            </div>\r\n        </div>\r\n        \r\n    </div>\r\n</div>"
+module.exports = "<h2>{{ 'PAGE.ADD_PICTURE' | translate}}</h2>\r\n<div class=\"row\">\r\n    <alert></alert>\r\n     <h4>Chọn tệp</h4>\r\n    <input type=\"file\" ng2FileSelect [uploader]=\"uploader\" />\r\n</div>\r\n\r\n<div class=\"row\">\r\n\r\n    <h3>Upload queue</h3>\r\n    <p>Queue length: {{ uploader?.queue?.length }}</p>\r\n    <div class=\"table-responsive\">\r\n            <table class=\"table\">\r\n                    <thead>\r\n                    <tr>\r\n                        <th width=\"50%\">Name</th>\r\n                        <th>Size</th>\r\n                        <th>Progress</th>\r\n                        <th>Status</th>\r\n                        <th>Actions</th>\r\n                    </tr>\r\n                    </thead>\r\n                    <tbody>\r\n                    <tr *ngFor=\"let item of uploader.queue\">\r\n                        <td><strong>{{ item?.file?.name }}</strong></td>\r\n                        <td *ngIf=\"uploader.isHTML5\" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>\r\n                        <td *ngIf=\"uploader.isHTML5\">\r\n                            <div class=\"progress\" style=\"margin-bottom: 0;\">\r\n                                <div class=\"progress-bar\" role=\"progressbar\" [ngStyle]=\"{ 'width': item.progress + '%' }\"></div>\r\n                            </div>\r\n                        </td>\r\n                        <td class=\"text-center\">\r\n                            <span *ngIf=\"item.isSuccess\"><i class=\"glyphicon glyphicon-ok\"></i></span>\r\n                            <span *ngIf=\"item.isCancel\"><i class=\"glyphicon glyphicon-ban-circle\"></i></span>\r\n                            <span *ngIf=\"item.isError\"><i class=\"glyphicon glyphicon-remove\"></i></span>\r\n                        </td>\r\n                        <td nowrap>\r\n                            <button type=\"button\" mat-raised-button color=\"primary\"\r\n                                    (click)=\"item.upload()\" [disabled]=\"item.isReady || item.isUploading || item.isSuccess\">\r\n                                <span class=\"glyphicon glyphicon-upload\"></span> Upload\r\n                            </button>\r\n                            <button type=\"button\" mat-raised-button color=\"accent\"\r\n                                    (click)=\"item.cancel()\" [disabled]=\"!item.isUploading\">\r\n                                <span class=\"glyphicon glyphicon-ban-circle\"></span> Cancel\r\n                            </button>\r\n                            <button type=\"button\" mat-raised-button color=\"warn\"\r\n                                    (click)=\"item.remove()\">\r\n                                <span class=\"glyphicon glyphicon-trash\"></span> Remove\r\n                            </button>\r\n                        </td>\r\n                    </tr>\r\n                    </tbody>\r\n                </table>\r\n    </div>\r\n    \r\n\r\n    <div>\r\n        <div>\r\n            Queue progress:\r\n            <div class=\"progress\" style=\"\">\r\n                <div class=\"progress-bar\" role=\"progressbar\" [ngStyle]=\"{ 'width': uploader.progress + '%' }\"></div>\r\n            </div>\r\n        </div>\r\n        \r\n    </div>\r\n</div>"
 
 /***/ }),
 
 /***/ "./src/app/form/form.component.css":
 /***/ (function(module, exports) {
 
-module.exports = "/*Test grid*/\nbody {\n  height: 100%;\n  background-color: #eee  !important;\n}\n.wrapper{\n  height: 100%;\n  width: 100%;\n  min-height: 600px;\n  padding-top: 80px;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: 20% 60% 20%;\n      grid-template-columns: 20% 60% 20%;\n}\n.wrapper > div {\n  background: #eee;\n  padding: 1em;\n}\n.wrapper >div:ntn-child(odd){\n  background: white;\n}\nbutton{\n  margin: 5px;;\n}\n/* Credit to bootsnipp.com for the css for the color graph */\n.colorgraph {\n    height: 5px;\n    border-top: 0;\n    background: #c4e17f;\n    border-radius: 5px;\n    background-image: -webkit-gradient(linear, left top, right top, from(#c4e17f), color-stop(12.5%, #c4e17f), color-stop(12.5%, #f7fdca), color-stop(25%, #f7fdca), color-stop(25%, #fecf71), color-stop(37.5%, #fecf71), color-stop(37.5%, #f0776c), color-stop(50%, #f0776c), color-stop(50%, #db9dbe), color-stop(62.5%, #db9dbe), color-stop(62.5%, #c49cde), color-stop(75%, #c49cde), color-stop(75%, #669ae1), color-stop(87.5%, #669ae1), color-stop(87.5%, #62c2e4), to(#62c2e4));\n    background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);\n  }\n.container-fluid {\n      margin: 0 !important;\n      height: 100% auto;\n      \n      padding-left: 100px;\n      padding-right: 100px;\n  }\n.example-container {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n  }\n.example-container > * {\n    width: 100%;\n  }\n.example-container form {\n    margin-bottom: 20px;\n  }\n.example-container form > * {\n    margin: 5px 0;\n  }\n.example-container .mat-radio-button {\n    margin: 0 5px;\n  }\nalert{\n    z-index: 999;\n  }"
+module.exports = "/*Test grid*/\nbody {\n  height: 100%;\n  background-color: #eee  !important;\n}\n.wrapper{\n  height: 100%;\n  width: 100%;\n  min-height: 600px;\n  padding-top: 80px;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: 20% 60% 20%;\n      grid-template-columns: 20% 60% 20%;\n}\n.wrapper > div {\n  background: #eee;\n  padding: 1em;\n}\n.wrapper >div:ntn-child(odd){\n  background: white;\n}\nbutton{\n  margin: 5px;;\n}\n/* Credit to bootsnipp.com for the css for the color graph */\n.colorgraph {\n    height: 5px;\n    border-top: 0;\n    background: #c4e17f;\n    border-radius: 5px;\n    background-image: -webkit-gradient(linear, left top, right top, from(#c4e17f), color-stop(12.5%, #c4e17f), color-stop(12.5%, #f7fdca), color-stop(25%, #f7fdca), color-stop(25%, #fecf71), color-stop(37.5%, #fecf71), color-stop(37.5%, #f0776c), color-stop(50%, #f0776c), color-stop(50%, #db9dbe), color-stop(62.5%, #db9dbe), color-stop(62.5%, #c49cde), color-stop(75%, #c49cde), color-stop(75%, #669ae1), color-stop(87.5%, #669ae1), color-stop(87.5%, #62c2e4), to(#62c2e4));\n    background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);\n  }\n.container-fluid {\n      margin: 0 !important;\n      height: 100% auto;\n      \n      padding-left: 100px;\n      padding-right: 100px;\n  }\n.example-container {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n  }\n.example-container > * {\n    width: 100%;\n  }\n.example-container form {\n    margin-bottom: 20px;\n  }\n.example-container form > * {\n    margin: 5px 0;\n  }\n.example-container .mat-radio-button {\n    margin: 0 5px;\n  }\nalert{\n    z-index: 999;\n  }\n#wrapperBtn{width:100%;}\n.btn-center{\n  position:relative; \n  margin: -20px -50px; width:100px; top:50%; left:50%;}\n"
 
 /***/ }),
 
 /***/ "./src/app/form/form.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<style>\n  .my-drop-zone { border: dotted 3px lightgray; }\n  .nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */\n  .another-file-over-class { border: dotted 3px green; }\n\n  html, body { height: 100%; }\n</style>\n<app-nav></app-nav>\n<div class=\"wrapper\" >\n  <div>\n  </div>\n  \n  <div style=\"background: #FAFAFA!important; \">\n        <alert></alert>\n        <form class=\"example-container\" [formGroup]=\"options\" (ngSubmit)=\"options.valid &&onSubmit()\">\n                <mat-horizontal-stepper [linear]=\"isLinear\" id=\"stepper\">\n                        <mat-step label=\"Fill basic infomation\" [completed]=\"step1Completed\">\n                                        <mat-form-field class=\"col-xs-12\">\n                                                <mat-label>{{ 'PAGE.TITLE' | translate}}</mat-label>\n                                                <input matInput placeholder=\"Tiêu đề\" required id=\"title\" name=\"title\" [(ngModel)]=\"motel.title\"  #title=\"ngModel\" [ngModelOptions]=\"{standalone: true}\" >\n                                                <mat-error  *ngIf=\"title.invalid && (title.dirty || title.touched)\">\n                                                                {{ 'PAGE.TITLE_BLANK' | translate}}\n                                                </mat-error>\n                                                \n                                        </mat-form-field>\n                                        <mat-form-field class=\"col-xs-12\">\n                                                <mat-label>{{ 'PAGE.DESCRIPTION' | translate}}</mat-label>\n                                                <textarea matInput placeholder=\"Autosize textarea\" matTextareaAutosize matAutosizeMinRows=\"2\"\n                                                matAutosizeMaxRows=\"5\" [(ngModel)]=\"motel.description\" #description=\"ngModel\" [ngModelOptions]=\"{standalone: true}\" ></textarea>\n                                                \n                                        </mat-form-field>\n                                                <!-- Price -->\n                                        <mat-form-field class=\"col-xs-6\">\n        \n                                                <mat-label>{{ 'PAGE.PRICE' | translate}}</mat-label>\n                                                \n                                                <input matInput type=\"text\" placeholder=\"Giá tiền\" required id=\"price\" name=\"price\" [(ngModel)]=\"motel.price\"  #price=\"ngModel\" [ngModelOptions]=\"{standalone: true}\" >\n                                                <mat-error  *ngIf=\"price.invalid && (price.dirty || price.touched)\">\n                                                                {{ 'PAGE.PRICE_BLANK' | translate}}\n                                                </mat-error>\n                                                <mat-hint>{{ 'PAGE.PRICE_NOTE' | translate}}</mat-hint>\n                                        </mat-form-field>\n                                      \n                                        <!-- Contact -->\n                                        <mat-form-field class=\"col-xs-6\">\n                                                        <mat-label>Cách thức liên hệ</mat-label>\n                                                        <input matInput placeholder=\"Cách thức liên hệ\" required name=\"contact\" [(ngModel)]=\"motel.contact\" #contact=\"ngModel\" [ngModelOptions]=\"{standalone: true}\"  >\n                                                        <mat-error  *ngIf=\"contact.invalid && (contact.dirty || contact.touched)\">\n                                                                        Contact can not be blank\n                                                        </mat-error>\n                                        </mat-form-field>\n                                        <button mat-button type=\"button\" (click)=\"step_1_next()\" mat-raised-button color=\"primary\" >Next</button>\n                        </mat-step>\n\n                        <mat-step #step2 label=\"Choose type and picture\" [completed]=\"step2Completed\">\n                                <div class=\"col-xs-12\" *ngIf=\"alertService.numOfImage < 3\">\n                                                <button type=\"button\" mat-raised-button (click)=\"openDialog()\">Add picture</button>\n                                </div>\n                                <div class=\"col-xs-12\"  *ngIf=\"alertService.numOfImage > 3\">\n                                        <h4>{{ 'PAGE.FULL_IMAGE' | translate}}</h4>\n                                </div>\n                                <!-- category -->\n                                <mat-form-field class=\"col-xs-6\">\n                                        <mat-select required  name=\"category\" [(ngModel)]=\"motel.category\" #category=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                                        <mat-option>-- Loại nhà trọ --</mat-option>\n                                        <mat-option value=\"nhà nguyên căn\">Nhà nguyên căn</mat-option>\n                                        <mat-option value=\"phòng trọ\">Phòng trọ</mat-option>\n                                        <mat-option value=\"chung cư\">Chung cư</mat-option>                \n                                        </mat-select>\n                                        <mat-placeholder><mat-icon>list</mat-icon> <i> Chọn loại nhà trọ</i></mat-placeholder>\n                                </mat-form-field>\n                                <!-- Price -->\n                                <mat-form-field class=\"col-xs-6\">\n\n                                        <mat-label>Diện tích</mat-label>\n                                        \n                                        <input matInput type=\"number\" placeholder=\"Diện tích\" required id=\"area\" name=\"area\" [(ngModel)]=\"motel.area\"  #area=\"ngModel\" [ngModelOptions]=\"{standalone: true}\" >\n                                        <mat-error  *ngIf=\"area.invalid && (area.dirty || area.touched)\">\n                                                        Diện tích không được để trống\n                                        </mat-error>\n                                        <mat-hint>Đơn vị tính: m2</mat-hint>\n                                </mat-form-field>\n                                <div class=\"col-xs-12\">\n                                        <button mat-button type=\"button\" (click)=\"step_2_next()\" mat-raised-button color=\"primary\" >NextB</button>\n\n                                </div>\n                                <!-- IMG -->\n                                <div class=\"col-xs-12\">\n                                                <h2>{{ 'PAGE.IMG_UPLOAD' | translate}}</h2>\n                                                <div class=\"img\" *ngIf=\"alertService.typeUpload\">\n                                                       \n                                                        <div *ngFor=\"let i of img; let k = index\">\n                                                                <img src=\"/assets/{{i}}\" alt=\"Event Image\" class=\"img-responsive\" >\n                                                        </div>\n                                                </div>\n                                </div>\n                                \n                        </mat-step>\n                        <mat-step #step3 label=\"Step 3\">\n                                        <app-map *ngIf=\"!getLocation\" (locationChild)=\"passData($event)\"></app-map>\n                                        <button *ngIf=\"!getLocation\"  type=\"button\" mat-raised-button color=\"accent\" (click)=\"getLocation=!getLocation\">Xác nhận địa chỉ</button>\n                                        <div class=\"show\" *ngIf=\"getLocation\">\n                                                <mat-form-field [floatLabel]=\"options.value.floatLabel\">\n                                                        <mat-label>Thành phố</mat-label>\n                                                        <input matInput placeholder=\"Thành phố\" required name=\"city\" [(ngModel)]=\"motel.city\" #city=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                                                </mat-form-field>\n                                                <mat-form-field [floatLabel]=\"options.value.floatLabel\">\n                                                        <mat-label>Quận</mat-label>\n                                                        <input matInput placeholder=\"Quận\" required name=\"district\" [(ngModel)]=\"motel.district\" #district=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                                                </mat-form-field>\n                                                <mat-form-field [floatLabel]=\"options.value.floatLabel\">\n                                                        <mat-label>Phường</mat-label>\n                                                        <input matInput placeholder=\"Phường\" required name=\"ward\" [(ngModel)]=\"motel.ward\" #ward=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                                                </mat-form-field>\n                                                <mat-form-field [floatLabel]=\"options.value.floatLabel\" >\n                                                        <mat-label>Đường</mat-label>\n                                                        <input matInput placeholder=\"Đường\" required name=\"street\" [(ngModel)]=\"motel.street\" #street=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                                                </mat-form-field>\n                                                <mat-form-field [floatLabel]=\"options.value.floatLabel\">\n                                                        <mat-label>Số nhà</mat-label>\n                                                        <input matInput placeholder=\"Số nhà\" required name=\"add\" [(ngModel)]=\"motel.add\" #add=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                                                </mat-form-field>\n                                        \n                        \n                                        </div>\n                                        <!-- Address -->\n                                        <button *ngIf=\"getLocation\"  type=\"button\" mat-raised-button color=\"accent\" (click)=\"getLocation=!getLocation\">Nhập lại địa chỉ</button>\n                                        <button *ngIf=\"getLocation\" type=\"submit\" mat-raised-button color=\"primary\">Submit</button>\n                        </mat-step>\n                </mat-horizontal-stepper>\n       \n            \n               \n                \n        </form>\n      \n  </div>\n  <div>\n  </div>\n</div>\n\n\n<app-footer></app-footer>"
+module.exports = "<style>\n  .my-drop-zone { border: dotted 3px lightgray; }\n  .nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */\n  .another-file-over-class { border: dotted 3px green; }\n\n  html, body { height: 100%; }\n</style>\n<app-nav></app-nav>\n<div class=\"wrapper\" >\n  <div>\n  </div>\n  \n  <div style=\"background: #FAFAFA!important; \">\n        <alert></alert>\n        <form class=\"example-container\" [formGroup]=\"options\" (ngSubmit)=\"options.valid &&onSubmit()\">\n                <mat-horizontal-stepper [linear]=\"isLinear\" id=\"stepper\">\n                        <mat-step [label]=\"'PAGE.BASIC_INFO' | translate\" [completed]=\"step1Completed\">\n                                        <mat-form-field class=\"col-xs-12\">\n                                                <mat-label>{{ 'PAGE.TITLE' | translate}}</mat-label>\n                                                <input matInput placeholder=\"Tiêu đề\" required id=\"title\" name=\"title\" [(ngModel)]=\"motel.title\"  #title=\"ngModel\" [ngModelOptions]=\"{standalone: true}\" >\n                                                <mat-error  *ngIf=\"title.invalid && (title.dirty || title.touched)\">\n                                                                {{ 'PAGE.TITLE_BLANK' | translate}}\n                                                </mat-error>\n                                                \n                                        </mat-form-field>\n                                        <mat-form-field class=\"col-xs-12\">\n                                                <mat-label>{{ 'PAGE.DESCRIPTION' | translate}}</mat-label>\n                                                <textarea matInput [placeholder]=\"'PAGE.BASIC_INFO' | translate\" matTextareaAutosize matAutosizeMinRows=\"2\"\n                                                matAutosizeMaxRows=\"5\" [(ngModel)]=\"motel.description\" #description=\"ngModel\" [ngModelOptions]=\"{standalone: true}\" ></textarea>\n                                                \n                                        </mat-form-field>\n                                                <!-- Price -->\n                                        <mat-form-field class=\"col-xs-6\">\n        \n                                                <mat-label>{{ 'PAGE.PRICE' | translate}}</mat-label>\n                                                \n                                                <input matInput type=\"text\" [placeholder]=\"'PAGE.PRICE' | translate\" required id=\"price\" name=\"price\" [(ngModel)]=\"motel.price\"  #price=\"ngModel\" [ngModelOptions]=\"{standalone: true}\" >\n                                                <mat-error  *ngIf=\"price.invalid && (price.dirty || price.touched)\">\n                                                                {{ 'PAGE.PRICE_BLANK' | translate}}\n                                                </mat-error>\n                                                <mat-hint>{{ 'PAGE.PRICE_NOTE' | translate}}</mat-hint>\n                                        </mat-form-field>\n                                      \n                                        <!-- Contact -->\n                                        <mat-form-field class=\"col-xs-6\">\n                                                        <mat-label>{{ 'PAGE.CONTACT_RIGHT' | translate}}</mat-label>\n                                                        <input matInput [placeholder]=\"'PAGE.CONTACT_RIGHT' | translate\" required name=\"contact\" [(ngModel)]=\"motel.contact\" #contact=\"ngModel\" [ngModelOptions]=\"{standalone: true}\"  >\n                                                        <mat-error  *ngIf=\"contact.invalid && (contact.dirty || contact.touched)\">\n                                                                {{ 'PAGE.CONTACT_BLANK' | translate}}\n                                                        </mat-error>\n                                        </mat-form-field>\n                                        <button mat-button type=\"button\" (click)=\"step_1_next()\" mat-raised-button color=\"primary\" >{{ 'HOME.NEXT' | translate}}</button>\n                        </mat-step>\n\n                        <mat-step #step2 [label]=\"'PAGE.TYPE_PIC' | translate\" [completed]=\"step2Completed\">\n                                <div class=\"col-xs-12\" *ngIf=\"alertService.numOfImage < 3\">\n                                                <button type=\"button\" mat-raised-button (click)=\"openDialog()\">{{ 'PAGE.ADD_PICTURE' | translate}}</button>\n                                </div>\n                                <div class=\"col-xs-12\"  *ngIf=\"alertService.numOfImage > 3\">\n                                        <h4>{{ 'PAGE.FULL_IMAGE' | translate}}</h4>\n                                </div>\n                                <!-- category -->\n                                <mat-form-field class=\"col-xs-6\">\n                                        <mat-select required  name=\"category\" [(ngModel)]=\"motel.category\" #category=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                                        <mat-option>--{{ 'PAGE.CATEGORY' | translate}}--</mat-option>\n                                        <mat-option value=\"nhà nguyên căn\">{{ 'PAGE.BASIC_HOUSE' | translate}}</mat-option>\n                                        <mat-option value=\"phòng trọ\">{{ 'PAGE.RENT_ROOM' | translate}}</mat-option>\n                                        <mat-option value=\"chung cư\">{{ 'PAGE.DOOM' | translate}}</mat-option>                \n                                        </mat-select>\n                                        <mat-placeholder><mat-icon>list</mat-icon> <i> {{ 'PAGE.CHOOSE_CATEGORY' | translate}}</i></mat-placeholder>\n                                </mat-form-field>\n                                <!-- Price -->\n                                <mat-form-field class=\"col-xs-6\">\n\n                                        <mat-label>{{ 'PAGE.AREA' | translate}}</mat-label>\n                                        \n                                        <input matInput type=\"number\" [placeholder]=\"'PAGE.AREA' | translate\" required id=\"area\" name=\"area\" [(ngModel)]=\"motel.area\"  #area=\"ngModel\" [ngModelOptions]=\"{standalone: true}\" >\n                                        <mat-error  *ngIf=\"area.invalid && (area.dirty || area.touched)\">\n                                                        {{ 'PAGE.AREA_BLANK' | translate}}\n                                        </mat-error>\n                                        <mat-hint>{{ 'PAGE.UNIT' | translate}}: m2</mat-hint>\n                                </mat-form-field>\n                                <div class=\"col-xs-12\">\n                                        <button mat-button type=\"button\" (click)=\"step_2_next()\" mat-raised-button color=\"primary\" >{{ 'HOME.NEXT' | translate}}</button>\n\n                                </div>\n                                <!-- IMG -->\n                                <div class=\"col-xs-12\">\n                                                <h2>{{ 'PAGE.IMG_UPLOAD' | translate}}: {{alertService.numOfImage}}</h2>\n                                                <h3 *ngIf=\"expired\" class=\"text-center\" style=\"color:red;\">{{ 'PAGE.SESSION_EXPIRED' | translate}}</h3>\n                                                <div class=\"img\" *ngIf=\"alertService.typeUpload\">\n                                                       \n                                                        <div *ngFor=\"let i of img; let k = index\">\n                                                                <div style=\"padding-top: 10px;\">\n                                                                                <img src=\"/assets/{{i}}\" alt=\"Event Image\" class=\"img-responsive\" >\n                                                                </div>\n                                                                <div id=\"wrapperBtn\">\n                                                                        <button type=\"button\" mat-raised-button color=\"warn\" class=\"btn-center\" (click)=\"deleteImg(i)\">{{ 'PAGE.REMOVE' | translate}}</button>\n                                                                </div>\n                                                        </div>\n                                                </div>\n                                </div>\n                                \n                        </mat-step>\n                        <mat-step #step3 [label]=\"'PAGE.ADDRESS' | translate\">\n                                        <app-map *ngIf=\"!getLocation\" (locationChild)=\"passData($event)\"></app-map>\n                                        <button *ngIf=\"!getLocation\"  type=\"button\" mat-raised-button color=\"accent\" (click)=\"getLocation=!getLocation\">Xác nhận địa chỉ</button>\n                                        <div class=\"show\" *ngIf=\"getLocation\">\n                                                <mat-form-field [floatLabel]=\"options.value.floatLabel\">\n                                                        <mat-label>{{'HOME.CITY' | translate}}</mat-label>\n                                                        <input matInput [placeholder]=\"'HOME.CITY' | translate\" required name=\"city\" [(ngModel)]=\"motel.city\" #city=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                                                </mat-form-field>\n                                                <mat-form-field [floatLabel]=\"options.value.floatLabel\">\n                                                        <mat-label>{{'HOME.DISTRICT' | translate}}</mat-label>\n                                                        <input matInput [placeholder]=\"'HOME.DISTRICT' | translate\" required name=\"district\" [(ngModel)]=\"motel.district\" #district=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                                                </mat-form-field>\n                                                <mat-form-field [floatLabel]=\"options.value.floatLabel\">\n                                                        <mat-label>{{'HOME.WARD' | translate}}</mat-label>\n                                                        <input matInput [placeholder]=\"'HOME.WARD' | translate\" required name=\"ward\" [(ngModel)]=\"motel.ward\" #ward=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                                                </mat-form-field>\n                                                <mat-form-field [floatLabel]=\"options.value.floatLabel\" >\n                                                        <mat-label>{{'HOME.STREET' | translate}}</mat-label>\n                                                        <input matInput [placeholder]=\"'HOME.STREET' | translate\" required name=\"street\" [(ngModel)]=\"motel.street\" #street=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                                                </mat-form-field>\n                                                <mat-form-field [floatLabel]=\"options.value.floatLabel\">\n                                                        <mat-label>{{'HOME.ADD' | translate}}</mat-label>\n                                                        <input matInput [placeholder]=\"'HOME.ADD' | translate\" required name=\"add\" [(ngModel)]=\"motel.add\" #add=\"ngModel\" [ngModelOptions]=\"{standalone: true}\">\n                                                </mat-form-field>\n                                        \n                        \n                                        </div>\n                                        <!-- Address -->\n                                        <button *ngIf=\"getLocation\"  type=\"button\" mat-raised-button color=\"accent\" (click)=\"getLocation=!getLocation\">{{ 'PAGE.RETYPE_ADDRESS' | translate}}</button>\n                                        <button *ngIf=\"getLocation\" type=\"submit\" mat-raised-button color=\"primary\">{{ 'PAGE.SUBMIT' | translate}}</button>\n                                        <h3 *ngIf=\"expired\" class=\"text-center\" style=\"color:red;\">{{ 'PAGE.SESSION_EXPIRED' | translate}}</h3>\n                        </mat-step>\n                </mat-horizontal-stepper>\n       \n            \n               \n                \n        </form>\n      \n  </div>\n  <div>\n  </div>\n</div>\n\n\n<app-footer></app-footer>"
 
 /***/ }),
 
@@ -2952,12 +2966,15 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 
 var URL = __WEBPACK_IMPORTED_MODULE_5__app_config__["a" /* appConfig */].apiUrl + '/uploadImg';
 var FormComponent = (function () {
-    function FormComponent(dialog, fb, _formBuilder, motelService, alertService, router) {
+    function FormComponent(dialog, fb, _formBuilder, motelService, alertService, router, apiService) {
         this.dialog = dialog;
         this._formBuilder = _formBuilder;
         this.motelService = motelService;
         this.alertService = alertService;
         this.router = router;
+        this.apiService = apiService;
+        // session expired
+        this.expired = false;
         // set up file uploader
         this.motel = {};
         // stepper variable
@@ -2976,22 +2993,29 @@ var FormComponent = (function () {
     FormComponent.prototype.onSubmit = function () {
         var _this = this;
         // get location from session
-        this.motel.lat = localStorage.getItem('lat');
-        this.motel.lng = localStorage.getItem('lng');
-        this.motel.customer = JSON.parse(localStorage.getItem('currentUser'))._id;
-        this.motel.img = this.img;
-        this.motel.status = 0;
-        this.motel.created_at = new Date();
-        // remove session location
-        localStorage.removeItem('lat');
-        localStorage.removeItem('lng');
-        this.motelService.create(this.motel).then(function (data) {
-            var id = JSON.parse(data._body);
-            _this.router.navigate(['/item', id]);
-            _this.alertService.success(data.toString());
-        }, function (err) { _this.alertService.error(err); });
+        if (this.apiService.sessionExpired) {
+            this.resetImg();
+        }
+        else {
+            this.apiService.stopRecord = true;
+            this.motel.lat = localStorage.getItem('lat');
+            this.motel.lng = localStorage.getItem('lng');
+            this.motel.customer = JSON.parse(localStorage.getItem('currentUser'))._id;
+            this.motel.img = this.img;
+            this.motel.status = 0;
+            this.motel.created_at = new Date();
+            // remove session location
+            localStorage.removeItem('lat');
+            localStorage.removeItem('lng');
+            this.motelService.create(this.motel).then(function (data) {
+                var id = JSON.parse(data._body);
+                _this.router.navigate(['/item', id]);
+                _this.alertService.success(data.toString());
+            }, function (err) { _this.alertService.error(err); });
+        }
     };
     FormComponent.prototype.openDialog = function () {
+        this.expired = false;
         var dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
             width: '500px',
             data: { img: this.img }
@@ -3022,6 +3046,16 @@ var FormComponent = (function () {
         });
         console.log(this.motel);
     };
+    FormComponent.prototype.deleteImg = function (fileName, index) {
+        var _this = this;
+        this.apiService.deleteImg(fileName).subscribe(function (res) {
+            _this.alertService.success('OK!');
+            _this.img.splice(index, 1);
+            _this.alertService.numOfImage -= 1;
+        }, function (err) {
+            _this.alertService.error('Failed');
+        });
+    };
     FormComponent.prototype.complete = function () {
         this.stepper.next();
     };
@@ -3041,19 +3075,38 @@ var FormComponent = (function () {
             }, 2);
         }
     };
+    FormComponent.prototype.resetImg = function () {
+        this.expired = true;
+        this.img = [];
+        this.alertService.numOfImage = 0;
+        this.expired = true;
+    };
     FormComponent.prototype.step_2_next = function () {
         var _this = this;
-        var category = this.motel.category;
-        if (!category) {
-            this.step2Completed = false;
-            this.alertService.error('please fill required inputs');
+        console.log(this.apiService.sessionExpired);
+        if (this.apiService.sessionExpired) {
+            this.resetImg();
         }
         else {
-            this.step2Completed = true;
-            this.alertService.success('Everything is ok ');
-            setTimeout(function () {
-                _this.stepper.next();
-            }, 2);
+            var category = this.motel.category;
+            if (!category) {
+                this.step2Completed = false;
+                this.alertService.error('please fill required inputs');
+            }
+            else {
+                var area = this.motel.area;
+                if (!area) {
+                    this.step2Completed = false;
+                    this.alertService.error('please fill required inputs');
+                }
+                else {
+                    this.step2Completed = true;
+                    this.alertService.success('Everything is ok ');
+                    setTimeout(function () {
+                        _this.stepper.next();
+                    }, 2);
+                }
+            }
         }
     };
     __decorate([
@@ -3064,17 +3117,17 @@ var FormComponent = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-form',
             template: __webpack_require__("./src/app/form/form.component.html"),
-            styles: [__webpack_require__("./src/app/form/form.component.css")]
+            styles: [__webpack_require__("./src/app/form/form.component.css")],
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_material__["i" /* MatDialog */], __WEBPACK_IMPORTED_MODULE_1__angular_forms__["b" /* FormBuilder */], __WEBPACK_IMPORTED_MODULE_1__angular_forms__["b" /* FormBuilder */],
-            __WEBPACK_IMPORTED_MODULE_6__services_index__["f" /* MotelService */], __WEBPACK_IMPORTED_MODULE_6__services_index__["a" /* AlertService */],
-            __WEBPACK_IMPORTED_MODULE_3__angular_router__["c" /* Router */]])
+            __WEBPACK_IMPORTED_MODULE_6__services_index__["g" /* MotelService */], __WEBPACK_IMPORTED_MODULE_6__services_index__["a" /* AlertService */],
+            __WEBPACK_IMPORTED_MODULE_3__angular_router__["c" /* Router */], __WEBPACK_IMPORTED_MODULE_6__services_index__["b" /* ApiService */]])
     ], FormComponent);
     return FormComponent;
 }());
 
 var DialogOverviewExampleDialog = (function () {
-    function DialogOverviewExampleDialog(dialogRef, data, alertService) {
+    function DialogOverviewExampleDialog(dialogRef, data, alertService, apiService) {
         var _this = this;
         this.dialogRef = dialogRef;
         this.data = data;
@@ -3088,6 +3141,12 @@ var DialogOverviewExampleDialog = (function () {
                 alertService.numOfImage += 1;
                 alertService.typeUpload = true;
                 alertService.success('insert success');
+                // timer zone
+                apiService.listImg.push(response);
+                if (apiService.starRecord === false) {
+                    apiService.starRecord = true;
+                    apiService.startRecord();
+                }
                 _this.dialogRef.close();
             }
             else {
@@ -3119,10 +3178,10 @@ var DialogOverviewExampleDialog = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'dialog-overview-example-dialog',
             template: __webpack_require__("./src/app/form/dialog-overview-example-dialog.html"),
-            styles: [__webpack_require__("./src/app/form/dialog-overview-example-dialog.css")]
+            styles: [__webpack_require__("./src/app/form/dialog-overview-example-dialog.css")],
         }),
         __param(1, Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Inject"])(__WEBPACK_IMPORTED_MODULE_2__angular_material__["a" /* MAT_DIALOG_DATA */])),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_material__["l" /* MatDialogRef */], Object, __WEBPACK_IMPORTED_MODULE_6__services_index__["a" /* AlertService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_material__["l" /* MatDialogRef */], Object, __WEBPACK_IMPORTED_MODULE_6__services_index__["a" /* AlertService */], __WEBPACK_IMPORTED_MODULE_6__services_index__["b" /* ApiService */]])
     ], DialogOverviewExampleDialog);
     return DialogOverviewExampleDialog;
 }());
@@ -3179,7 +3238,7 @@ var HomeComponent = (function () {
             template: __webpack_require__("./src/app/main/home/home.component.html"),
             styles: [__webpack_require__("./src/app/main/home/home.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_index__["f" /* MotelService */], __WEBPACK_IMPORTED_MODULE_1__services_index__["a" /* AlertService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_index__["g" /* MotelService */], __WEBPACK_IMPORTED_MODULE_1__services_index__["a" /* AlertService */]])
     ], HomeComponent);
     return HomeComponent;
 }());
@@ -3205,7 +3264,7 @@ module.exports = ".temp{\n    height: 100px;\n}\n\n/* Test css grid */\n\n.wrapp
 /***/ "./src/app/main/item/item.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-nav></app-nav>\n\n<div class=\"temp\"></div>\n    <alert></alert>\n      <div class=\"wrapper\">\n        <div>\n          <div class=\"img-wrapper\">\n            <div></div>\n            <div>\n              <!-- TAB IMG + MAP -->\n                <mat-tab-group>\n                    <mat-tab label=\"Image\">\n                      <!-- MOTEL IMAGE -->\n                      <!-- <div *ngFor=\"let item of img\">\n                        {{item}}\n                      </div> -->\n                      <div id=\"myCarousel\" class=\"carousel slide\" data-ride=\"carousel\">\n                        <!-- Indicators -->\n                        <ol class=\"carousel-indicators\">\n                          <li data-target=\"#myCarousel\" *ngFor=\"let item of img; let i = index\" [attr.data-slide-to]=\"i\" ngClass=\"i == 0 ? 'active' : ''\"></li>\n                        </ol>\n                    \n                        <!-- Wrapper for slides -->\n                        <div class=\"carousel-inner\">\n                          <div *ngFor=\"let j of img; let k = index\" [ngClass]=\"k == 0 ? 'item active' : 'item'\">\n                            <img src=\"/assets/{{img[k]}}\" alt=\"Event Image\" class=\"img-responsive\" >\n                        </div>\n                        \n                          \n                        </div>\n                    \n                        <!-- Left and right controls -->\n                        <a class=\"left carousel-control\" href=\"#myCarousel\" data-slide=\"prev\">\n                          <span class=\"glyphicon glyphicon-chevron-left\"></span>\n                          <span class=\"sr-only\">Previous</span>\n                        </a>\n                        <a class=\"right carousel-control\" href=\"#myCarousel\" data-slide=\"next\">\n                          <span class=\"glyphicon glyphicon-chevron-right\"></span>\n                          <span class=\"sr-only\">Next</span>\n                        </a>\n                      </div>\n                   \n                      \n                      </mat-tab>\n                      <mat-tab #mapTab label=\"Map\">\n                          <div *ngIf=\"mapTab.isActive\">\n                            <app-map-service [myData]=\"data\"></app-map-service>\n                          </div>\n                      </mat-tab>\n                </mat-tab-group>\n              \n            </div>\n            <div></div>\n          </div>\n          <!-- MOTEL INFOMATION -->\n          <div class=\"info-wrapper\">\n              <!-- Description -->\n              <div></div>\n             <div>\n                <div class=\"descripsion\">\n                    <h4 class=\"mt-4\">About this location</h4>\n                    {{motel.description}}   \n                </div>\n             </div>\n             <!-- Address  -->\n             <div>\n                <div class=\"address\">\n                    <address>\n                        <h4>Address  </h4>\n                        <strong>{{motel.district}}, {{motel.city}} </strong>\n                        <br>{{motel.add}}, {{motel.street}}\n                        <br>{{motel.ward}}\n                        <br>\n                      </address>\n                </div>\n                <button mat-icon-button color=\"warn\"  (click)=\"onNavigate()\">           \n                  <mat-icon aria-label=\"Example icon-button with a heart icon\">room</mat-icon>\n                  Show location\n              </button>\n             </div>\n             <div></div>\n           </div>\n       \n          </div>\n\n         \n        <!-- USER INFO -->\n        <div class=\"user-info\">\n          <app-user-info [myData]=\"user\"></app-user-info>\n        </div>\n        <!-- COMMENT AREA -->\n        \n        \n        <div class=\"user-info-mobile\">\n            <div></div>\n            \n            <div>\n                <button mat-raised-button color=\"primary\" (click)=\"openDialog()\">Show contact info</button>\n            </div>\n\n            <div>\n              \n            </div>\n        </div>\n      </div>\n      <div class=\"cmt-wrapper\">\n        <div></div>\n        <div><app-comment-box  [motelID]=\"motel_id\"></app-comment-box></div>\n        <div></div>\n      </div>\n      <div class=\"comment-wrapper\">\n        <div></div>\n        <div>\n            <div style=\"height:20px;\"> </div> \n            <div>\n              <!-- comment list -->\n              <app-comment-list></app-comment-list>\n            </div>\n            \n        </div>\n        <div></div>\n          \n      </div>\n"
+module.exports = "<app-nav></app-nav>\n\n<div class=\"temp\"></div>\n    <alert></alert>\n      <div class=\"wrapper\">\n        <div>\n          <div class=\"img-wrapper\">\n            <div></div>\n            <div>\n              <!-- TAB IMG + MAP -->\n                <mat-tab-group>\n                    <mat-tab label=\"Image\">\n                      <!-- MOTEL IMAGE -->\n                      <!-- <div *ngFor=\"let item of img\">\n                        {{item}}\n                      </div> -->\n                      <div id=\"myCarousel\" class=\"carousel slide\" data-ride=\"carousel\">\n                        <!-- Indicators -->\n                        <ol class=\"carousel-indicators\">\n                          <li data-target=\"#myCarousel\" *ngFor=\"let item of img; let i = index\" [attr.data-slide-to]=\"i\" ngClass=\"i == 0 ? 'active' : ''\"></li>\n                        </ol>\n                    \n                        <!-- Wrapper for slides -->\n                        <div class=\"carousel-inner\">\n                          <div *ngFor=\"let j of img; let k = index\" [ngClass]=\"k == 0 ? 'item active' : 'item'\">\n                            <img src=\"/assets/{{img[k]}}\" alt=\"Event Image\" class=\"img-responsive\" >\n                        </div>\n                        \n                          \n                        </div>\n                    \n                        <!-- Left and right controls -->\n                        <a class=\"left carousel-control\" href=\"#myCarousel\" data-slide=\"prev\">\n                          <span class=\"glyphicon glyphicon-chevron-left\"></span>\n                          <span class=\"sr-only\">Previous</span>\n                        </a>\n                        <a class=\"right carousel-control\" href=\"#myCarousel\" data-slide=\"next\">\n                          <span class=\"glyphicon glyphicon-chevron-right\"></span>\n                          <span class=\"sr-only\">Next</span>\n                        </a>\n                      </div>\n                   \n                      \n                      </mat-tab>\n                      <mat-tab #mapTab label=\"Map\">\n                          <div *ngIf=\"mapTab.isActive\">\n                            <app-map-service [myData]=\"data\"></app-map-service>\n                          </div>\n                      </mat-tab>\n                </mat-tab-group>\n              \n            </div>\n            <div></div>\n          </div>\n          <!-- MOTEL INFOMATION -->\n          <div class=\"info-wrapper\">\n              <!-- Description -->\n              <div></div>\n             <div>\n                <div class=\"descripsion\">\n                    <h4 class=\"mt-4\">About this location</h4>\n                    {{motel.description}}   \n                </div>\n             </div>\n             <!-- Address  -->\n             <div>\n                <div class=\"address\">\n                    <address>\n                        <h4>Address  </h4>\n                        <strong>{{motel.district}}, {{motel.city}} </strong>\n                        <br>{{motel.add}}, {{motel.street}}\n                        <br>{{motel.ward}}\n                        <br>\n                      </address>\n                </div>\n                <button mat-icon-button color=\"warn\"  (click)=\"onNavigate()\">           \n                  <mat-icon aria-label=\"Example icon-button with a heart icon\">room</mat-icon>\n                  Show location\n              </button>\n             </div>\n             <div></div>\n           </div>\n       \n          </div>\n\n         \n        <!-- USER INFO -->\n        <div class=\"user-info\">\n          <app-user-info [myData]=\"user\"></app-user-info>\n        </div>\n        <!-- COMMENT AREA -->\n        \n        \n        <div class=\"user-info-mobile\">\n            <div></div>\n            \n            <div>\n                <button mat-raised-button color=\"primary\" (click)=\"openDialog()\">Show contact info</button>\n            </div>\n\n            <div>\n              \n            </div>\n        </div>\n      </div>\n      <div class=\"cmt-wrapper\">\n        <div></div>\n        <div><app-comment-box  [motelID]=\"motel_id\"></app-comment-box></div>\n        <div></div>\n      </div>\n      <div class=\"comment-wrapper\">\n        <div></div>\n        <div>\n            <div style=\"height:20px;\"> </div> \n            <div>\n              <!-- comment list -->\n              <app-comment-list></app-comment-list>\n            </div>\n            \n        </div>\n        <div></div>\n          \n      </div>\n<app-footer></app-footer>"
 
 /***/ }),
 
@@ -3363,8 +3422,8 @@ var ItemComponent = (function () {
             template: __webpack_require__("./src/app/main/item/item.component.html"),
             styles: [__webpack_require__("./src/app/main/item/item.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__angular_material__["i" /* MatDialog */], __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */], __WEBPACK_IMPORTED_MODULE_2__services_index__["b" /* AuthenticationService */],
-            __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_2__services_index__["f" /* MotelService */], __WEBPACK_IMPORTED_MODULE_2__services_index__["a" /* AlertService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__angular_material__["i" /* MatDialog */], __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */], __WEBPACK_IMPORTED_MODULE_2__services_index__["c" /* AuthenticationService */],
+            __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_2__services_index__["g" /* MotelService */], __WEBPACK_IMPORTED_MODULE_2__services_index__["a" /* AlertService */]])
     ], ItemComponent);
     return ItemComponent;
 }());
@@ -3486,7 +3545,7 @@ var AdvanceSearchComponent = (function () {
             template: __webpack_require__("./src/app/main/layout/advance-search/advance-search.component.html"),
             styles: [__webpack_require__("./src/app/main/layout/advance-search/advance-search.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__services_index__["f" /* MotelService */], __WEBPACK_IMPORTED_MODULE_3__services_index__["a" /* AlertService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__services_index__["g" /* MotelService */], __WEBPACK_IMPORTED_MODULE_3__services_index__["a" /* AlertService */]])
     ], AdvanceSearchComponent);
     return AdvanceSearchComponent;
 }());
@@ -3570,7 +3629,7 @@ var CommentBoxComponent = (function () {
             template: __webpack_require__("./src/app/main/layout/comment-box/comment-box.component.html"),
             styles: [__webpack_require__("./src/app/main/layout/comment-box/comment-box.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_index__["c" /* CommentService */], __WEBPACK_IMPORTED_MODULE_1__services_index__["a" /* AlertService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_index__["d" /* CommentService */], __WEBPACK_IMPORTED_MODULE_1__services_index__["a" /* AlertService */]])
     ], CommentBoxComponent);
     return CommentBoxComponent;
 }());
@@ -3641,7 +3700,7 @@ var CommentListComponent = (function () {
             template: __webpack_require__("./src/app/main/layout/comment-list/comment-list.component.html"),
             styles: [__webpack_require__("./src/app/main/layout/comment-list/comment-list.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__services_index__["c" /* CommentService */], __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__services_index__["d" /* CommentService */], __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]])
     ], CommentListComponent);
     return CommentListComponent;
 }());
@@ -3902,7 +3961,7 @@ var MapMarkerMoveComponent = (function () {
             styles: [__webpack_require__("./src/app/main/layout/map-marker-move/map-marker-move.component.css")]
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__agm_core__["e" /* MapsAPILoader */],
-            __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"], __WEBPACK_IMPORTED_MODULE_3__services_index__["f" /* MotelService */]])
+            __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"], __WEBPACK_IMPORTED_MODULE_3__services_index__["g" /* MotelService */]])
     ], MapMarkerMoveComponent);
     return MapMarkerMoveComponent;
 }());
@@ -4275,7 +4334,7 @@ var NavComponent = (function () {
             template: __webpack_require__("./src/app/main/layout/nav/nav.component.html"),
             styles: [__webpack_require__("./src/app/main/layout/nav/nav.component.css")]
         }),
-        __param(1, Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Inject"])(__WEBPACK_IMPORTED_MODULE_2__services_index__["i" /* WINDOW */])),
+        __param(1, Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Inject"])(__WEBPACK_IMPORTED_MODULE_2__services_index__["j" /* WINDOW */])),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__ngx_translate_core__["c" /* TranslateService */], Window])
     ], NavComponent);
     return NavComponent;
@@ -4288,14 +4347,14 @@ var NavComponent = (function () {
 /***/ "./src/app/main/layout/recent-post/recent-post.component.css":
 /***/ (function(module, exports) {
 
-module.exports = "\r\n  .card img {\r\n    width: 100%;\r\n    height: auto;\r\n  }\r\n  .wrapper{\r\n      overflow: hidden;\r\n  }\r\n  .recent h4\r\n  {\r\n    text-align: center;\r\n    \r\n  }\r\n  .imageHolder {\r\n    position: relative;\r\n}\r\n  .imageHolder .caption {\r\n  position: absolute;\r\n \r\n  bottom: 18px;\r\n  left: -23px;\r\n  color: #ffffff;\r\n  background: rgba(0,0,0,.5);\r\ntext-align:center;\r\nfont-weight:bold;\r\nopacity:0.7;\r\n}\r\n  .category{\r\n  font-weight: bolder;\r\n  font-size: 14px;\r\n}\r\n  .address{\r\n  font-weight: inherit;\r\n  font-size: 10px;\r\n  float: left;\r\n  width: calc(100%-100px);\r\n  padding-left: 20px;\r\n\r\n}\r\n  .timeAgo{\r\n  font-size: 15px;\r\n}\r\n  .price {\r\n  font-size: 15px;\r\n}\r\n  .price p{\r\n  color: red;\r\n}\r\n  .infor{\r\n  display: inline-block;\r\n}\r\n  .logo{\r\n  float: left;\r\n  width: 100px;\r\n  padding-left: -10px;\r\n}\r\n  .recent {\r\n  background: #f5f5f5;\r\n}\r\n  .recent-title {\r\n    margin-right: auto;\r\n    margin-left: auto;\r\n    position: relative;\r\n    margin: 68px auto 40px;\r\n    text-align: center;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-columns: 4fr 2fr 4fr;\r\n        grid-template-columns: 4fr 2fr 4fr;\r\n    \r\n}\r\n  .hr-title {\r\n  border-top: 2px solid #E0E0E0; \r\n  height:0px; \r\n  -ms-flex-item-align: center; \r\n      -ms-grid-row-align: center; \r\n      align-self: center;\r\n  border-radius: 2px;\r\n  border-bottom: 2px solid #E0E0E0; \r\n  \r\n  \r\n}\r\n  .address-des{\r\n  font-size: 16px;\r\n}"
+module.exports = "\r\n  .card img {\r\n    width: 100%;\r\n    height: auto;\r\n  }\r\n  .wrapper{\r\n      overflow: hidden;\r\n  }\r\n  .recent h4\r\n  {\r\n    text-align: center;\r\n    \r\n  }\r\n  .imageHolder {\r\n    position: relative;\r\n}\r\n  .imageHolder .caption {\r\n  position: absolute;\r\n \r\n  bottom: 18px;\r\n  left: -23px;\r\n  color: #ffffff;\r\n  background: rgba(0,0,0,.5);\r\ntext-align:center;\r\nfont-weight:bold;\r\nopacity:0.7;\r\n}\r\n  .category{\r\n  font-weight: bolder;\r\n  font-size: 14px;\r\n}\r\n  .address{\r\n  font-weight: inherit;\r\n  font-size: 10px;\r\n  float: left;\r\n  width: 100%;\r\n  padding-left: 20px;\r\n\r\n}\r\n  .timeAgo{\r\n  font-size: 15px;\r\n}\r\n  .price {\r\n  font-size: 15px;\r\n}\r\n  .price p{\r\n  color: red;\r\n}\r\n  .infor{\r\n  display: inline-block;\r\n}\r\n  .logo{\r\n  float: left;\r\n  width: 100px;\r\n  padding-left: -10px;\r\n}\r\n  .recent {\r\n  background: #f5f5f5;\r\n}\r\n  .recent-title {\r\n    margin-right: auto;\r\n    margin-left: auto;\r\n    position: relative;\r\n    margin: 68px auto 40px;\r\n    text-align: center;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-columns: 4fr 2fr 4fr;\r\n        grid-template-columns: 4fr 2fr 4fr;\r\n    \r\n}\r\n  .hr-title {\r\n  border-top: 2px solid #E0E0E0; \r\n  height:0px; \r\n  -ms-flex-item-align: center; \r\n      -ms-grid-row-align: center; \r\n      align-self: center;\r\n  border-radius: 2px;\r\n  border-bottom: 2px solid #E0E0E0; \r\n  \r\n  \r\n}\r\n  .address-des{\r\n  font-size: 16px;\r\n}\r\n  .expired{\r\n  background-color: #F44336;\r\n  color: white;\r\n  font-size: 25px;\r\n  font-weight: bolder;\r\n}"
 
 /***/ }),
 
 /***/ "./src/app/main/layout/recent-post/recent-post.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row recent\" style=\"margin-left: 0; margin-right: 0;\"> \n    <div class=\"recent-title\">\n      <div class=\"hr-title\"></div>\n      <div class=\"rencent-title-h4\" *ngIf=\"title === 'Newest Post'\">\n          <h2>{{ 'PAGE.NEWEST' | translate}}</h2>\n      </div>\n      <div class=\"rencent-title-h4\" *ngIf=\"title === 'Resutls'\">\n            <h2>{{ 'PAGE.RESULT' | translate}}</h2>\n        </div>\n      <div class=\"hr-title\"></div>\n        \n    </div>\n  <div class=\"wrapper\">\n      <div class=\"col-lg-4 col-md-4 col-sm-6 col-xs-12 card\"   *ngFor=\"let motel of motels | async | paginate: { itemsPerPage: 3, currentPage: p }\" style=\"margin-bottom:20px;margin-top:20px;\">\n          <mat-card class=\"example-card\"  >\n              <div class=\"imageHolder\">\n                <a [routerLink]=\"['/item', motel._id]\">\n                <img mat-card-image src=\"/assets/{{motel.img[0]}}\"  alt=\"Photo of a Motel\" style=\"width: 420px; height: 251px;\" onError=\"this.src='http://www.wellesleysocietyofartists.org/wp-content/uploads/2015/11/image-not-found.jpg'\">\n                </a>\n                \n              </div> \n             \n              <mat-card-content>\n                \n                <div class=\"infor\">\n                    \n                    <div class=\"address\">\n                        <div class=\"timeAgo\">\n                            <b>{{ 'HOME.POST_AT' | translate}}:</b> {{motel.created_at | date}} \n                        </div>\n                        <div class=\"category\">\n                            <h3 *ngIf=\"motel.category === 'nhà nguyên căn'\">{{ 'PAGE.BASIC_HOUSE' | translate}}</h3>\n                            <h3 *ngIf=\"motel.category === 'phòng trọ'\">{{ 'PAGE.RENT_ROOM' | translate}}</h3>\n                            <h3 *ngIf=\"motel.category === 'chung cư'\">{{ 'PAGE.DOOM' | translate}}</h3>\n                        </div>\n                        <div class=\"address-des\">\n                                {{motel.add}} , {{motel.street}}, {{motel.ward}}, {{motel.district}} <br>\n                                {{motel.city}}\n                                <p>{{ 'PAGE.CONTACT' | translate}}: {{motel.contact}}</p>\n                        </div>\n                        \n                        <div class=\"price\">\n                            <b>{{ 'HOME.PRICE' | translate}}:</b> <p *ngIf=\"motel?.price !== 'Thương Lượng' && motel?.price !== 'thương lượng' &&  motel?.price !== 'Thương lượng' \">{{motel.price}} {{ 'HOME.PER_MONTH' | translate}}</p>\n                            <p *ngIf=\"motel?.price === 'Thương Lượng' || motel?.price === 'thương lượng' || motel?.price === 'Thương lượng' \">{{ 'HOME.NEGO' | translate}} </p>\n                        </div>\n                    </div>\n                </div>\n                \n               \n              </mat-card-content>\n              <mat-card-actions>\n                <button mat-button><a [routerLink]=\"['/item', motel._id]\" class=\"text-center\">{{ 'HOME.SHOW_DETAILS' | translate}}</a></button>\n              </mat-card-actions>\n            </mat-card>\n          \n      </div>\n      <pagination-controls (pageChange)=\"p = $event\"\n      [previousLabel]= \"'HOME.PREVIOUS' | translate\"\n      [nextLabel]= \"'HOME.NEXT' | translate\"\n      ></pagination-controls>\n  </div>\n    \n\n\n</div>\n    "
+module.exports = "<div class=\"row recent\" style=\"margin-left: 0; margin-right: 0;\"> \n    <div class=\"recent-title\">\n      <div class=\"hr-title\"></div>\n      <div class=\"rencent-title-h4\" *ngIf=\"title === 'Newest Post'\">\n          <h2>{{ 'PAGE.NEWEST' | translate}}</h2>\n      </div>\n      <div class=\"rencent-title-h4\" *ngIf=\"title === 'Resutls'\">\n            <h2>{{ 'PAGE.RESULT' | translate}}</h2>\n        </div>\n      <div class=\"hr-title\"></div>\n        \n    </div>\n  <div class=\"wrapper\">\n      <div class=\"col-lg-4 col-md-4 col-sm-6 col-xs-12 card\"   *ngFor=\"let motel of motels | async | paginate: { itemsPerPage: 3, currentPage: p }\" style=\"margin-bottom:20px;margin-top:20px;\">\n          <mat-card class=\"example-card\"  >\n              <div class=\"imageHolder\">\n                <a [routerLink]=\"['/item', motel._id]\">\n                <img mat-card-image src=\"/assets/{{motel.img[0]}}\"  alt=\"Photo of a Motel\" style=\"width: 435px; height: 251px;\" onError=\"this.src='http://www.wellesleysocietyofartists.org/wp-content/uploads/2015/11/image-not-found.jpg'\">\n                </a>\n                \n              </div> \n             \n              <mat-card-content>\n                    <div class=\"expired\" *ngIf=\"motel.expired === true\">\n                            <p class=\"text-center\">{{ 'HOME.EXPIRED' | translate }}</p>\n                    </div>\n                <div class=\"infor\">\n                    \n                    <div class=\"address\">\n                        <div class=\"timeAgo\">\n                            <b>{{ 'HOME.POST_AT' | translate}}:</b> {{motel.created_at | date}} \n                        </div>\n                        <div class=\"category\">\n                            <h3 *ngIf=\"motel.category === 'nhà nguyên căn'\">{{ 'PAGE.BASIC_HOUSE' | translate}}</h3>\n                            <h3 *ngIf=\"motel.category === 'phòng trọ'\">{{ 'PAGE.RENT_ROOM' | translate}}</h3>\n                            <h3 *ngIf=\"motel.category === 'chung cư'\">{{ 'PAGE.DOOM' | translate}}</h3>\n                        </div>\n                        <div class=\"address-des\">\n                                {{motel.add}} , {{motel.street}}, {{motel.ward}}, {{motel.district}} <br>\n                                {{motel.city}}\n                                <p>{{ 'PAGE.CONTACT' | translate}}: {{motel.contact}}</p>\n                        </div>\n                        \n                        <div class=\"price\" *ngIf=\"motel.expired === false\">\n                            <b>{{ 'HOME.PRICE' | translate}}:</b> <p *ngIf=\"motel?.price !== 'Thương Lượng' && motel?.price !== 'thương lượng' &&  motel?.price !== 'Thương lượng' \">{{motel.price}} {{ 'HOME.PER_MONTH' | translate}}</p>\n                            <p *ngIf=\"motel?.price === 'Thương Lượng' || motel?.price === 'thương lượng' || motel?.price === 'Thương lượng' \">{{ 'HOME.NEGO' | translate}} </p>\n                        </div>\n                    </div>\n                </div>\n                \n               \n              </mat-card-content>\n              <mat-card-actions>\n                <button mat-button><a [routerLink]=\"['/item', motel._id]\" class=\"text-center\">{{ 'HOME.SHOW_DETAILS' | translate}}</a></button>\n              </mat-card-actions>\n            </mat-card>\n          \n      </div>\n      <pagination-controls (pageChange)=\"p = $event\"\n      [previousLabel]= \"'HOME.PREVIOUS' | translate\"\n      [nextLabel]= \"'HOME.NEXT' | translate\"\n      ></pagination-controls>\n  </div>\n    \n\n\n</div>\n    "
 
 /***/ }),
 
@@ -4411,7 +4470,7 @@ var SearchComponent = (function () {
             template: __webpack_require__("./src/app/main/layout/search/search.component.html"),
             styles: [__webpack_require__("./src/app/main/layout/search/search.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_index__["f" /* MotelService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_index__["g" /* MotelService */]])
     ], SearchComponent);
     return SearchComponent;
 }());
@@ -4514,7 +4573,7 @@ var ShowMapComponent = (function () {
             styles: [__webpack_require__("./src/app/main/layout/show-map/show-map.component.css")]
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */],
-            __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_2__services_index__["a" /* AlertService */], __WEBPACK_IMPORTED_MODULE_2__services_index__["f" /* MotelService */]])
+            __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_2__services_index__["a" /* AlertService */], __WEBPACK_IMPORTED_MODULE_2__services_index__["g" /* MotelService */]])
     ], ShowMapComponent);
     return ShowMapComponent;
 }());
@@ -4727,7 +4786,7 @@ var LoginComponent = (function () {
             styles: [__webpack_require__("./src/app/main/login/login.component.css")]
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_index__["a" /* AlertService */],
-            __WEBPACK_IMPORTED_MODULE_1__services_index__["b" /* AuthenticationService */],
+            __WEBPACK_IMPORTED_MODULE_1__services_index__["c" /* AuthenticationService */],
             __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* ActivatedRoute */],
             __WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* Router */],
             __WEBPACK_IMPORTED_MODULE_3__angular_material__["i" /* MatDialog */]])
@@ -4772,7 +4831,7 @@ var RegisterDialog = (function () {
         }),
         __param(1, Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Inject"])(__WEBPACK_IMPORTED_MODULE_3__angular_material__["a" /* MAT_DIALOG_DATA */])),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__angular_material__["l" /* MatDialogRef */], Object, __WEBPACK_IMPORTED_MODULE_1__services_index__["a" /* AlertService */],
-            __WEBPACK_IMPORTED_MODULE_1__services_index__["b" /* AuthenticationService */],
+            __WEBPACK_IMPORTED_MODULE_1__services_index__["c" /* AuthenticationService */],
             __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* ActivatedRoute */],
             __WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* Router */]])
     ], RegisterDialog);

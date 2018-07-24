@@ -16,7 +16,7 @@ import { customHttpProvider, NullDefaultValueDirective } from './_helpers/index'
 import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { StatisticSerivce,
   AuthenticationService, AlertService, MotelService, CommentService,
-   LocationService, LevelService, WINDOW_PROVIDERS } from './_services/index';
+   LocationService, LevelService, WINDOW_PROVIDERS, ApiService } from './_services/index';
 import { AgmCoreModule } from '@agm/core';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -183,7 +183,7 @@ registerLocaleData(localEn);
     AlertService,
     LocationService,
     customHttpProvider,
-    NullDefaultValueDirective, MotelService, CommentService,
+    NullDefaultValueDirective, MotelService, CommentService, ApiService,
     {provide: LocationStrategy, useClass: HashLocationStrategy},
     { provide: LOCALE_ID, useValue: 'vi' } ],
   bootstrap: [AppComponent]

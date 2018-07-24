@@ -1,5 +1,6 @@
 {
   "HOME": {
+    "EXPIRED": "Expired",
     "TITLE":    "Rent your perfect home",
     "SELECT":   "Change language",
     "MODERN":   "modern",
@@ -21,6 +22,7 @@
     "CITY": "City/ Province",
     "DISTRICT": "District",
     "WARD": "Ward",
+    "ADD": "Address number",
     "ONLY_WARD": "Only type ward name",
     "STREET": "Street name",
     "ONLY_STREET": "Only type street name",
@@ -28,6 +30,12 @@
     "TO": "To"
   },
   "PAGE": {
+    "AREA": "Stretch",
+    "AREA_BLANK": "Stretch can not be blank",
+    "UNIT": "Unit",
+    "REMOVE": "Remove",
+    "CATEGORY": "Category",
+    "CHOOSE_CATEGORY": "Choose category",
     "BASIC_HOUSE": "Basic house",
     "RENT_ROOM": "Rent room ",
     "DOOM": "Doomitory",
@@ -58,8 +66,16 @@
     "DESCRIPTION": "Description",
     "PRICE": "Price",
     "PRICE_BLANK": "Price can not be blank",
-    "PRICE_NOTE": "Input price or type Negotiable"
-    
+    "PRICE_NOTE": "Input price or type Negotiable",
+    "CONTACT_RIGHT": "Contact infomation",
+    "CONTACT_BLANK": "Contact infomation can not be blank",
+    "BASIC_INFO": "Fill basic infomation",
+    "TYPE_PIC": "Choose type and picture",
+    "ADDRESS": "Address",
+    "ADD_PICTURE": "Add picture",    
+    "RETYPE_ADDRESS": "Change address", 
+    "SUBMIT": "Submit",   
+    "SESSION_EXPIRED": "Your pictures was expired, please upload again"
   },
   "ADMIN": {
     "DASHBOARD":      "Dashboard",

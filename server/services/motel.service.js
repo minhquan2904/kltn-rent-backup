@@ -65,7 +65,7 @@ function findRecent() {
 function findByStatus(status) {
     var deferred = Q.defer();
 
-    motels.find({status: status}, function(err,motels)
+    motels.find({status: status}).sort({created_at: -1}).exec(function(err,motels)
     {
         if(err)
             deferred.reject(err.name + ': ' + err.message);
