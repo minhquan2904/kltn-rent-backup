@@ -5,6 +5,8 @@ import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class AlertService {
+    public numOfImage = 0;
+    public typeUpload: Boolean = false;
     private subject = new Subject<any>();
     private keepAfterNavigationChange = false;
 /**

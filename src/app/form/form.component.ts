@@ -33,6 +33,7 @@ export class FormComponent implements OnInit {
   img: any = [];
 
   ngOnInit() {
+    this.alertService.numOfImage = 0;
     }
   onSubmit() {
     // get location from session
@@ -135,10 +136,18 @@ export class DialogOverviewExampleDialog {
         console.log(status);
         if (status === 200) {
           this.data.img.push(response);
+          alertService.numOfImage += 1;
+          alertService.typeUpload = true;
           alertService.success('insert success');
           this.dialogRef.close();
         } else {
-          alertService.error('Status: ' + status + '||' + response);
+          let rs = JSON.parse(response);
+          console.log(rs);
+          if(rs.code === 'LIMIT_FILE_SIZE') {
+            alertService.error('File must be less than 1MB');
+          } else {
+            alertService.error('Please use file with format .jpg or .png');
+          }
         }
       };
       this.uploader.onErrorItem = (item: FileItem, response: string, status: number) => {

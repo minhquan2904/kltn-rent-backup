@@ -16,15 +16,15 @@
                 <mat-horizontal-stepper [linear]="isLinear" id="stepper">
                         <mat-step label="Fill basic infomation" [completed]="step1Completed">
                                         <mat-form-field class="col-xs-12">
-                                                <mat-label>Tiêu đề</mat-label>
+                                                <mat-label>{{ 'PAGE.TITLE' | translate}}</mat-label>
                                                 <input matInput placeholder="Tiêu đề" required id="title" name="title" [(ngModel)]="motel.title"  #title="ngModel" [ngModelOptions]="{standalone: true}" >
                                                 <mat-error  *ngIf="title.invalid && (title.dirty || title.touched)">
-                                                        Title can not be blank
+                                                                {{ 'PAGE.TITLE_BLANK' | translate}}
                                                 </mat-error>
                                                 
                                         </mat-form-field>
                                         <mat-form-field class="col-xs-12">
-                                                <mat-label>Giới thiệu về nhà trọ</mat-label>
+                                                <mat-label>{{ 'PAGE.DESCRIPTION' | translate}}</mat-label>
                                                 <textarea matInput placeholder="Autosize textarea" matTextareaAutosize matAutosizeMinRows="2"
                                                 matAutosizeMaxRows="5" [(ngModel)]="motel.description" #description="ngModel" [ngModelOptions]="{standalone: true}" ></textarea>
                                                 
@@ -32,13 +32,13 @@
                                                 <!-- Price -->
                                         <mat-form-field class="col-xs-6">
         
-                                                <mat-label>Giá tiền</mat-label>
+                                                <mat-label>{{ 'PAGE.PRICE' | translate}}</mat-label>
                                                 
                                                 <input matInput type="text" placeholder="Giá tiền" required id="price" name="price" [(ngModel)]="motel.price"  #price="ngModel" [ngModelOptions]="{standalone: true}" >
                                                 <mat-error  *ngIf="price.invalid && (price.dirty || price.touched)">
-                                                                Price can not be blank
+                                                                {{ 'PAGE.PRICE_BLANK' | translate}}
                                                 </mat-error>
-                                                <mat-hint>Nhập giá cả, nhập Thỏa thuận nếu giá cả thương lượng</mat-hint>
+                                                <mat-hint>{{ 'PAGE.PRICE_NOTE' | translate}}</mat-hint>
                                         </mat-form-field>
                                       
                                         <!-- Contact -->
@@ -53,8 +53,11 @@
                         </mat-step>
 
                         <mat-step #step2 label="Choose type and picture" [completed]="step2Completed">
-                                <div class="col-xs-12">
+                                <div class="col-xs-12" *ngIf="alertService.numOfImage < 3">
                                                 <button type="button" mat-raised-button (click)="openDialog()">Add picture</button>
+                                </div>
+                                <div class="col-xs-12"  *ngIf="alertService.numOfImage > 3">
+                                        <h4>{{ 'PAGE.FULL_IMAGE' | translate}}</h4>
                                 </div>
                                 <!-- category -->
                                 <mat-form-field class="col-xs-6">
@@ -80,6 +83,16 @@
                                 <div class="col-xs-12">
                                         <button mat-button type="button" (click)="step_2_next()" mat-raised-button color="primary" >NextB</button>
 
+                                </div>
+                                <!-- IMG -->
+                                <div class="col-xs-12">
+                                                <h2>{{ 'PAGE.IMG_UPLOAD' | translate}}</h2>
+                                                <div class="img" *ngIf="alertService.typeUpload">
+                                                       
+                                                        <div *ngFor="let i of img; let k = index">
+                                                                <img src="/assets/{{i}}" alt="Event Image" class="img-responsive" >
+                                                        </div>
+                                                </div>
                                 </div>
                                 
                         </mat-step>

@@ -8,9 +8,28 @@
     "POST_AT":  "Post at",
     "ABOUT_TIME": "About",
     "PRICE": "Price",
-    "PER_MONTH": " per month"
+    "PER_MONTH": " per month",
+    "SHOW_DETAILS": "Show details",
+    "NEGO": "Negotiable",
+    "TYPE_TEXT": "Type search text here",
+    "SEARCH": "Search",
+    "ADVANCE": "Advance search"
   },
   "PAGE": {
+    "BASIC_HOUSE": "Basic house",
+    "RENT_ROOM": "Rent room ",
+    "DOOM": "Doomitory",
+    "NEWEST": "Newest Post",
+    "RESULT": "Results",
+    "ABOUT": "About",
+    "PRICING": "Pricing",
+    "BLOG": "BLog",
+    "CONTACT": "Contact",
+    "VVN": "Vo Van Ngan Street",
+    "LC": "Linh Chieu Ward",
+    "HCM": "HoChiMinh City",
+    "ABOUT_TEAM": "About team",
+    "ABOUT_TEAM_DES": "1410162 - Bui Minh Quan , 14110206 - Le Quoc Toan",
     "HOME": "Home", 
     "D9": "District 9",
     "DThuDuc": "Thu Duc District",
@@ -19,7 +38,16 @@
     "ADD": "Add new accommodation",
     "LOGIN": "Log in",
     "LOGOUT": "Log out",
-    "OVERVIEW": "Overview"
+    "OVERVIEW": "Overview",
+    "IMG_UPLOAD": "Image uploaded",
+    "FULL_IMAGE": "You reach limited image",
+    "TITLE": "Title",
+    "TITLE_BLANK": "Title can not be blank",
+    "DESCRIPTION": "Description",
+    "PRICE": "Price",
+    "PRICE_BLANK": "Price can not be blank",
+    "PRICE_NOTE": "Input price or type Negotiable"
+    
   },
   "ADMIN": {
     "DASHBOARD":      "Dashboard",

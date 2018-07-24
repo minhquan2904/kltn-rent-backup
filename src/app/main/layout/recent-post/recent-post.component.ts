@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable} from 'rxjs/Observable';
-// import {TranslateService} from '@ngx-translate/core';
+import {TranslateService} from '@ngx-translate/core';
 
 import { Motel } from '../../../_models/index';
 @Component({
@@ -21,9 +21,18 @@ export class RecentPostComponent implements OnInit {
   // map : MapComponent;
   currentUser: any = {};
   moderator: boolean;
+  previous: String = 'Previous';
+  next: String = 'Next';
   // public translate: TranslateService
-  constructor() { }
+  constructor(public translate: TranslateService ) {
+    if (this.translate.currentLang === 'vi') {
+      this.previous = 'Trước';
+      this.next = 'Tiếp';
+    }
+   }
 
   ngOnInit() {
+    
+    // console.log(this.translate.currentLang);
   }
 }

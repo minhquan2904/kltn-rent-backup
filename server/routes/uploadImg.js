@@ -16,6 +16,9 @@ var storage = multer.diskStorage({ //multers disk storage settings
 
 var upload = multer({ //multer settings
     storage: storage,
+    limits: {
+        fileSize: 1024*1024,
+    },
     fileFilter : function(req, file, callback) { //file filter
       if (['png', 'jpg','PNG','JPG'].indexOf(file.originalname.split('.')[file.originalname.split('.').length-1]) === -1) {
           return callback(new Error('Wrong extension type'));
