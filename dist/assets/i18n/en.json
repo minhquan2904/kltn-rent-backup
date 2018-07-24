@@ -13,7 +13,19 @@
     "NEGO": "Negotiable",
     "TYPE_TEXT": "Type search text here",
     "SEARCH": "Search",
-    "ADVANCE": "Advance search"
+    "ADVANCE": "Advance search",
+    "PREVIOUS": "Previous",
+    "NEXT": "Next",
+    "SEARCH_ADDRESS": "Search by address",
+    "SEARCH_MAP": "Search by Google Map",
+    "CITY": "City/ Province",
+    "DISTRICT": "District",
+    "WARD": "Ward",
+    "ONLY_WARD": "Only type ward name",
+    "STREET": "Street name",
+    "ONLY_STREET": "Only type street name",
+    "FROM": "From",
+    "TO": "To"
   },
   "PAGE": {
     "BASIC_HOUSE": "Basic house",

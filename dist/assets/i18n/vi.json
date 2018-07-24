@@ -13,7 +13,21 @@
     "NEGO": "Thương lượng",
     "TYPE_TEXT": "Nhập từ khóa tìm kiếm",
     "SEARCH": "Tìm kiếm",
-    "ADVANCE": "Tìm nâng cao"
+    "ADVANCE": "Tìm nâng cao",
+    "PREVIOUS": "Trước",
+    "NEXT": "Tiếp",
+    "SEARCH_ADDRESS": "Tìm theo địa chỉ",
+    "SEARCH_MAP": "Tìm theo bản đồ",
+    "CITY": "Tỉnh/ Thành phố",
+    "DISTRICT": "Quận/ Huyện",
+    "WARD": "Xã/ Phường",
+    "ONLY_WARD": "Chỉ nhập tên xã/ phường",
+    "STREET": "Tên Đường",
+    "ONLY_STREET": "Chỉ nhập tên đường",
+    "FROM": "Từ",
+    "TO": "Đến"
+
+
   },
   "PAGE": {
     "BASIC_HOUSE": "Nhà nguyên căn",

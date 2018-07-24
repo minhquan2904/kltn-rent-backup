@@ -15,7 +15,7 @@
           <mat-card class="example-card"  >
               <div class="imageHolder">
                 <a [routerLink]="['/item', motel._id]">
-                <img mat-card-image src="/assets/{{motel.img[0]}}"  alt="Photo of a Motel" style="width: 400px; height: 251px;" onError="this.src='http://www.wellesleysocietyofartists.org/wp-content/uploads/2015/11/image-not-found.jpg'">
+                <img mat-card-image src="/assets/{{motel.img[0]}}"  alt="Photo of a Motel" style="width: 420px; height: 251px;" onError="this.src='http://www.wellesleysocietyofartists.org/wp-content/uploads/2015/11/image-not-found.jpg'">
                 </a>
                 
               </div> 
@@ -26,7 +26,7 @@
                     
                     <div class="address">
                         <div class="timeAgo">
-                            <b>{{ 'HOME.POST_AT' | translate}}:</b> {{motel.created_at | date}} <small>{{ 'HOME.ABOUT_TIME' | translate}} {{motel.created_at | amTimeAgo}}</small>
+                            <b>{{ 'HOME.POST_AT' | translate}}:</b> {{motel.created_at | date}} 
                         </div>
                         <div class="category">
                             <h3 *ngIf="motel.category === 'nhà nguyên căn'">{{ 'PAGE.BASIC_HOUSE' | translate}}</h3>
@@ -55,8 +55,8 @@
           
       </div>
       <pagination-controls (pageChange)="p = $event"
-      previousLabel= "previous"
-      nextLabel= "next"
+      [previousLabel]= "'HOME.PREVIOUS' | translate"
+      [nextLabel]= "'HOME.NEXT' | translate"
       ></pagination-controls>
   </div>
     

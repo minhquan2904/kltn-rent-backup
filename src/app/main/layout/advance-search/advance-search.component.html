@@ -2,9 +2,9 @@
 <div class="container">
     <div class="row">
             <mat-tab-group>
-                <mat-tab label="Tìm kiếm địa chỉ"> 
+                <mat-tab [label]="'HOME.SEARCH_ADDRESS' | translate"> 
                     <mat-form-field class="col-sm-3">
-                        <mat-select placeholder="Tỉnh/ Thành phố"  (change)="onCityChange();" [(ngModel)]="city.id" #id="ngModel" [ngModelOptions]="{standalone: true}">
+                        <mat-select [placeholder]="'HOME.CITY' | translate"  (change)="onCityChange();" [(ngModel)]="city.id" #id="ngModel" [ngModelOptions]="{standalone: true}">
                           <mat-option *ngFor="let item of resultArray; let i = index" [value]="i">
                             {{ item.name }}
                           </mat-option>
@@ -12,7 +12,7 @@
                     </mat-form-field>
                 
                     <mat-form-field class="col-sm-3">
-                        <mat-select placeholder="Quận/ Huyện" [(ngModel)]="query.district" #district="ngModel" [ngModelOptions]="{standalone: true}">
+                        <mat-select [placeholder]="'HOME.DISTRICT' | translate" [(ngModel)]="query.district" #district="ngModel" [ngModelOptions]="{standalone: true}">
                             <mat-option *ngFor="let item of districtArray; let i = index" [value]="item"  >
                             {{ item }}
                             </mat-option>
@@ -20,29 +20,29 @@
                     </mat-form-field>
                 
                     <mat-form-field class="col-sm-3">
-                        <input matInput placeholder="Xã/ Phường"[(ngModel)]="query.ward" #ward="ngModel" [ngModelOptions]="{standalone: true}">
-                        <mat-hint>"Chỉ nhập tên xã/ phường"</mat-hint>
+                        <input matInput [placeholder]="'HOME.WARD' | translate" [(ngModel)]="query.ward" #ward="ngModel" [ngModelOptions]="{standalone: true}">
+                        <mat-hint>{{ 'HOME.ONLY_WARD' | translate }}</mat-hint>
                     </mat-form-field>
                     <mat-form-field class="col-sm-3">
-                        <input matInput placeholder="Đường " [(ngModel)]="query.street" #street="ngModel" [ngModelOptions]="{standalone: true}">
-                        <mat-hint>"Chỉ nhập tên đường"</mat-hint>
+                        <input matInput [placeholder]="'HOME.STREET' | translate" [(ngModel)]="query.street" #street="ngModel" [ngModelOptions]="{standalone: true}">
+                        <mat-hint>{{ 'HOME.ONLY_STREET' | translate }}</mat-hint>
                     </mat-form-field>
                
                     <div class="col-sm-12" style="display: inline;">
-                        Giá tiền: 
+                            {{ 'HOME.PRICE' | translate }}
                         <mat-form-field>
-                            <input matInput placeholder="Từ" [(ngModel)]="query.bottom_price" #bottomPrice="ngModel" [ngModelOptions]="{standalone: true}">
+                            <input matInput [placeholder]="'HOME.FROM' | translate" [(ngModel)]="query.bottom_price" #bottomPrice="ngModel" [ngModelOptions]="{standalone: true}">
                         </mat-form-field>
                         -
                         <mat-form-field>
-                            <input matInput placeholder="Đến" [(ngModel)]="query.top_price" #topPrice="ngModel" [ngModelOptions]="{standalone: true}">
+                            <input matInput [placeholder]="'HOME.TO' | translate" [(ngModel)]="query.top_price" #topPrice="ngModel" [ngModelOptions]="{standalone: true}">
                         </mat-form-field>
-                        <mat-hint>Triệu đồng/ tháng</mat-hint>
+                        <mat-hint>VND {{ 'HOME.PER_MONTH' | translate}}</mat-hint>
                     </div>
                     <div class="col-sm-6">
                         <button mat-raised-button color="primary" (click)="onAdvanceSearch()"><mat-icon>search</mat-icon>Search</button>
                     </div></mat-tab>
-                <mat-tab label="Tìm trên bản đồ" #mapTab>
+                <mat-tab [label]="'HOME.SEARCH_MAP' | translate" #mapTab>
                         <div *ngIf="mapTab.isActive">
                             <app-map-marker-move (locationChild)="onMapSearchClick($event)"></app-map-marker-move>
                         </div>
@@ -53,5 +53,8 @@
    <app-recent-post *ngIf="hasRs" [motels]="motels" [title]="title"></app-recent-post>
 
 </div>
+<div style="margin-top: 200px;">
 
-<app-footer></app-footer>
+<app-footer ></app-footer>
+    
+</div>
