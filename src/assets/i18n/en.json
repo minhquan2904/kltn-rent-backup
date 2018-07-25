@@ -81,7 +81,15 @@
     "SHOW_GOOGLE_MAP": "Open in google map",
     "LEVEL": "Level",
     "ACCEPT_ADDRESS": "Accept Address",
-    "INPUT_ADDRESS": "Type Address"
+    "INPUT_ADDRESS": "Type Address",
+    "CHOOSE_PICTURE": "Choose picture",
+    "NAME": "Name",
+    "SIZE": "Size",
+    "PROGRESS": "Progress",
+    "STATUS": "Status",
+    "ACTION": "Action",
+    "INTRO": "Upload Image Introduction",
+    "INTRODUCTION": "Click add picture to upload image. Imgasize must be less than 1MB and you only can upload  3 image"
   },
   "ADMIN": {
     "DASHBOARD":      "Dashboard",

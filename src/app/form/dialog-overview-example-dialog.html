@@ -1,23 +1,21 @@
 <h2>{{ 'PAGE.ADD_PICTURE' | translate}}</h2>
 <div class="row">
     <alert></alert>
-     <h4>Chọn tệp</h4>
+     <h4>{{ 'PAGE.CHOOSE_PICTURE' | translate}}</h4>
     <input type="file" ng2FileSelect [uploader]="uploader" />
 </div>
 
 <div class="row">
 
-    <h3>Upload queue</h3>
-    <p>Queue length: {{ uploader?.queue?.length }}</p>
     <div class="table-responsive">
             <table class="table">
                     <thead>
                     <tr>
-                        <th width="50%">Name</th>
-                        <th>Size</th>
-                        <th>Progress</th>
-                        <th>Status</th>
-                        <th>Actions</th>
+                        <th width="50%">{{ 'PAGE.NAME' | translate}}</th>
+                        <th>{{ 'PAGE.SIZE' | translate}}</th>
+                        <th>{{ 'PAGE.PROGRESS' | translate}}</th>
+                        <th>{{ 'PAGE.STATUS' | translate}}</th>
+                        <th>{{ 'PAGE.ACTION' | translate}}</th>
                     </tr>
                     </thead>
                     <tbody>

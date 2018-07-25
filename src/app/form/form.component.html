@@ -53,8 +53,15 @@
                         </mat-step>
 
                         <mat-step #step2 [label]="'PAGE.TYPE_PIC' | translate" [completed]="step2Completed">
+                                
                                 <div class="col-xs-12" *ngIf="alertService.numOfImage < 3">
-                                                <button type="button" mat-raised-button (click)="openDialog()">{{ 'PAGE.ADD_PICTURE' | translate}}</button>
+                                        <div class="col-xs-6">
+                                                        <button type="button" mat-raised-button (click)="openDialog()">{{ 'PAGE.ADD_PICTURE' | translate}}</button>
+                                        </div>
+                                        <div class="col-xs-6">
+                                                        <button type="button" mat-raised-button (click)="showIntro=!showIntro">{{ 'PAGE.INTRO' | translate}}</button>
+                                                        <p *ngIf="showIntro">{{ 'PAGE.INTRODUCTION' | translate}}</p>
+                                                </div> 
                                 </div>
                                 <div class="col-xs-12"  *ngIf="alertService.numOfImage > 3">
                                         <h4>{{ 'PAGE.FULL_IMAGE' | translate}}</h4>

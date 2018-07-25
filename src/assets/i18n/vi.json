@@ -83,7 +83,17 @@
     "SHOW_GOOGLE_MAP": "Hiển thị trên bản đồ",
     "LEVEL": "Cấp độ",
     "ACCEPT_ADDRESS": "Xác nhận địa chỉ",
-    "INPUT_ADDRESS": "Nhập địa chỉ"
+    "INPUT_ADDRESS": "Nhập địa chỉ",
+    "CHOOSE_PICTURE": "Chọn ảnh",
+    "NAME": "Tên File",
+    "SIZE": "Kích thước",
+    "PROGRESS": "Tiến trình",
+    "STATUS": "Trạng thái",
+    "ACTION": "Hành động",
+    "INTRO": "Hướng dẫn",
+    "INTRODUCTION": "Nhấn button thêm ảnh. Ảnh phải có dung lượng nhỏ hơn 1MB và tối đa 3 ảnh"
+    
+
   }, 
   "ADMIN": {
     "DASHBOARD":      "Bảng điều  khiển",

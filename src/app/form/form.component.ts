@@ -20,6 +20,7 @@ export class FormComponent implements OnInit {
   expired: Boolean = false;
   // set up file uploader
   public motel: any = {};
+  showIntro: Boolean = false;
   options: FormGroup;
   constructor(public dialog: MatDialog, fb: FormBuilder, private _formBuilder: FormBuilder,
     public motelService: MotelService, public alertService: AlertService,
