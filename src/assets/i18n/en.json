@@ -75,7 +75,13 @@
     "ADD_PICTURE": "Add picture",    
     "RETYPE_ADDRESS": "Change address", 
     "SUBMIT": "Submit",   
-    "SESSION_EXPIRED": "Your pictures was expired, please upload again"
+    "SESSION_EXPIRED": "Your pictures was expired, please upload again",
+    "PIC": "Image",
+    "MAP": "Map",
+    "SHOW_GOOGLE_MAP": "Open in google map",
+    "LEVEL": "Level",
+    "ACCEPT_ADDRESS": "Accept Address",
+    "INPUT_ADDRESS": "Type Address"
   },
   "ADMIN": {
     "DASHBOARD":      "Dashboard",
@@ -92,7 +98,11 @@
     "ACTION":         "Action",
     "VIEW_ACCEPTED":  "View accepted motel",
     "PENDING_MOTEL":  "Pending motel",
-    "ACCEPTED_MOTEL": "Accepted motel"
+    "ACCEPTED_MOTEL": "Accepted motel",
+    "ACCEPT":         "Accept",
+    "DELETE":         "Delete",
+    "BACK":           "Back"
+    
 
   },
   "TABLE": {

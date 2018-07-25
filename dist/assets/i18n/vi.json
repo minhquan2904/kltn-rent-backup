@@ -77,7 +77,13 @@
     "ADD_PICTURE": "Thêm ảnh",
     "RETYPE_ADDRESS": "Nhập lại địa chỉ",
     "SUBMIT": "Xác nhận",
-    "SESSION_EXPIRED": "Hình ảnh của bạn đã bị reset do thời gian chờ quá lâu, vui lòng đăng ảnh lại"
+    "SESSION_EXPIRED": "Hình ảnh của bạn đã bị reset do thời gian chờ quá lâu, vui lòng đăng ảnh lại",
+    "PIC": "Ảnh",
+    "MAP": "Bản đồ",
+    "SHOW_GOOGLE_MAP": "Hiển thị trên bản đồ",
+    "LEVEL": "Cấp độ",
+    "ACCEPT_ADDRESS": "Xác nhận địa chỉ",
+    "INPUT_ADDRESS": "Nhập địa chỉ"
   }, 
   "ADMIN": {
     "DASHBOARD":      "Bảng điều  khiển",
@@ -94,7 +100,10 @@
     "ACTION":         "Hành động",
     "VIEW_ACCEPTED":  "Hiển thị bài đăng đã duyệt",
     "PENDING_MODEL":  "Bài đăng chờ duyệt",
-    "ACCEPTED_MOTEL": "Bài đăng đã duyệt"
+    "ACCEPTED_MOTEL": "Bài đăng đã duyệt",
+    "ACCEPT":         "Duyệt",
+    "DELETE":         "Xóa",
+    "BACK":           "Quay lại"
   },
   "TABLE": {
     "NO":       "Thứ tự",

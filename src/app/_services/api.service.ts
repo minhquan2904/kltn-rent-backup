@@ -25,19 +25,27 @@ export class ApiService {
       take(this.count + 1)) // timer(firstValueDelay, intervalBetweenValues)
     .subscribe(i => {
       if (i === 0 && !this.stopRecord) {
-        this.listImg.forEach( item => {
-          this.deleteImg(item).subscribe( res => {
-            console.log(res);
-          }, err => {
-            console.log(err);
-          });
-        });
-        this.count = 300;
-        this.starRecord = false;
-        this.sessionExpired = true;
-        this.stopRecord = false;
-        console.log(this.sessionExpired);
+        this.resetImg();
       }
     });
+  }
+
+  resetImg() {
+    let session = JSON.parse(localStorage.getItem('sessionImg'));
+    Object.keys(session).forEach( item => {
+      console.log(session[item]);
+      this.deleteImg(session[item]).subscribe( res => {
+        console.log(res);
+      }, err => {
+        console.log(err);
+      });
+    });
+    this.count = 300;
+    this.starRecord = false;
+    this.sessionExpired = true;
+    this.stopRecord = false;
+    const sessionImg = {};
+    localStorage.setItem('sessionImg', JSON.stringify(sessionImg));
+    console.log(this.sessionExpired);
   }
 }

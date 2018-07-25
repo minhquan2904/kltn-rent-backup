@@ -104,7 +104,9 @@
                         </mat-step>
                         <mat-step #step3 [label]="'PAGE.ADDRESS' | translate">
                                         <app-map *ngIf="!getLocation" (locationChild)="passData($event)"></app-map>
-                                        <button *ngIf="!getLocation"  type="button" mat-raised-button color="accent" (click)="getLocation=!getLocation">Xác nhận địa chỉ</button>
+                                        <button *ngIf="!getLocation"  type="button" mat-raised-button color="accent" (click)="getLocation=!getLocation">{{'PAGE.ACCEPT_ADDRESS' | translate}}</button>
+                                        <button *ngIf="!getLocation"  type="button" mat-raised-button color="accent" (click)="getLocation=!getLocation">{{'PAGE.INPUT_ADDRESS' | translate}}</button>
+                                        
                                         <div class="show" *ngIf="getLocation">
                                                 <mat-form-field [floatLabel]="options.value.floatLabel">
                                                         <mat-label>{{'HOME.CITY' | translate}}</mat-label>

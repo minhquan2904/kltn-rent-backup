@@ -38,6 +38,8 @@ export class FormComponent implements OnInit {
   img: Array<any> = [];
 
   ngOnInit() {
+    this.apiService.resetImg();
+    this.apiService.sessionExpired = false;
     this.alertService.numOfImage = 0;
     }
   onSubmit() {
@@ -45,24 +47,32 @@ export class FormComponent implements OnInit {
     if (this.apiService.sessionExpired) {
       this.resetImg();
     } else {
-      this.apiService.stopRecord = true;
-      this.motel.lat = localStorage.getItem('lat');
-      this.motel.lng = localStorage.getItem('lng');
-      this.motel.customer = JSON.parse(localStorage.getItem('currentUser'))._id;
-      this.motel.img = this.img;
-      this.motel.status = 0;
-      this.motel.created_at = new Date();
-      // remove session location
-      localStorage.removeItem('lat');
-      localStorage.removeItem('lng');
-      this.motelService.create(this.motel).then(data => {
-          const id = JSON.parse(data._body);
-          this.router.navigate(['/item', id]);
-          this.alertService.success(data.toString());
-        },
-        (err) => {this.alertService.error(err); });
-    }
-    
+      if (this.motel.city === undefined || this.motel.district === undefined || this.motel.ward === undefined
+        || this.motel.street === undefined
+       ) {
+        this.alertService.error('Please fill all off address input!');
+      } else {
+        this.apiService.stopRecord = true;
+        this.motel.lat = localStorage.getItem('lat');
+        this.motel.lng = localStorage.getItem('lng');
+        this.motel.customer = JSON.parse(localStorage.getItem('currentUser'))._id;
+        this.motel.img = this.img;
+        this.motel.status = 0;
+        this.motel.created_at = new Date();
+        // remove session location
+        localStorage.removeItem('lat');
+        localStorage.removeItem('lng');
+        this.motelService.create(this.motel).then(data => {
+            this.apiService.listImg = []; // reset img session
+            localStorage.setItem('sessionImg', '{}');
+            this.apiService.resetImg(); // reset variable session
+            const id = JSON.parse(data._body);
+            this.router.navigate(['/item', id]);
+            this.alertService.success(data.toString());
+          },
+          (err) => {this.alertService.error(err); });
+      }
+      }
   }
   openDialog(): void {
     this.expired = false;
@@ -128,6 +138,7 @@ export class FormComponent implements OnInit {
       this.expired = true;
       this.img = [];
       this.alertService.numOfImage = 0;
+      this.apiService.resetImg();
       this.expired = true;
   }
   step_2_next() {
@@ -178,6 +189,11 @@ export class DialogOverviewExampleDialog {
           alertService.success('insert success');
           // timer zone
           apiService.listImg.push(response);
+          console.log(localStorage.getItem('sessionImg'));
+          let ssImg = JSON.parse(localStorage.getItem('sessionImg'));
+          ssImg[response] = response;
+          localStorage.setItem('sessionImg', JSON.stringify(ssImg));
+          
           if (apiService.starRecord === false) {
             apiService.starRecord = true;
             apiService.startRecord();

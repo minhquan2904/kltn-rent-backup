@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MotelService, AlertService, AuthenticationService } from '../../_services/index';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { Location } from '@angular/common';
 import { appConfig } from '../../app.config';
 import { MapsAPILoader, AgmMap } from '@agm/core';    // Added AgmMap
 import { } from 'googlemaps';
@@ -14,7 +15,7 @@ const URL = '/assets/';
 })
 export class ItemComponent implements OnInit {
 
-  constructor(public dialog: MatDialog, private router: Router, private authService: AuthenticationService,
+  constructor(private _location: Location,public dialog: MatDialog, private router: Router, private authService: AuthenticationService,
     private route: ActivatedRoute, private motelService: MotelService, private alertService: AlertService) {
      }
       handler = {
@@ -37,6 +38,7 @@ export class ItemComponent implements OnInit {
   motel_id: any; // get id from query
 
   ngOnInit() {
+    console.log(this.authService.isAdmin);
     this.motel_id = this.route.snapshot.params['id']; // get motel id from query params
     // get data from server
     this.getMotelDetail(this.motel_id);
@@ -48,6 +50,23 @@ export class ItemComponent implements OnInit {
     }
     );
     // this.totalLike = this.motelService.getTotalVote(this.route.snapshot.params['id']).count;
+
+  }
+  backClicked() {
+    this._location.back();
+  }
+  handleUpdateStatus(status) {
+    // console.log(position);
+    const motel: any = {
+      customer: this.motel.customer,
+      status: status
+    };
+    this.motelService.update(this.motel_id, motel).subscribe(res => {
+      this.motel.status = status;
+      this.alertService.success('Update success');
+    }, err => {
+      this.alertService.error(err);
+    });
 
   }
   // open dialog default fuction

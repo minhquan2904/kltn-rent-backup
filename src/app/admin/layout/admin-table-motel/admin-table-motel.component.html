@@ -39,7 +39,7 @@
                 <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
                 <mat-cell *matCellDef="let element; let j = index"> 
                   <a mat-raised-button color="accent" [routerLink]="['/item', element._id]" 
-                    target="_blank">View</a> 
+                   >View</a> 
                   <button mat-raised-button (click)="handleUpdateStatus(element._id,element.customer, 1, j, 1)" 
                     color="primary">Accept</button> 
                   <button mat-raised-button (click)="handleUpdateStatus(element._id,element.customer, -1, j, 1)" 

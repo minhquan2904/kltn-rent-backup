@@ -9,7 +9,7 @@
             <div>
               <!-- TAB IMG + MAP -->
                 <mat-tab-group>
-                    <mat-tab label="Image">
+                    <mat-tab [label]="'PAGE.PIC' | translate">
                       <!-- MOTEL IMAGE -->
                       <!-- <div *ngFor="let item of img">
                         {{item}}
@@ -23,7 +23,7 @@
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner">
                           <div *ngFor="let j of img; let k = index" [ngClass]="k == 0 ? 'item active' : 'item'">
-                            <img src="/assets/{{img[k]}}" alt="Event Image" class="img-responsive" >
+                            <img src="/assets/{{img[k]}}" alt="Event Image" class="img-responsive" onError="this.src='http://www.wellesleysocietyofartists.org/wp-content/uploads/2015/11/image-not-found.jpg'" >
                         </div>
                         
                           
@@ -32,17 +32,17 @@
                         <!-- Left and right controls -->
                         <a class="left carousel-control" href="#myCarousel" data-slide="prev">
                           <span class="glyphicon glyphicon-chevron-left"></span>
-                          <span class="sr-only">Previous</span>
+                          <span class="sr-only">{{'HOME.PREVIOUS'}}</span>
                         </a>
                         <a class="right carousel-control" href="#myCarousel" data-slide="next">
                           <span class="glyphicon glyphicon-chevron-right"></span>
-                          <span class="sr-only">Next</span>
+                          <span class="sr-only">{{'HOME.NEXT'}}</span>
                         </a>
                       </div>
                    
                       
                       </mat-tab>
-                      <mat-tab #mapTab label="Map">
+                      <mat-tab #mapTab [label]="'PAGE.MAP' | translate">
                           <div *ngIf="mapTab.isActive">
                             <app-map-service [myData]="data"></app-map-service>
                           </div>
@@ -52,13 +52,32 @@
             </div>
             <div></div>
           </div>
+          <!-- ADMIN  -->
+          <div *ngIf="authService.isAdmin === true || authService.isSuperAdmin === true">
+              <div class="text-center">
+                  <alert></alert>
+              </div>
+              <div class="admin-wrapper" >
+             
+                  <div></div>
+                  <div *ngIf="motel.status === 0">
+                    <button mat-raised-button color="primary" style="float: right;" (click)="handleUpdateStatus(1)">{{ 'ADMIN.ACCEPT' | translate}}</button>
+                  </div>
+                  <div>
+                    <button mat-raised-button color="warn" (click)="handleUpdateStatus(-1)" *ngIf="motel.status === 0 || motel.status === 1">{{ 'ADMIN.DELETE' | translate}}</button>
+                    <button mat-raised-button color="acent" (click)="backClicked()">{{ 'ADMIN.BACK' | translate}}</button>                
+                  </div>
+                  <div></div>
+              </div>
+          </div>
+          
           <!-- MOTEL INFOMATION -->
           <div class="info-wrapper">
               <!-- Description -->
               <div></div>
              <div>
                 <div class="descripsion">
-                    <h4 class="mt-4">About this location</h4>
+                    <h4 class="mt-4">{{'PAGE.DESCRIPTION' | translate}}</h4>
                     {{motel.description}}   
                 </div>
              </div>
@@ -66,16 +85,19 @@
              <div>
                 <div class="address">
                     <address>
-                        <h4>Address  </h4>
+                        <h4>{{'PAGE.ADDRESS' | translate}}</h4>
                         <strong>{{motel.district}}, {{motel.city}} </strong>
                         <br>{{motel.add}}, {{motel.street}}
                         <br>{{motel.ward}}
                         <br>
                       </address>
                 </div>
+                <div class="contact">
+                    {{'PAGE.CONTACT' | translate}} : {{motel.contact}}
+                </div>
                 <button mat-icon-button color="warn"  (click)="onNavigate()">           
                   <mat-icon aria-label="Example icon-button with a heart icon">room</mat-icon>
-                  Show location
+                  {{'PAGE.SHOW_GOOGLE_MAP' | translate}}
               </button>
              </div>
              <div></div>
