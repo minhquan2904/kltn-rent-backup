@@ -3876,7 +3876,7 @@ module.exports = "agm-map {\n    height: 300px;\n    width: 100%;\n  }\ninput{\n
 /***/ "./src/app/main/layout/map-marker-move/map-marker-move.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"form-group\" >\n    <mat-form-field class=\"col-sm-6\" style=\"width: calc(100% - 100px); margin: auto;\"> \n        <input matInput placeholder=\"search for location\" autocorrect=\"off\" autocapitalize=\"off\" spellcheck=\"off\" type=\"text\"  #search [formControl]=\"searchControl\" style=\"width:500px;\">            \n    </mat-form-field>\n    \n</div>\n<div id=\"map_container\"></div>\n<agm-map  [latitude]=\"latitude\" \n          [longitude]=\"longitude\" \n          [scrollwheel]=\"false\" \n          [zoom]=\"zoom\"\n          (mapClick)=\"onMapClick($event)\"\n          >\n  <agm-marker [latitude]=\"latitude\" [longitude]=\"longitude\">\n    <agm-snazzy-info-window [maxWidth]=\"200\" [closeWhenOthersOpen]=\"true\">\n        <ng-template>\n         Your position\n        </ng-template>\n      </agm-snazzy-info-window>\n  </agm-marker>\n  <div *ngFor=\"let item of listLocation\">\n    <agm-marker  [latitude]=\"item.lat\" [longitude]=\"item.lng\">\n      <agm-snazzy-info-window [maxWidth]=\"1000\" [closeWhenOthersOpen]=\"true\" style=\"min-width: 400px;\">\n          <ng-template >\n           <p>{{item.category}}</p>\n           <a [routerLink]=\"['/item', item._id]\" target=\"_blank\">Show Details</a>\n          </ng-template>\n        </agm-snazzy-info-window>\n   </agm-marker> \n  </div> \n</agm-map>\n<div class=\"col-xs-12\">\n    <div class=\"col-xs-6\">\n        input\n    </div>\n    <div class=\"col-xs-6\">\n        <button mat-raised-button color=\"primary\" (click)=\"onSearchClick()\"><mat-icon>search</mat-icon> Search</button>\n    </div>\n</div>\n"
+module.exports = "<div class=\"row\">\n        <div class=\"form-group\" >\n                <mat-form-field class=\"col-xs-6\" style=\"margin: auto;\"> \n                    <input matInput [placeholder]=\"'PAGE.SEARCH_LOCATION' | translate\" autocorrect=\"off\" autocapitalize=\"off\" spellcheck=\"off\" type=\"text\"  #search [formControl]=\"searchControl\" style=\"width:250px;\">  \n                                                \n                </mat-form-field>\n                <mat-form-field class=\"col-xs-6\" style=\"margin: auto;\"> \n                        <input matInput [placeholder]=\"'PAGE.DISTANCE'| translate\"  type=\"number\"  [(ngModel)]=\"data.distance\"  #distance=\"ngModel\" [ngModelOptions]=\"{standalone: true}\" >                              \n                </mat-form-field>\n                \n            </div>\n</div>\n\n<div id=\"map_container\"></div>\n<agm-map  [latitude]=\"latitude\" \n          [longitude]=\"longitude\" \n          [scrollwheel]=\"false\" \n          [zoom]=\"zoom\"\n          (mapClick)=\"onMapClick($event)\"\n          >\n  <agm-marker [latitude]=\"latitude\" [longitude]=\"longitude\">\n    <agm-snazzy-info-window [maxWidth]=\"200\" [closeWhenOthersOpen]=\"true\">\n        <ng-template>\n         Your position\n        </ng-template>\n      </agm-snazzy-info-window>\n  </agm-marker>\n  <agm-circle [latitude]=\"latitude\" [longitude]=\"longitude\" \n            [radius]=\"radius\" [fillColor]=\"circleProps.fillColor\" \n            [strokeColor]=\"circleProps.strokeColor\"\n            [fillOpacity]=\"circleProps.fillOpacity\"\n            [strokeOpacity]= \"circleProps.strokeOpacity\" \n            *ngIf=\"showCircle\"\n  ></agm-circle>\n  <div *ngFor=\"let item of listLocation\">\n    <agm-marker  [latitude]=\"item.lat\" [longitude]=\"item.lng\">\n      <agm-snazzy-info-window [maxWidth]=\"1000\" [closeWhenOthersOpen]=\"true\" style=\"min-width: 400px;\">\n          <ng-template >\n           <p>{{item.category}}</p>\n           <a [routerLink]=\"['/item', item._id]\" target=\"_blank\">Show Details</a>\n          </ng-template>\n        </agm-snazzy-info-window>\n   </agm-marker> \n  </div> \n</agm-map>\n<div class=\"col-xs-12\">\n    <div class=\"col-xs-6\">\n       \n    </div>\n    <div class=\"col-xs-6\">\n        <button mat-raised-button color=\"primary\" (click)=\"onSearchClick()\"><mat-icon>search</mat-icon> Search</button>\n    </div>\n</div>\n"
 
 /***/ }),
 
@@ -3910,8 +3910,18 @@ var MapMarkerMoveComponent = (function () {
         this.motelService = motelService;
         this.locationChild = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         this.data = {};
+        this.showCircle = false;
+        this.radius = 5;
         this.checkCurrentPage = true;
         this.listLocation = [];
+        // circle properties
+        this.circleProps = {
+            fillColor: '#FF0000',
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillOpacity: 0.35,
+        };
     }
     MapMarkerMoveComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -3919,6 +3929,7 @@ var MapMarkerMoveComponent = (function () {
         this.zoom = 12;
         this.latitude = 39.8282;
         this.longitude = -98.5795;
+        this.data.distance = 5;
         // set current position
         this.setCurrentPosition();
         // create search FormControl
@@ -3976,10 +3987,12 @@ var MapMarkerMoveComponent = (function () {
     };
     MapMarkerMoveComponent.prototype.onSearchClick = function () {
         var _this = this;
-        this.data.distance = 5;
+        this.listLocation = [];
+        this.radius = this.data.distance;
+        this.showCircle = true;
         this.motelService.getListNearBy(this.data).subscribe(function (res) {
             _this.locationChild.emit(res);
-            _this.zoom = 15;
+            _this.zoom = 13;
             res.map(function (item) {
                 var location = item;
                 location.lat = Number.parseFloat(item.lat.toString());

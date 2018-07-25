@@ -30,6 +30,8 @@
     "TO": "To"
   },
   "PAGE": {
+    "SEARCH_LOCATION": "Type address",
+    "DISTANCE": "radius (default 5 kilometers)",
     "AREA": "Stretch",
     "AREA_BLANK": "Stretch can not be blank",
     "UNIT": "Unit",

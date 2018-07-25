@@ -119,21 +119,21 @@ function search(req, res) {
     // console.log(h);
     if(lt || gt) {
         if(gt && !lt) {
-            motel.where('price').gt(gt).find(query).exec( (err, resp ) => {
+            motel.where('price').gt(gt).find(query).sort({created_at: -1, rating: -1}).exec( (err, resp ) => {
                 if(err) res.status(400).send(err);
                 
                 res.status(200).send(resp);
             });
         }
         if (!gt && lt) {
-            motel.where('price').lt(lt).find(query).exec( (err, resp ) => {
+            motel.where('price').lt(lt).find(query).sort({created_at: -1, rating: -1}).exec( (err, resp ) => {
                 if(err) res.status(400).send(err);
                 
                 res.status(200).send(resp);
             });
         }
         if( gt && lt) {
-            motel.where('price').gt(gt).lt(lt).find(query).exec( (err, resp ) => {
+            motel.where('price').gt(gt).lt(lt).find(query).sort({created_at: -1, rating: -1}).exec( (err, resp ) => {
                 if(err) res.status(400).send(err);
                 
                 res.status(200).send(resp);
@@ -141,7 +141,7 @@ function search(req, res) {
         }
         
     } else {
-        motel.find(query).exec( (err, resp ) => {
+        motel.find(query).sort({created_at: -1, rating: -1}).exec( (err, resp ) => {
             if(err) res.status(400).send(err);
                 
             res.status(200).send(resp);

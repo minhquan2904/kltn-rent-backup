@@ -32,6 +32,8 @@
 
   },
   "PAGE": {
+    "SEARCH_LOCATION": "Nhập địa chỉ",
+    "DISTANCE": "Bán kính (mặc định 5 Km)",
     "AREA": "Diện tích",
     "AREA_BLANK": "Diện tích không được để trống",
     "UNIT": "Đơn vị tính",

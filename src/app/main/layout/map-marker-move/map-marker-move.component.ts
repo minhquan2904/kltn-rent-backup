@@ -2,7 +2,7 @@ import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { ElementRef, NgZone, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { } from 'googlemaps';
-import { MapsAPILoader } from '@agm/core';
+import { MapsAPILoader, AgmCircle, AgmMap } from '@agm/core';
 
 import { MotelService } from '../../../_services/index';
 @Component({
@@ -14,13 +14,22 @@ export class MapMarkerMoveComponent implements OnInit {
   @Output() locationChild: EventEmitter<any> = new EventEmitter<any>();
 
   data: any = {};
+  public showCircle: Boolean = false;
   public latitude: number;
+  public radius: Number = 5;
   public longitude: number;
   public searchControl: FormControl;
   public zoom: number;
   checkCurrentPage = true;
   listLocation: Array<any> = [];
-
+  // circle properties
+  public circleProps = {
+    fillColor : '#FF0000',
+    strokeColor: '#FF0000',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillOpacity: 0.35,
+  };
   @Input() myData;
   @ViewChild('search')
   public searchElementRef: ElementRef;
@@ -32,6 +41,7 @@ export class MapMarkerMoveComponent implements OnInit {
     this.zoom = 12;
     this.latitude = 39.8282;
     this.longitude = -98.5795;
+    this.data.distance = 5;
     // set current position
       this.setCurrentPosition();
     // create search FormControl
@@ -92,10 +102,12 @@ export class MapMarkerMoveComponent implements OnInit {
   }
 
   onSearchClick() {
-    this.data.distance = 5;
+    this.listLocation = [];
+    this.radius = this.data.distance;
+    this.showCircle = true;
     this.motelService.getListNearBy(this.data).subscribe(res => {
       this.locationChild.emit(res);
-      this.zoom = 15;
+      this.zoom = 13;
       res.map( item => {
         let location: any = item;
         location.lat = Number.parseFloat(item.lat.toString());

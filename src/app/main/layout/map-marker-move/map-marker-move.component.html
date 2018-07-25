@@ -1,9 +1,16 @@
-<div class="form-group" >
-    <mat-form-field class="col-sm-6" style="width: calc(100% - 100px); margin: auto;"> 
-        <input matInput placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text"  #search [formControl]="searchControl" style="width:500px;">            
-    </mat-form-field>
-    
+<div class="row">
+        <div class="form-group" >
+                <mat-form-field class="col-xs-6" style="margin: auto;"> 
+                    <input matInput [placeholder]="'PAGE.SEARCH_LOCATION' | translate" autocorrect="off" autocapitalize="off" spellcheck="off" type="text"  #search [formControl]="searchControl" style="width:250px;">  
+                                                
+                </mat-form-field>
+                <mat-form-field class="col-xs-6" style="margin: auto;"> 
+                        <input matInput [placeholder]="'PAGE.DISTANCE'| translate"  type="number"  [(ngModel)]="data.distance"  #distance="ngModel" [ngModelOptions]="{standalone: true}" >                              
+                </mat-form-field>
+                
+            </div>
 </div>
+
 <div id="map_container"></div>
 <agm-map  [latitude]="latitude" 
           [longitude]="longitude" 
@@ -18,6 +25,13 @@
         </ng-template>
       </agm-snazzy-info-window>
   </agm-marker>
+  <agm-circle [latitude]="latitude" [longitude]="longitude" 
+            [radius]="radius" [fillColor]="circleProps.fillColor" 
+            [strokeColor]="circleProps.strokeColor"
+            [fillOpacity]="circleProps.fillOpacity"
+            [strokeOpacity]= "circleProps.strokeOpacity" 
+            *ngIf="showCircle"
+  ></agm-circle>
   <div *ngFor="let item of listLocation">
     <agm-marker  [latitude]="item.lat" [longitude]="item.lng">
       <agm-snazzy-info-window [maxWidth]="1000" [closeWhenOthersOpen]="true" style="min-width: 400px;">
@@ -31,7 +45,7 @@
 </agm-map>
 <div class="col-xs-12">
     <div class="col-xs-6">
-        input
+       
     </div>
     <div class="col-xs-6">
         <button mat-raised-button color="primary" (click)="onSearchClick()"><mat-icon>search</mat-icon> Search</button>
